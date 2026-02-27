@@ -5,33 +5,36 @@ We gonna sell:
 
         filaments
         
-        SLA
-                cleaning stations
-                curing stations
-                spare parts
-                web cams
-        PLA
-            SILK
-            MATTE
-            RAPID
-            PRO
-        ASA
-            GF
-            CF
-        PETG
-            RAPID
-            PRO
-            MATTE
-            GF
-            CF
-        NYLON
-        TPU 
+                PLA
+                    SILK
+                    MATTE
+                    RAPID
+                    PRO
+                    HT
+                ASA
+                    GF
+                    CF
+                PETG
+                    RAPID
+                    PRO
+                    MATTE
+                    GF
+                    CF
+                NYLON
+                    GF
+                    CF
+                TPU
+                
+        resin
+                Flexible
+                Standard
+                Waterwashable
+                Hightemperature
+                
         printers
                 FDM
                 SLA
-            resin
-                Fast?
-                idk
+                
         accesories
                 FDM
                         glues
@@ -42,12 +45,13 @@ We gonna sell:
                         silica gel
                         acetone
                         isopropanol
+                        
+                SLA
+                        cleaning stations
+                        curing stations
+                        spare parts
+                        web cams
                 
-        SLA
-                cleaning stations
-                curing stations
-                spare parts
-                web cams
         tools
                 knifes
                 cutters
