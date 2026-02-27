@@ -2,7 +2,7 @@
 Just learning how to create a 3D printing e-shop
 
 We gonna sell:
-    filaments
+filaments
         PLA
             SILK
             MATTE
@@ -19,13 +19,13 @@ We gonna sell:
             CF
         NYLON
         TPU 
-    printers
+printers
         FDM
         SLA
     resin
         Fast?
         idk
-    accesories
+accesories
         glues
         build plates
         spare parts
@@ -36,12 +36,10 @@ We gonna sell:
         curing stations
         acetone
         isopropanol
-    tools
+tools
         knifes
         cutters
         heatinserts
         heatinserts station
         magnets
         allan keys
-    3D designs
-        whatever
