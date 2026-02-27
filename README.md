@@ -26,20 +26,25 @@ printers
         Fast?
         idk
 accesories
-        glues
-        build plates
-        spare parts
-        web cams
-        filament dryers
-        silica gel
-        cleaning stations
-        curing stations
-        acetone
-        isopropanol
+        FDM
+                glues
+                build plates
+                spare parts
+                web cams
+                filament dryers
+                silica gel
+                acetone
+                isopropanol
+        
+        SLA
+                cleaning stations
+                curing stations
+                spare parts
+                web cams
 tools
         knifes
         cutters
         heatinserts
-        heatinserts station
+        heatinserts stations
+        soltering irons
         magnets
-        allan keys
