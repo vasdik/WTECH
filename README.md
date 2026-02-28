@@ -1,10 +1,10 @@
 # WTECH
-Just learning how to create a 3D printing e-shop
+Learning how to create a web for 3D printing e-shop.
 
-We gonna sell:
-
-        filaments
+We gonna sell these in our eshop:
         
+        filaments
+                
                 PLA
                     SILK
                     MATTE
@@ -37,20 +37,20 @@ We gonna sell:
                 
         accesories
                 FDM
-                        glues
-                        build plates
-                        spare parts
-                        web cams
-                        filament dryers
-                        silica gel
-                        acetone
-                        isopropanol
+                    glues
+                    build plates
+                    spare parts
+                    web cams
+                    filament dryers
+                    silica gel
+                    acetone
+                    isopropanol
                         
                 SLA
-                        cleaning stations
-                        curing stations
-                        spare parts
-                        web cams
+                    cleaning stations
+                    curing stations
+                    spare parts
+                    web cams
                 
         tools
                 knifes
