@@ -16,32 +16,24 @@
     ==================== -->
 <header class="border-bottom py-2">
     <div class="container-fluid px-3">
-
-        <!-- Top row: Support link -->
         <div class="d-flex justify-content-end mb-1">
             <a href="#" class="text-secondary small text-decoration-none">Support</a>
         </div>
-
-        <!-- Main header row: Logo | Search | Buttons -->
-        <div class="d-flex align-items-center gap-3">
-
+        <div class="d-flex flex-wrap flex-md-nowrap align-items-center gap-3">
             <!-- Logo -->
-            <a href="index.html" class="flex-shrink-0">
+            <a href="index.html" class="flex-shrink-0 order-1">
                 <div class="img-placeholder" style="width: 120px; height: 60px;">Logo</div>
             </a>
-
-            <!-- Search bar -->
-            <div class="flex-grow-1">
+            <!-- Search -->
+            <div class="w-100 w-md-auto order-3 order-md-2 flex-md-grow-1">
                 <input type="search" class="form-control" placeholder="Search bar">
             </div>
-
-            <!-- Action buttons -->
-            <div class="d-flex gap-2 flex-shrink-0">
+            <!-- Buttons -->
+            <div class="d-flex gap-2 flex-shrink-0 order-2 ms-auto">
                 <a href="login.html" id="header-login-btn" class="btn btn-outline-secondary btn-sm">Log in</a>
                 <a href="saved.html" class="btn btn-outline-secondary btn-sm">Saved</a>
                 <a href="cart.html" class="btn btn-outline-secondary btn-sm">Cart</a>
             </div>
-
         </div>
     </div>
 </header>
@@ -217,14 +209,16 @@
                 <div class="d-flex flex-wrap gap-2">
                     <select class="form-select form-select-sm" style="width: auto;">
                         <option>Best match</option>
-                        <option>Newest</option>
+                        <option>A to Z</option>
+                        <option>Z to A</option>
                         <option>Price: low to high</option>
                         <option>Price: high to low</option>
                     </select>
                     <select class="form-select form-select-sm" style="width: auto;">
                         <option>Price</option>
                         <option>Under 10 €</option>
-                        <option>10 € – 30 €</option>
+                        <option>10 € - 20 €</option>
+                        <option>20 € - 30 €</option>
                         <option>Over 30 €</option>
                     </select>
                     <select class="form-select form-select-sm" style="width: auto;">
@@ -268,12 +262,13 @@
                         <option>1000 g</option>
                         <option>5000 g</option>
                     </select>
+                    <!-- Button for applying the set filters -->
                     <button class="btn btn-outline-secondary btn-sm">Apply</button>
                 </div>
             </div>
 
             <!-- Product count -->
-            <p class="small text-muted mb-3">PLA: 1–30 out of 855 products</p>
+            <p class="small text-muted mb-3">PLA: 1-30 out of 855 products</p>
 
             <!-- ====================
                  PRODUCT GRID
@@ -321,7 +316,7 @@
                     </div>
                 </div>
 
-                <!-- Rows 2–10: placeholder cards (will replace later. copy the part from above...) -->
+                <!-- Rows 2–10: placeholder cards (will replace later. will copy the part from above...) -->
 
                 <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><span class="badge bg-secondary mb-1" style="font-size: 0.7rem;">4.5/5</span><p class="mb-0 fw-bold small">Bambulab</p><p class="text-muted small mb-2">PLA Matte / Jade White, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">27,99 €</p><button class="btn btn-outline-secondary btn-sm w-100">Add to Cart</button></div></div></div>
                 <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><span class="badge bg-secondary mb-1" style="font-size: 0.7rem;">4.2/5</span><p class="mb-0 fw-bold small">Polymaker</p><p class="text-muted small mb-2">PolyLite PLA / True Red, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">19,99 €</p><button class="btn btn-outline-secondary btn-sm w-100">Add to Cart</button></div></div></div>
@@ -500,8 +495,8 @@
             <div class="col-md-3">
                 <h6 class="fw-bold">My account</h6>
                 <ul class="list-unstyled small">
-                    <li><a href="#" class="text-secondary text-decoration-none">Login</a></li>
-                    <li><a href="#" class="text-secondary text-decoration-none">Register</a></li>
+                    <li><a href="login.html" class="text-secondary text-decoration-none">Login</a></li>
+                    <li><a href="register.html" class="text-secondary text-decoration-none">Register</a></li>
                     <li><a href="#" class="text-secondary text-decoration-none">Forgot password?</a></li>
                     <li><a href="#" class="text-secondary text-decoration-none">Where is my shipment?</a></li>
                     <li><a href="#" class="text-secondary text-decoration-none">Redeem voucher</a></li>
@@ -510,21 +505,13 @@
 
             <!-- Social media + Contact info -->
             <div class="col-md-4 d-flex flex-column gap-3">
-                <div class="bg-secondary text-white text-center py-3 rounded">
-                    Social media links
-                </div>
-                <div class="bg-secondary text-white text-center py-3 rounded">
-                    Contact info
-                </div>
+                <div class="bg-secondary text-white text-center py-3 rounded">Social media links</div>
+                <div class="bg-secondary text-white text-center py-3 rounded">Contact info</div>
             </div>
-
         </div>
 
         <!-- Copyright -->
-        <div class="text-center text-muted small mt-4 pt-2 border-top">
-            ©2025 - 2026 S&J
-        </div>
-
+        <div class="text-center text-muted small mt-4 pt-2 border-top">©2025 - 2026 S&J</div>
     </div>
 </footer>
 
