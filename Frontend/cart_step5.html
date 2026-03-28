@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>S&J - Checkout: Summary</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<!-- ===================== 
+     HEADER: Logo | Search bar | Nav buttons
+    ===================== -->
+<header class="border-bottom py-2">
+    <div class="container-fluid px-3">
+        <div class="d-flex justify-content-end mb-1">
+            <a href="#" class="text-secondary small text-decoration-none">Support</a>
+        </div>
+        <div class="d-flex flex-wrap flex-md-nowrap align-items-center gap-3">
+            <!-- Logo -->
+            <a href="index.html" class="flex-shrink-0 order-1">
+                <div class="img-placeholder" style="width: 120px; height: 60px;">Logo</div>
+            </a>
+            <!-- Search -->
+            <div class="w-100 w-md-auto order-3 order-md-2 flex-md-grow-1">
+                <input type="search" class="form-control" placeholder="Search bar">
+            </div>
+            <!-- Buttons -->
+            <div class="d-flex gap-2 flex-shrink-0 order-2 ms-auto">
+                <a href="login.html" id="header-login-btn" class="btn btn-outline-secondary btn-sm">Log in</a>
+                <a href="saved.html" class="btn btn-outline-secondary btn-sm">Saved</a>
+                <a href="cart.html" class="btn btn-outline-secondary btn-sm">Cart</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- ====================
+     CATEGORY NAVIGATION
+     Row of category images with labels
+    ==================== -->
+<nav class="border-bottom py-3 bg-light">
+    <div class="container-fluid px-3">
+        <div class="row row-cols-7 g-2 text-center">
+            <div class="col">
+                <a href="sale.html" class="text-decoration-none text-dark">
+                    <div class="img-placeholder mb-1" style="height: 80px;">Sale</div>
+                    <small>Sale</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="brands.html" class="text-decoration-none text-dark">
+                    <div class="img-placeholder mb-1" style="height: 80px;">Brands</div>
+                    <small>Brands</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="printers.html" class="text-decoration-none text-dark">
+                    <div class="img-placeholder mb-1" style="height: 80px;">Printers</div>
+                    <small>Printers</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="filaments.html" class="text-decoration-none text-dark">
+                    <div class="img-placeholder mb-1" style="height: 80px;">Filaments</div>
+                    <small>Filaments</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="resins.html" class="text-decoration-none text-dark">
+                    <div class="img-placeholder mb-1" style="height: 80px;">Resins</div>
+                    <small>Resins</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="accessories.html" class="text-decoration-none text-dark">
+                    <div class="img-placeholder mb-1" style="height: 80px;">Accessories</div>
+                    <small>Accessories</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="tools.html" class="text-decoration-none text-dark">
+                    <div class="img-placeholder mb-1" style="height: 80px;">Tools</div>
+                    <small>Tools</small>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+
+<!-- ====================
+     BREADCRUMB
+    ==================== -->
+<div class="container-fluid px-3 py-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="index.html">Main page</a></li>
+            <li class="breadcrumb-item"><a href="cart.html">My Cart</a></li>
+        </ol>
+    </nav>
+</div>
+
+
+<!-- =====================
+     CHECKOUT STEPPER
+     Step 5 of 5 active
+    ===================== -->
+<div class="stepper">
+    <div class="stepper-step">
+        <a href="cart_step1.html" class="stepper-circle">1</a>
+        <span class="stepper-label">My Information</span>
+    </div>
+    <div class="stepper-step">
+        <a href="cart_step2.html" class="stepper-circle">2</a>
+        <span class="stepper-label">Delivery Address</span>
+    </div>
+    <div class="stepper-step">
+        <a href="cart_step3.html" class="stepper-circle">3</a>
+        <span class="stepper-label">Payment Method</span>
+    </div>
+    <div class="stepper-step">
+        <a href="cart_step4.html" class="stepper-circle">4</a>
+        <span class="stepper-label">Delivery Options</span>
+    </div>
+    <div class="stepper-step">
+        <div class="stepper-circle active">5</div>
+        <span class="stepper-label">Summary</span>
+    </div>
+</div>
+
+
+<!-- =====================
+     STEP 5: SUMMARY
+     Left: order details | Right: cart overview + Complete Purchase
+    ===================== -->
+<div class="container-fluid px-3 pb-5">
+    <div class="border rounded p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="cart_step4.html" class="btn btn-outline-secondary btn-sm">Back</a>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- LEFT — Summary details -->
+            <div class="col-md-8">
+                <h5 class="text-center mb-4">Summary</h5>
+
+                <!-- Delivery Address -->
+                <div class="address-card">
+                    <div class="row align-items-center">
+                        <div class="col-3 text-muted small">Delivery Address:</div>
+                        <div class="col">
+                            <p class="fw-bold mb-0">John Doe</p>
+                            <p class="small text-muted mb-0">Schznaur 460<br>9101 45 Berlin, Germany</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="cart_step2.html" class="btn btn-outline-secondary btn-sm">Edit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Address -->
+                <div class="address-card">
+                    <div class="row align-items-center">
+                        <div class="col-3 text-muted small">Billing Address:</div>
+                        <div class="col">
+                            <p class="fw-bold mb-0">John Doe</p>
+                            <p class="small text-muted mb-0">Tepla 460<br>910 10 Povazska Bystrica, Slovakia</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="cart_step2.html" class="btn btn-outline-secondary btn-sm">Edit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="address-card">
+                    <div class="row align-items-center">
+                        <div class="col-3 text-muted small">Payment Method:</div>
+                        <div class="col">
+                            <p class="mb-0">Google Pay</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="cart_step3.html" class="btn btn-outline-secondary btn-sm">Edit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Method -->
+                <div class="address-card">
+                    <div class="row align-items-center">
+                        <div class="col-3 text-muted small">Delivery Method:</div>
+                        <div class="col">
+                            <p class="mb-0">DHL Express</p>
+                        </div>
+                        <div class="col-auto">
+                            <a href="cart_step4.html" class="btn btn-outline-secondary btn-sm">Edit</a>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="small mt-2">Delivery on: <strong>Friday, March 10th</strong></p>
+
+                <hr class="my-4">
+
+                <!-- Order items (read-only) -->
+
+                <!-- Item 1 -->
+                <div class="row g-3 align-items-center border-bottom pb-4 mb-4">
+                    <div class="col-auto">
+                        <div class="img-placeholder" style="width: 120px; height: 120px;"></div>
+                    </div>
+                    <div class="col">
+                        <p class="fw-bold mb-0">eSUN</p>
+                        <p class="text-muted small mb-1">PLA Black, 1,75 mm / 1000 g</p>
+                        <p class="text-success small fw-bold mb-1">In stock</p>
+                        <p class="mb-0 fw-bold">15,99 €</p>
+                        <p class="text-muted small mb-0">before VAT: 13,57 €</p>
+                    </div>
+                    <div class="col-auto text-end">
+                        <p class="text-muted small mb-1">In cart: 1</p>
+                        <p class="fw-bold">Sum: 15,99 €</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <div class="img-placeholder" style="width: 120px; height: 120px;"></div>
+                    </div>
+                    <div class="col">
+                        <p class="fw-bold mb-0">eSUN</p>
+                        <p class="text-muted small mb-1">PLA Black, 1,75 mm / 1000 g</p>
+                        <p class="text-success small fw-bold mb-1">In stock</p>
+                        <p class="mb-0">
+                            <span class="text-muted text-decoration-line-through small">15,99 €</span>
+                            <span class="fw-bold ms-1">12,73 €</span>
+                        </p>
+                        <p class="text-muted small mb-0">before VAT: 13,57 €</p>
+                    </div>
+                    <div class="col-auto text-end">
+                        <p class="text-muted small mb-1">In cart: 2</p>
+                        <p class="fw-bold">Sum: 28,27 €</p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END LEFT -->
+
+
+            <!-- RIGHT — Cart overview + Complete Purchase -->
+            <div class="col-md-4">
+                <h6 class="fw-bold mb-3">Cart overview:</h6>
+
+                <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Subtotal:</span><span>44,26 €</span>
+                </div>
+                <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Savings on discounts:</span><span>6,32 €</span>
+                </div>
+                <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Subtotal after discounts:</span><span>37,94 €</span>
+                </div>
+                <div class="d-flex justify-content-between small mb-3">
+                    <span class="text-muted">Packaging and Shipping:</span><span>6,70 €</span>
+                </div>
+
+                <div class="d-flex gap-2 mb-3">
+                    <input type="text" class="form-control form-control-sm" placeholder="Discount Coupon">
+                    <button class="btn btn-outline-secondary btn-sm">Apply</button>
+                </div>
+
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="fw-bold small">Total amount:</span>
+                    <span class="fw-bold">44,64 €</span>
+                </div>
+                <p class="text-muted small mb-3">Includes 23% VAT: 7,22 €</p>
+
+                <button class="btn btn-secondary w-100">Complete Purchase</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- ====================
+     FOOTER
+    ==================== -->
+<footer class="border-top pt-4 pb-2 bg-light mt-4">
+    <div class="container-fluid px-3">
+        <p class="text-center text-muted small mb-3">(Footer)</p>
+        
+        <div class="row g-4">
+
+            <!-- All about shopping -->
+            <div class="col-md-3">
+                <h6 class="fw-bold">All about shopping</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="#" class="text-secondary text-decoration-none">Complaints Procedure</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Delivery and payment conditions</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Terms and Conditions</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Terms of personal data protection</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Do we ship to your country?</a></li>
+                </ul>
+            </div>
+
+            <!-- Company -->
+            <div class="col-md-2">
+                <h6 class="fw-bold">Company</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="#" class="text-secondary text-decoration-none">About us</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Privacy Settings</a></li>
+                </ul>
+            </div>
+
+            <!-- My account -->
+            <div class="col-md-3">
+                <h6 class="fw-bold">My account</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="login.html" class="text-secondary text-decoration-none">Login</a></li>
+                    <li><a href="register.html" class="text-secondary text-decoration-none">Register</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Forgot password?</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Where is my shipment?</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Redeem voucher</a></li>
+                </ul>
+            </div>
+
+            <!-- Social media + Contact info -->
+            <div class="col-md-4 d-flex flex-column gap-3">
+                <div class="bg-secondary text-white text-center py-3 rounded">Social media links</div>
+                <div class="bg-secondary text-white text-center py-3 rounded">Contact info</div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center text-muted small mt-4 pt-2 border-top">©2025 - 2026 S&J</div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
