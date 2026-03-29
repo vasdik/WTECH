@@ -3,6 +3,33 @@
    ===================== */
 
 
+:root {
+    /* Primary palette */
+    --prussian-blue: hsla(238, 74%, 7%, 1);     /* for text and icons ????? */
+    --egyptian-blue: hsla(221, 93%, 33%, 1);    /**/
+    --azure-blue: hsla(210, 90%, 49%, 1);       /* for button */
+    --powder-blue: hsla(214, 61%, 82%, 1);      /* for button */
+    --platinum: hsla(216, 20%, 95%, 1);         /* for backgrounds and borders */
+
+    /* Accent colors */
+    --frozen-lake: hsla(199, 86%, 69%, 1);
+    --sky-aqua: hsla(195, 96%, 56%, 1);
+}
+
+/* =============================================================== */
+
+body {
+    background-color: var(--platinum);
+    color: var(--prussian-blue);       /* some headlines use "color" */
+}
+
+.btn {
+    background-color: var(--azure-blue) !important;
+    border-color: var(--egyptian-blue) !important;
+}
+
+/* =============================================================== */
+
 /* =====================
    HEADER
    ===================== */
