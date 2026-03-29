@@ -16,6 +16,11 @@
     /* Accent colors */
     --frozen-lake: hsla(199, 86%, 69%, 1);
     --sky-aqua: hsla(195, 96%, 56%, 1);
+
+
+    /* Header */
+    --header-bg: var(--prussian-blue);
+    --header-text: var(--platinum);
 }
 
 /* =============================================================== */
@@ -56,14 +61,20 @@ body {
 /* =====================
    HEADER
    ===================== */
+.sticky-header {
+    background-color: var(--header-bg);     /* prevents overlap issues */
+    color: var(--header-text);
+}
+
 @media (min-width: 768px) {
     .sticky-header {
         position: sticky;
         top: 0px;
         z-index: 1020; /* above content. bootstrap navbar uses z-index: 1020 */
-        background-color: white; /* prevents overlap issues */
     }
 }
+
+
 
    
 /* =====================
