@@ -167,7 +167,9 @@
 
             <!-- Search button -->
             <div class="text-center mt-3">
-                <button class="btn btn-custom px-5" onclick="searchProducts()">Search</button>
+                <a href="admin_edit_product.html" class="text-decoration-none text-dark">
+                    <button class="btn btn-custom px-5">Search</button>
+                </a>
             </div>
 
         </div>
@@ -263,7 +265,6 @@
         const name = document.querySelector('input[placeholder="Product Name"]').value.trim();
         const min  = rangeMin.value;
         const max  = rangeMax.value;
-        alert(`Searching: "${name || '*'}" | Price: ${min} € – ${max} €`);
     }
 </script>
 
