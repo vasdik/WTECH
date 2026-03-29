@@ -81,6 +81,20 @@
 
 
 /* =====================
+   PRODUCT THUMBNAILS
+   ===================== */
+#product-thumbs {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+}
+
+#product-thumbs::-webkit-scrollbar {
+    display: none; /* Chrome */
+}
+
+
+/* =====================
    QUANTITY WIDGET
    Replaces "Add to Cart" button after first click
    ===================== */

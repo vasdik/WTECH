@@ -83,12 +83,26 @@
         <div class="col-md-5">
             <div class="img-placeholder mb-3" style="height: 380px;">Product</div>
             <p class="small text-muted mb-2">Product photos</p>
-            <div class="d-flex align-items-center gap-2">
-                <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
-                <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
-                <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
-                <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
-                <button class="btn btn-outline-secondary btn-sm flex-shrink-0">&#8250;</button>
+
+            <div class="d-flex align-items-center gap-2 overflow-hidden position-relative">
+                
+                <!-- to left button -->
+                <button class="btn btn-outline-secondary btn-sm flex-shrink-0" 
+                        onclick="scrollThumbs(-1)">&#8249;</button>
+
+                <!-- scroll container -->
+                <div class="d-flex gap-2 overflow-auto flex-nowrap" id="product-thumbs">
+                    <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
+                    <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
+                    <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
+                    <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
+                    <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
+                    <div class="img-placeholder flex-shrink-0" style="width: 80px; height: 80px;"></div>
+                </div>
+
+                <!-- to right button -->
+                <button class="btn btn-outline-secondary btn-sm flex-shrink-0"
+                        onclick="scrollThumbs(1)">&#8250;</button>
             </div>
         </div>
 
@@ -394,6 +408,14 @@
     function scrollProducts(direction) {
         const list = document.getElementById('product-list');
         list.scrollBy({ left: direction * 220, behavior: 'smooth' });
+    }
+
+    function scrollThumbs(direction) {
+        const container = document.getElementById('product-thumbs');
+        container.scrollBy({
+            left: direction * 120,
+            behavior: 'smooth'
+        });
     }
 </script>
 
