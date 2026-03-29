@@ -21,6 +21,11 @@
     /* Header */
     --header-bg: var(--prussian-blue);
     --header-text: var(--platinum);
+
+    /* Navbar */
+    --navbar-bg: var(--platinum);
+    --navbar-text: var(--prussian-blue);
+    --navbar-text-hover: var(--azure-blue);
 }
 
 /* =============================================================== */
@@ -78,8 +83,23 @@ body {
    NAVBAR
    ===================== */
 .nav-icon {
-    height: 40px;
-    width: auto;
+    height: 60px;
+    /*width: auto;*/
+    object-fit: contain;
+}
+
+.nav-custom {
+    background-color: var(--navbar-bg);   /* alebo iná farba */
+    color: var(--navbar-text);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);     /* jemny shadow */
+}
+
+.nav-custom a {
+    color: var(--navbar-text);
+}
+
+.nav-custom a:hover {
+    color: var(--navbar-text-hover);
 }
 
 /* =============================================================== */
