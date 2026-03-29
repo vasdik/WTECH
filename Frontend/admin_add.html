@@ -65,27 +65,6 @@
             padding: 0;
         }
 
-        /* More button circle */
-        .more-btn {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 1px solid #adb5bd;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #555;
-            font-size: 1rem;
-            flex-shrink: 0;
-            align-self: center;
-        }
-
-        .more-btn:hover {
-            background-color: #f0f0f0;
-        }
-
         /* Description textarea */
         #description {
             background-color: #d0d0d0;
@@ -265,11 +244,6 @@
                         <div class="img-placeholder">img</div>
                         <button class="remove-btn" onclick="removeThumb(this)">&#x2715;</button>
                     </div>
-                    <!-- More button -->
-                    <div>
-                        <p class="small text-muted mb-1" style="font-size: 0.7rem;">More button</p>
-                        <button class="more-btn">&#8250;</button>
-                    </div>
                 </div>
             </div>
 
@@ -339,8 +313,6 @@
     function handleUpload(event) {
         const files = event.target.files;
         const list = document.getElementById('uploaded-list');
-        // Insert before the "More button" div (last child)
-        const moreBtn = list.lastElementChild;
 
         Array.from(files).forEach(file => {
             const reader = new FileReader();
@@ -351,7 +323,7 @@
                     <img src="${e.target.result}" style="width:70px;height:70px;object-fit:cover;">
                     <button class="remove-btn" onclick="removeThumb(this)">&#x2715;</button>
                 `;
-                list.insertBefore(div, moreBtn);
+                list.appendChild(div);
             };
             reader.readAsDataURL(file);
         });
