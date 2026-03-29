@@ -118,39 +118,55 @@
      HERO BANNER / CAROUSEL
      New/Trending Items
     ==================== -->
-<main class="flex-grow-1">      <!-- with "flex-grow-1" main expands to fill space ("flex-grow-1" can grow, "flex-grow-0" doesnt grow)-->
+<main class="flex-grow-1">
+
 <section class="bg-light py-3">
-    <div class="container px-3">
+    <div class="container-fluid px-0">
+
         <p class="text-center text-muted small mb-2">New/Trending Items</p>
 
-        <div id="heroBanner" class="carousel slide" data-bs-ride="carousel">
+        <div id="heroBanner" class="carousel slide w-100" data-bs-ride="carousel">
 
             <!-- Slides -->
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="img-placeholder w-100" style="height: 300px;">Banner image 1</div>
+
+                <!-- SLIDE 1 -->
+                <div class="carousel-item active text-center">
+                    <img src="Images/Banners/Filaments_Banner_1024x419.jpg"
+                         class="d-block w-100"
+                         style="height: 450px; object-fit: cover;">
                 </div>
-                <div class="carousel-item">
-                    <div class="img-placeholder w-100" style="height: 300px;">Banner image 2</div>
+
+                <!-- SLIDE 2 -->
+                <div class="carousel-item text-center">
+                    <img src="Images/Banners/banner_printers.png"
+                         class="d-block w-100"
+                         style="height: 450px; object-fit: cover;">
                 </div>
-                <div class="carousel-item">
-                    <div class="img-placeholder w-100" style="height: 300px;">Banner image 3</div>
+
+                <!-- SLIDE 3 -->
+                <div class="carousel-item text-center">
+                    <img src="Images/Banners/banner3.jpg"
+                         class="d-block w-100"
+                         style="height: 450px; object-fit: cover;">
                 </div>
+
             </div>
 
-            <!-- Previous / Next buttons -->
+            <!-- Controls -->
             <button class="carousel-control-prev" type="button" data-bs-target="#heroBanner" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="carousel-control-prev-icon"></span>
             </button>
+
             <button class="carousel-control-next" type="button" data-bs-target="#heroBanner" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class="carousel-control-next-icon"></span>
             </button>
 
         </div>
     </div>
 </section>
+
+</main>
 
 
 <!-- ====================
@@ -181,7 +197,7 @@
 
                 <!-- Product card — will repeat/generate these dynamically later -->
                 <div class="card flex-shrink-0" style="width: 200px;">
-                    <div class="img-placeholder" style="height: 160px;">Product image</div>
+                    <img src="Images/Polyterra_PLA/polyterra_PLA_Black_1_.512x512.avif" style="height: 200px; object-fit: scale-down;">
                     <div class="card-body p-2">
                         <div class="mb-1">
                             <span class="badge bg-secondary" style="font-size: 0.7rem;">1.7/5</span>
@@ -194,7 +210,7 @@
                 </div>
 
                 <div class="card flex-shrink-0" style="width: 200px;">
-                    <div class="img-placeholder" style="height: 160px;">Product image</div>
+                    <img src="Images/Elegoo_PLA_Magic/elegoo_Build_Plate_Magic_1_512x512.avif" style="height: 200px; object-fit: scale-down;">
                     <div class="card-body p-2">
                         <div class="mb-1">
                             <span class="badge bg-secondary" style="font-size: 0.7rem;">4/5</span>
@@ -207,7 +223,7 @@
                 </div>
 
                 <div class="card flex-shrink-0" style="width: 200px;">
-                    <div class="img-placeholder" style="height: 160px;">Product image</div>
+                    <img src="Images/Accessories/ezlok_Heat_Inserts_1.avif" style="height: 200px; object-fit: scale-down;">
                     <div class="card-body p-2">
                         <div class="mb-1">
                             <span class="badge bg-secondary" style="font-size: 0.7rem;">4.3/5</span>
