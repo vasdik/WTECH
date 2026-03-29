@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 
 <!-- ====================
@@ -118,6 +118,7 @@
      HERO BANNER / CAROUSEL
      New/Trending Items
     ==================== -->
+<main class="flex-grow-1">      <!-- with "flex-grow-1" main expands to fill space ("flex-grow-1" can grow, "flex-grow-0" doesnt grow)-->
 <section class="bg-light py-3">
     <div class="container-fluid px-3">
         <p class="text-center text-muted small mb-2">New/Trending Items</p>
@@ -241,6 +242,7 @@
         </div>
     </div>
 </section>
+</main>
 
 
 <!-- ====================
@@ -248,7 +250,6 @@
     ==================== -->
 <footer class="border-top pt-4 pb-2 bg-light">
     <div class="container-fluid px-3">
-        <p class="text-center text-muted small mb-3">(Footer)</p>
 
         <div class="row g-4">
 
