@@ -104,7 +104,7 @@
 <!-- ====================
      BREADCRUMB
     ==================== -->
-<div class="container-fluid px-3 py-2">
+<div class="container px-3 py-2">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="index.html">Main page</a></li>
@@ -119,82 +119,109 @@
      MAIN CONTENT
      Left sidebar (categories) + Right (filters + product grid)
     ==================== -->
-<div class="container-fluid px-3 py-3">
+<div class="container px-3 py-3">
     <div class="row g-4">
 
 
         <!-- ====================
              LEFT SIDEBAR — Categories
-             currently browsing: PLA (marked as active/bold)
-             will add href links to subcategory pages when ready
+             now browsing: PLA (marked as active/bold)
+             maybe will add links to subcategory pages (firstly pla should work)
             ==================== -->
         <aside class="col-md-2">
-            <p class="fw-bold mb-2">Categories</p>
+            <div class="sticky-sidebar">
 
-            <ul class="list-unstyled small">
+                <p class="fw-bold mb-2">Categories</p>
 
-                <!-- Filaments (top level) -->
-                <li class="mb-1">
-                    <a href="filaments.html" class="text-dark text-decoration-none">Filaments</a>
-                </li>
+                <ul class="list-unstyled small">
 
-                <!-- PLA — currently active subcategory -->
-                <li class="mb-1 ms-2">
-                    <a href="#" class="text-dark fw-bold text-decoration-none">PLA (855)</a>
-                    <ul class="list-unstyled ms-2 mt-1">
-                        <li><a href="#" class="text-secondary text-decoration-none">Silk</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Matte</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">High Speed</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">High Temperature</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Metal</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Wood</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Marble</a></li>
-                    </ul>
-                </li>
+                    <!-- Filaments (top level) -->
+                    <li class="mb-1">
 
-                <!-- PETG -->
-                <li class="mb-1 ms-2">
-                    <a href="#" class="text-dark text-decoration-none">PETG</a>
-                    <ul class="list-unstyled ms-2 mt-1">
-                        <li><a href="#" class="text-secondary text-decoration-none">Translucent</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">High Speed</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">High Temperature</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
-                    </ul>
-                </li>
+                        <!-- Filaments toggle -->
+                        <button class="btn btn-sm text-start w-100 p-0 fw-bold"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#filaments-collapse">Filaments ▼</button>
 
-                <!-- ASA -->
-                <li class="mb-1 ms-2">
-                    <a href="#" class="text-dark text-decoration-none">ASA</a>
-                    <ul class="list-unstyled ms-2 mt-1">
-                        <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
-                    </ul>
-                </li>
+                        <!-- Everything inside Filaments -->
+                        <div class="collapse ms-2 mt-1" id="filaments-collapse">
 
-                <!-- ABS -->
-                <li class="mb-1 ms-2">
-                    <a href="#" class="text-dark text-decoration-none">ABS</a>
-                    <ul class="list-unstyled ms-2 mt-1">
-                        <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
-                    </ul>
-                </li>
+                            <!-- PLA -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#pla-collapse">PLA (855)</button>
 
-                <!-- NYLON -->
-                <li class="mb-1 ms-2">
-                    <a href="#" class="text-dark text-decoration-none">NYLON (29)</a>
-                </li>
+                                <ul class="collapse list-unstyled ms-2 mt-1" id="pla-collapse">
+                                    <li><a href="#" class="text-secondary text-decoration-none">Silk</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Matte</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">High Speed</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">High Temperature</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Metal</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Wood</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Marble</a></li>
+                                </ul>
+                            </div>
 
-                <!-- TPU -->
-                <li class="mb-1 ms-2">
-                    <a href="#" class="text-dark text-decoration-none">TPU (83)</a>
-                </li>
+                            <!-- PETG -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#petg-collapse">PETG (200)</button>
 
-            </ul>
+                                <ul class="collapse list-unstyled ms-2 mt-1" id="petg-collapse">
+                                    <li><a href="#" class="text-secondary text-decoration-none">Translucent</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">High Speed</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">High Temperature</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- ASA -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#asa-collapse">ASA (34)</button>
+
+                                <ul class="collapse list-unstyled ms-2 mt-1" id="asa-collapse">
+                                    <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- ABS -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#abs-collapse">ABS (21)</button>
+
+                                <ul class="collapse list-unstyled ms-2 mt-1" id="abs-collapse">
+                                    <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- NYLON -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#nylon-collapse">NYLON (8)</button>
+                            </div>
+
+                            <!-- TPU -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#tpu-collapse">TPU (15)</button>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </aside>
 
 
@@ -272,9 +299,9 @@
 
             <!-- ====================
                  PRODUCT GRID
-                 3 columns, 10 rows = 30 products per page for now
+                 products listed on page/-s
                 ==================== -->
-            <div class="row row-cols-3 g-3 mb-4">
+            <div class="row row-cols-2 row-cols-md-3 g-3 mb-4">
 
                 <!-- Row 1 -->
                 <div class="col">
@@ -391,7 +418,7 @@
      Same Best sellers / Sales / New products section as homepage
     ==================== -->
 <section class="py-4 border-top">
-    <div class="container-fluid px-3">
+    <div class="container px-3">
 
         <div class="d-flex justify-content-center gap-2 mb-4">
             <button class="btn btn-outline-secondary btn-sm active" id="tab-bestsellers" onclick="showTab('bestsellers')">Best sellers</button>
@@ -464,7 +491,7 @@
     ==================== -->
 <footer class="border-top pt-4 pb-2 bg-light">
     <div class="container-fluid px-3">
-        <p class="text-center text-muted small mb-3">(Footer)</p>
+        <!--<p class="text-center text-muted small mb-3">(Footer)</p>-->
 
         <div class="row g-4">
 
