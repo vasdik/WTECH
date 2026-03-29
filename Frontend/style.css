@@ -4,6 +4,19 @@
 
 
 /* =====================
+   HEADER
+   ===================== */
+@media (min-width: 768px) {
+    .sticky-header {
+        position: sticky;
+        top: 0px;
+        z-index: 1020; /* above content. bootstrap navbar uses z-index: 1020 */
+        background-color: white; /* prevents overlap issues */
+    }
+}
+
+   
+/* =====================
    PLACEHOLDER IMAGES
    Temporary grey boxes until we use real images
    ===================== */
@@ -53,7 +66,7 @@
 @media (min-width: 768px) {
     .sticky-sidebar {
         position: sticky;
-        top: 20px;
+        top: 110px;
     }
 }
 
