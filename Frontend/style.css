@@ -25,16 +25,30 @@ body {
     color: var(--prussian-blue);       /* some headlines use "color" */
 }
 
-.btn {
-    background-color: var(--icy-blue) !important;
-    border-color: var(--icy-blue) !important;
-    color: var(--egyptian-blue) !important;
+/* ===== BUTTONS ===== */
+/* Filled */
+.btn-custom {
+    background-color: var(--icy-blue);
+    border-color: var(--icy-blue);
+    color: var(--egyptian-blue);
 }
 
-.btn:hover {
-    background-color: var(--egyptian-blue) !important;
-    border-color: var(--egyptian-blue) !important;
-    color: var(--platinum) !important;
+.btn-custom:hover {
+    background-color: var(--egyptian-blue);
+    border-color: var(--egyptian-blue);
+    color: var(--platinum);
+}
+
+/* Outline */
+.btn-outline-custom {
+    background-color: transparent;
+    border-color: var(--egyptian-blue);
+    color: var(--egyptian-blue);
+}
+
+.btn-outline-custom:hover {
+    background-color: var(--egyptian-blue);
+    color: var(--platinum);
 }
 
 /* =============================================================== */
@@ -104,6 +118,12 @@ body {
         position: sticky;
         top: 110px;
     }
+}
+
+.sticky-sidebar .btn {
+    background: none !important;
+    border: none !important;
+    color: inherit !important;
 }
 
 /* COLLAPSIBLE CATEGORIES - they collapse only on phones */
