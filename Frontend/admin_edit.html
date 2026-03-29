@@ -27,9 +27,9 @@
                 <input type="search" class="form-control" placeholder="Search bar">
             </div>
             <div class="d-flex gap-2 flex-shrink-0 order-2 ms-auto">
-                <a href="admin_profile.html" class="btn btn-custom btn-sm">Profile</a>
-                <a href="saved.html" class="btn btn-custom btn-sm">Saved</a>
-                <a href="cart.html" class="btn btn-custom btn-sm">Cart</a>
+                <a href="admin_profile.html" class="btn btn-custom">Profile</a>
+                <a href="saved.html" class="btn btn-custom">Saved</a>
+                <a href="cart.html" class="btn btn-custom">Cart</a>
             </div>
         </div>
     </div>
@@ -104,19 +104,15 @@
 
 
 <!-- ====================
-     MAIN
+     MAIN — Add Product Form
     ==================== -->
 <main class="flex-grow-1">
     <div class="container px-3 py-4">
 
         <h2 class="fw-bold mb-4">Admin Panel</h2>
 
+        <!-- Form centered, max-width to match wireframe -->
         <div class="mx-auto" style="max-width: 700px;">
-
-            <!-- Search bar -->
-            <div class="mb-4">
-                <input type="search" class="form-control" placeholder="Search bar">
-            </div>
 
             <!-- Row 1: Product Name + Brand -->
             <div class="row g-3 mb-3">
@@ -134,23 +130,10 @@
                 </div>
             </div>
 
-            <!-- Row 2: Price range slider + Color -->
-            <div class="row g-3 mb-4 align-items-center">
+            <!-- Row 2: Price + Color -->
+            <div class="row g-3 mb-4">
                 <div class="col-md-6">
-                    <div class="price-range-wrapper">
-                        <div class="price-range-track">
-                            <div class="price-range-fill" id="price-fill"></div>
-                            <input type="range" class="price-range-input" id="range-min"
-                                   min="0" max="4000" value="0" step="10">
-                            <input type="range" class="price-range-input" id="range-max"
-                                   min="0" max="4000" value="4000" step="10">
-                        </div>
-                        <div class="price-range-labels">
-                            <span class="price-badge" id="label-min">0 €</span>
-                            <span class="price-range-dash">—</span>
-                            <span class="price-badge" id="label-max">4 000 €</span>
-                        </div>
-                    </div>
+                    <input type="number" class="form-control input-rounded" placeholder="Price">
                 </div>
                 <div class="col-md-6">
                     <select class="form-select input-rounded">
@@ -165,11 +148,47 @@
                 </div>
             </div>
 
-            <!-- Search button -->
-            <div class="text-center mt-3">
-                <button class="btn btn-custom px-5" onclick="searchProducts()">Search</button>
+            <!-- Description textarea -->
+            <div class="mb-4">
+                <textarea id="description" class="form-control" rows="6" placeholder="Description:"></textarea>
             </div>
 
+            <!-- Upload images area -->
+            <div class="mb-3">
+                <label class="form-label small text-muted mb-1">Upload images:</label>
+                <div class="upload-area" onclick="document.getElementById('file-input').click()">
+                    <span class="upload-plus">+</span>
+                </div>
+                <input type="file" id="file-input" accept="image/*" multiple class="d-none" onchange="handleUpload(event)">
+            </div>
+
+            <!-- Uploaded thumbnails row -->
+            <div class="mb-4">
+                <p class="small text-muted mb-2">Uploaded:</p>
+                <div class="d-flex align-items-center gap-2 flex-wrap" id="uploaded-list">
+                    <!-- Placeholder thumbnails -->
+                    <div class="uploaded-thumb">
+                        <div class="img-placeholder">img</div>
+                        <button class="remove-btn" onclick="removeThumb(this)">&#x2715;</button>
+                    </div>
+                    <div class="uploaded-thumb">
+                        <div class="img-placeholder">img</div>
+                        <button class="remove-btn" onclick="removeThumb(this)">&#x2715;</button>
+                    </div>
+                    <div class="uploaded-thumb">
+                        <div class="img-placeholder">img</div>
+                        <button class="remove-btn" onclick="removeThumb(this)">&#x2715;</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-custom">Save Edits</button><br>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button class="btn btn-custom">Remove</button>
+            </div>
         </div>
     </div>
 </main>
@@ -224,46 +243,40 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 <script>
-    const rangeMin = document.getElementById('range-min');
-    const rangeMax = document.getElementById('range-max');
-    const labelMin = document.getElementById('label-min');
-    const labelMax = document.getElementById('label-max');
-    const fill = document.getElementById('price-fill');
-    const MAX = 4000;
-
-    function updateSlider() {
-        let vMin = parseInt(rangeMin.value);
-        let vMax = parseInt(rangeMax.value);
-
-        if (vMin >= vMax - 10) {
-            if (document.activeElement === rangeMin) {
-                rangeMin.value = vMax - 10;
-                vMin = vMax - 10;
-            } else {
-                rangeMax.value = vMin + 10;
-                vMax = vMin + 10;
-            }
-        }
-
-        const pMin = (vMin / MAX) * 100;
-        const pMax = (vMax / MAX) * 100;
-
-        fill.style.left  = pMin + '%';
-        fill.style.width = (pMax - pMin) + '%';
-
-        labelMin.textContent = vMin.toLocaleString('sk-SK') + ' €';
-        labelMax.textContent = vMax.toLocaleString('sk-SK') + ' €';
+    function removeThumb(btn) {
+        btn.closest('.uploaded-thumb').remove();
     }
 
-    rangeMin.addEventListener('input', updateSlider);
-    rangeMax.addEventListener('input', updateSlider);
-    updateSlider();
+    function handleUpload(event) {
+        const files = event.target.files;
+        const list = document.getElementById('uploaded-list');
 
-    function searchProducts() {
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const div = document.createElement('div');
+                div.className = 'uploaded-thumb';
+                div.innerHTML = `
+                    <img src="${e.target.result}" style="width:70px;height:70px;object-fit:cover;">
+                    <button class="remove-btn" onclick="removeThumb(this)">&#x2715;</button>
+                `;
+                list.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Reset input so same file can be re-added
+        event.target.value = '';
+    }
+
+    function submitProduct() {
         const name = document.querySelector('input[placeholder="Product Name"]').value.trim();
-        const min  = rangeMin.value;
-        const max  = rangeMax.value;
-        alert(`Searching: "${name || '*'}" | Price: ${min} € – ${max} €`);
+        const price = document.querySelector('input[placeholder="Price"]').value.trim();
+        if (!name || !price) {
+            alert('Please fill in at least Product Name and Price.');
+            return;
+        }
+        alert('Product added successfully!');
     }
 </script>
 
