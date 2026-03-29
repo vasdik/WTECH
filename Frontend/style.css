@@ -8,8 +8,9 @@
     --prussian-blue: hsla(238, 74%, 7%, 1);     /* for text and icons ????? */
     --egyptian-blue: hsla(221, 93%, 33%, 1);    /* for button */
     --azure-blue: hsla(210, 90%, 49%, 1);                       /* for button */
-    --baby-blue-ice: hsla(212, 73%, 74%, 1);                    /* for button */
-    --powder-blue: hsla(214, 61%, 82%, 1);      /* for button */
+    /*--baby-blue-ice: hsla(212, 73%, 74%, 1);*/                   
+    /*--powder-blue: hsla(214, 61%, 82%, 1);*/    
+    --icy-blue: hsla(210, 71%, 84%, 1);         /* for button */
     --platinum: hsla(216, 20%, 95%, 1);         /* for backgrounds and borders */
 
     /* Accent colors */
@@ -25,8 +26,8 @@ body {
 }
 
 .btn {
-    background-color: var(--powder-blue) !important;
-    border-color: var(--powder-blue) !important;
+    background-color: var(--icy-blue) !important;
+    border-color: var(--icy-blue) !important;
     color: var(--egyptian-blue) !important;
 }
 
