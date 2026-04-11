@@ -11,14 +11,14 @@
 
     <body class="d-flex flex-column min-vh-100">
 
-        @include('partials.shop.header')
-        @include('partials.shop.category-nav')
+        @include('shop.partials.shop.header')
+        @include('shop.partials.shop.category-nav')
 
         <main class="flex-grow-1">
             @yield('content')
         </main>
 
-        @include('partials.shop.footer')
+        @include('shop.partials.shop.footer')
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
         @stack('scripts')

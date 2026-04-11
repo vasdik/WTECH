@@ -17,7 +17,14 @@
             </div>
             <!-- Buttons -->
             <div class="d-flex gap-2 flex-shrink-0 order-2 ms-auto">
-                <a href="{{ route('login') }}" id="header-login-btn" class="btn btn-custom btn-sm">Log in</a>
+                @guest
+                    <a href="{{ route('login') }}" id="header-login-btn" class="btn btn-custom btn-sm">Log in</a>
+                @endguest
+
+                @auth
+                    <a href="{{ route('profile.edit') }}" id="header-profile-btn" class="btn btn-custom btn-sm">Profile</a>
+                @endauth
+
                 <a href="{{ route('saved') }}" class="btn btn-custom btn-sm">Saved</a>
                 <a href="{{ route('cart') }}" class="btn btn-custom btn-sm">Cart</a>
             </div>
