@@ -2,10 +2,18 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+/*
 Route::get('/', function () {
     return view('welcome');
-});
+}); */
+
+Route::view('/', 'shop.home')->name('home');
+
+
+Route::view('/saved', 'cart.saved')->name('saved');
+
+Route::view('/cart', 'cart.cart')->name('cart');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
