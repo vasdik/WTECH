@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\enum\Color;
+use App\Models\enum\Diameter;
+use App\Models\enum\Weight;
+use App\Models\enum\FilamentType;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

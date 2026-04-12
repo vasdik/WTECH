@@ -2,22 +2,22 @@
     <p class="fw-bold mb-2">Categories</p>
 
     <ul class="list-unstyled small">
-        <li class="mb-2">
+        <li class="mb-1">
             <a
-                href="{{ route('categories.show', ['category' => $currentCategory['slug']]) }}"
-                class="text-decoration-none {{ $currentSubcategory ? 'text-secondary' : 'fw-bold text-dark' }}"
+                href="{{ route('categories.show', ['category' => $rootCategory->slug]) }}"
+                class="text-decoration-none {{ $activeCategory->id === $rootCategory->id ? 'fw-bold text-dark' : 'text-dark' }}"
             >
-                {{ $currentCategory['name'] }}
+                {{ $rootCategory->name }}
             </a>
         </li>
 
-        @foreach ($currentCategory['subcategories'] as $item)
+        @foreach ($rootCategory->children as $child)
             <li class="mb-1 ms-2">
                 <a
-                    href="{{ route('categories.show', ['category' => $currentCategory['slug'], 'subcategory' => $item['slug']]) }}"
-                    class="text-decoration-none {{ $currentSubcategory && $currentSubcategory['slug'] === $item['slug'] ? 'fw-bold text-dark' : 'text-secondary' }}"
+                    href="{{ route('categories.show', ['category' => $rootCategory->slug, 'subcategory' => $child->slug]) }}"
+                    class="text-decoration-none {{ $activeCategory->id === $child->id ? 'fw-bold text-dark' : 'text-secondary' }}"
                 >
-                    {{ $item['name'] }}
+                    {{ $child->name }}
                 </a>
             </li>
         @endforeach

@@ -2,197 +2,153 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\enum\Color;
+use App\Models\enum\Diameter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-public function show(Request $request, string $category, ?string $subcategory = null)
+    public function show(Request $request, string $category, ?string $subcategory = null)
     {
-        $categoryMap = $this->categoryMap();
+        $rootCategory = Category::query()
+            ->whereNull('parent_id')
+            ->where('slug', $category)
+            ->where('is_active', true)
+            ->with(['children' => fn ($query) => $query->where('is_active', true)->orderBy('sort_order')])
+            ->firstOrFail();
 
-        abort_unless(array_key_exists($category, $categoryMap), 404);
+        $activeCategory = $rootCategory;
 
-        $currentCategory = $categoryMap[$category];
-        $currentSubcategory = $subcategory
-            ? collect($currentCategory['subcategories'])->firstWhere('slug', $subcategory)
-            : null;
-
-        if ($subcategory && ! $currentSubcategory) {
-            abort(404);
+        if ($subcategory) {
+            $activeCategory = Category::query()
+                ->where('parent_id', $rootCategory->id)
+                ->where('slug', $subcategory)
+                ->where('is_active', true)
+                ->firstOrFail();
         }
 
-        $products = collect($this->fakeProducts())
-            ->filter(function (array $product) use ($category, $subcategory) {
-                if ($product['category_slug'] !== $category) {
-                    return false;
-                }
+        $categoryIds = $subcategory
+            ? [$activeCategory->id]
+            : $this->resolveCategoryIdsForListing($rootCategory);
 
-                if ($subcategory && $product['subcategory_slug'] !== $subcategory) {
-                    return false;
-                }
+        $productsQuery = Product::query()
+            ->with([
+                'images',
+                'defaultVariant.color',
+                'defaultVariant.weight',
+                'defaultVariant.diameter',
+                'filamentDetail.filamentType',
+                'category',
+            ])
+            ->where('is_active', true)
+            ->whereIn('category_id', $categoryIds);
 
-                return true;
+        $productsQuery
+            ->when($request->filled('brand'), function (Builder $query) use ($request) {
+                $query->where('brand', $request->string('brand')->toString());
             })
-            ->values();
+            ->when($request->filled('color'), function (Builder $query) use ($request) {
+                $query->whereHas('variants.color', function (Builder $subQuery) use ($request) {
+                    $subQuery->where('slug', $request->string('color')->toString());
+                });
+            })
+            ->when($request->filled('diameter'), function (Builder $query) use ($request) {
+                $query->whereHas('variants.diameter', function (Builder $subQuery) use ($request) {
+                    $subQuery->where('id', (int) $request->input('diameter'));
+                });
+            })
+            ->when($request->filled('price_min'), function (Builder $query) use ($request) {
+                $query->where('price_gross', '>=', (float) $request->input('price_min'));
+            })
+            ->when($request->filled('price_max'), function (Builder $query) use ($request) {
+                $query->where('price_gross', '<=', (float) $request->input('price_max'));
+            });
 
-        $sort = request('sort');
+        $sort = $request->input('sort', '');
 
-        if ($sort === 'name_asc') {
-            $products = $products->sortBy('name')->values();
-        } elseif ($sort === 'name_desc') {
-            $products = $products->sortByDesc('name')->values();
-        } elseif ($sort === 'price_asc') {
-            $products = $products->sortBy('price')->values();
-        } elseif ($sort === 'price_desc') {
-            $products = $products->sortByDesc('price')->values();
+        match ($sort) {
+            'name_asc' => $productsQuery->orderBy('name'),
+            'name_desc' => $productsQuery->orderByDesc('name'),
+            'price_asc' => $productsQuery->orderBy('price_gross'),
+            'price_desc' => $productsQuery->orderByDesc('price_gross'),
+            default => $productsQuery->latest('id'),
+        };
+
+        $products = $productsQuery->paginate(9)->withQueryString();
+
+        $brands = Product::query()
+            ->where('is_active', true)
+            ->whereIn('category_id', $categoryIds)
+            ->select('brand')
+            ->distinct()
+            ->orderBy('brand')
+            ->pluck('brand');
+
+        $colors = Color::query()
+            ->whereHas('variants.product', function (Builder $query) use ($categoryIds) {
+                $query->where('is_active', true)->whereIn('category_id', $categoryIds);
+            })
+            ->orderBy('sort_order')
+            ->get();
+
+        $diameters = Diameter::query()
+            ->whereHas('variants.product', function (Builder $query) use ($categoryIds) {
+                $query->where('is_active', true)->whereIn('category_id', $categoryIds);
+            })
+            ->orderBy('sort_order')
+            ->get();
+
+        $carouselProducts = Product::query()
+            ->with(['images', 'defaultVariant.color', 'defaultVariant.weight', 'defaultVariant.diameter'])
+            ->where('is_active', true)
+            ->whereIn('category_id', $categoryIds)
+            ->whereKeyNot($products->pluck('id'))
+            ->latest('rating_avg')
+            ->take(4)
+            ->get();
+
+        if ($carouselProducts->count() < 4) {
+            $fallbackProducts = Product::query()
+                ->with(['images', 'defaultVariant.color', 'defaultVariant.weight', 'defaultVariant.diameter'])
+                ->where('is_active', true)
+                ->whereKeyNot($carouselProducts->pluck('id'))
+                ->latest('rating_avg')
+                ->take(4 - $carouselProducts->count())
+                ->get();
+
+            $carouselProducts = $carouselProducts->concat($fallbackProducts);
         }
-
-        $pageTitle = $currentSubcategory['name'] ?? $currentCategory['name'];
 
         return view('shop.partials.shop.category', [
-            'category' => $currentCategory,
-            'subcategory' => $currentSubcategory,
+            'rootCategory' => $rootCategory,
+            'activeCategory' => $activeCategory,
             'products' => $products,
-            'pageTitle' => $pageTitle,
+            'brands' => $brands,
+            'colors' => $colors,
+            'diameters' => $diameters,
             'sort' => $sort,
-            'carouselProducts' => collect($this->fakeProducts())->take(4),
+            'carouselProducts' => $carouselProducts,
+            'filters' => [
+                'brand' => $request->input('brand'),
+                'color' => $request->input('color'),
+                'diameter' => $request->input('diameter'),
+                'price_min' => $request->input('price_min'),
+                'price_max' => $request->input('price_max'),
+            ],
         ]);
     }
 
-    private function categoryMap(): array
+    private function resolveCategoryIdsForListing(Category $rootCategory): array
     {
-        return [
-            'filaments' => [
-                'name' => 'Filaments',
-                'slug' => 'filaments',
-                'subcategories' => [
-                    ['name' => 'PLA', 'slug' => 'pla'],
-                    ['name' => 'PETG', 'slug' => 'petg'],
-                    ['name' => 'ASA', 'slug' => 'asa'],
-                    ['name' => 'ABS', 'slug' => 'abs'],
-                    ['name' => 'NYLON', 'slug' => 'nylon'],
-                    ['name' => 'TPU', 'slug' => 'tpu'],
-                ],
-            ],
-            'resins' => [
-                'name' => 'Resins',
-                'slug' => 'resins',
-                'subcategories' => [
-                    ['name' => 'Standard', 'slug' => 'standard'],
-                    ['name' => 'Tough', 'slug' => 'tough'],
-                ],
-            ],
-            'printers' => [
-                'name' => 'Printers',
-                'slug' => 'printers',
-                'subcategories' => [],
-            ],
-            'accessories' => [
-                'name' => 'Accessories',
-                'slug' => 'accessories',
-                'subcategories' => [],
-            ],
-            'tools' => [
-                'name' => 'Tools',
-                'slug' => 'tools',
-                'subcategories' => [],
-            ],
-            'brands' => [
-                'name' => 'Brands',
-                'slug' => 'brands',
-                'subcategories' => [],
-            ],
-            'sale' => [
-                'name' => 'Sale',
-                'slug' => 'sale',
-                'subcategories' => [],
-            ],
-        ];
-    }
+        $childIds = $rootCategory->children->pluck('id')->all();
 
-    private function fakeProducts(): array
-    {
-        return [
-            [
-                'slug' => 'polyterra-pla-charcoal-black',
-                'category_slug' => 'filaments',
-                'subcategory_slug' => 'pla',
-                'brand' => 'Polymaker',
-                'name' => 'PolyTerra PLA Charcoal Black, 1,75 mm / 1000 g',
-                'price' => 15.99,
-                'rating' => 4.5,
-                'image' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_1_.512x512.avif',
-            ],
-            [
-                'slug' => 'elegoo-pla-magic-red-blue',
-                'category_slug' => 'filaments',
-                'subcategory_slug' => 'pla',
-                'brand' => 'Elegoo',
-                'name' => 'PLA Magic Red&Blue, 1,75 mm / 1000 g',
-                'price' => 38.99,
-                'rating' => 4.0,
-                'image' => 'images/products/Elegoo_PLA_Magic/elegoo_PLA_Black_Purple_1_512x512.avif',
-            ],
-            [
-                'slug' => 'esun-pla-black',
-                'category_slug' => 'filaments',
-                'subcategory_slug' => 'pla',
-                'brand' => 'eSUN',
-                'name' => 'PLA Black, 1,75 mm / 1000 g',
-                'price' => 15.99,
-                'rating' => 1.7,
-                'image' => 'images/products/eSun_PLA/esun_PLA_Black_1_.512x512.avif',
-            ],
-            [
-                'slug' => 'bambulab-pla-matte-white',
-                'category_slug' => 'filaments',
-                'subcategory_slug' => 'pla',
-                'brand' => 'Bambulab',
-                'name' => 'PLA Matte Jade White, 1,75 mm / 1000 g',
-                'price' => 27.99,
-                'rating' => 4.5,
-                'image' => null,
-            ],
-            [
-                'slug' => 'prusament-petg-clear',
-                'category_slug' => 'filaments',
-                'subcategory_slug' => 'petg',
-                'brand' => 'Prusament',
-                'name' => 'PETG Clear, 1,75 mm / 1000 g',
-                'price' => 24.99,
-                'rating' => 4.4,
-                'image' => null,
-            ],
-            [
-                'slug' => 'resin-standard-grey',
-                'category_slug' => 'resins',
-                'subcategory_slug' => 'standard',
-                'brand' => 'Elegoo',
-                'name' => 'Standard Resin Grey, 1000 g',
-                'price' => 21.99,
-                'rating' => 4.2,
-                'image' => null,
-            ],
-            [
-                'slug' => 'bambu-a1-mini',
-                'category_slug' => 'printers',
-                'subcategory_slug' => null,
-                'brand' => 'Bambulab',
-                'name' => 'A1 Mini Combo',
-                'price' => 489.00,
-                'rating' => 4.8,
-                'image' => null,
-            ],
-            [
-                'slug' => 'flush-cutters',
-                'category_slug' => 'tools',
-                'subcategory_slug' => null,
-                'brand' => 'Generic',
-                'name' => 'Flush Cutters',
-                'price' => 6.99,
-                'rating' => 4.1,
-                'image' => null,
-            ],
-        ];
+        if (!empty($childIds)) {
+            return $childIds;
+        }
+
+        return [$rootCategory->id];
     }
 }
