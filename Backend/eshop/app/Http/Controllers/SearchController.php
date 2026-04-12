@@ -62,7 +62,7 @@ class SearchController extends Controller
             default => $productsQuery->latest('id'),
         };
 
-        $products = $productsQuery->paginate(12)->withQueryString();
+        $products = $productsQuery->paginate(9)->withQueryString();
 
         return view('shop.partials.shop.search-results', [
             'q' => $q,

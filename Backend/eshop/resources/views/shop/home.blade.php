@@ -50,7 +50,7 @@
 
                 <!-- SLIDE 3 -->
                 <div class="carousel-item text-center">
-                    <img src="{{ asset('Images/Banners/banner3.jpg') }}"
+                    <img src="{{ asset('Images/Banners/3d-resin-printing-course-banner.png') }}"
                          class="d-block w-100"
                          style="height: 450px; object-fit: cover;">
                 </div>
