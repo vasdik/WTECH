@@ -15,3 +15,5 @@ php artisan tinker
 
 ###Solving erros
 composer dump-autoload
+
+php artisan optimize:clear

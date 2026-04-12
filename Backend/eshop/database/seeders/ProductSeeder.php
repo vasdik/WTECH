@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\FilamentDetail;
 use App\Models\Product;
+use App\Models\ProductFamily;
 use App\Models\ProductImage;
-use App\Models\ProductVariant;
 use App\Models\enum\Color;
 use App\Models\enum\Diameter;
 use App\Models\enum\FilamentType;
@@ -36,14 +36,31 @@ class ProductSeeder extends Seeder
             $plaType = FilamentType::where('slug', 'pla')->firstOrFail();
             $petgType = FilamentType::where('slug', 'petg')->firstOrFail();
 
-            $polyterra = Product::updateOrCreate(
+            $polyterraFamily = ProductFamily::updateOrCreate(
+                ['slug' => 'polyterra-pla'],
+                [
+                    'category_id' => $plaCategory->id,
+                    'name' => 'PolyTerra PLA',
+                    'brand' => 'Polymaker',
+                    'shared_short_description' => 'Bioplastic PLA filament with reduced plastic content.',
+                    'shared_description' => 'PolyTerra PLA is a bioplastic filament for 3D printing in which organic materials are combined with PLA to reduce the plastic content and create a more environmentally friendly filament.',
+                    'is_active' => true,
+                ]
+            );
+
+            $polyterraBlack = Product::updateOrCreate(
                 ['slug' => 'polyterra-pla-charcoal-black'],
                 [
                     'category_id' => $plaCategory->id,
+                    'product_family_id' => $polyterraFamily->id,
+                    'color_id' => $colorBlack->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
                     'name' => 'PolyTerra PLA Charcoal Black, 1,75 mm / 1000 g',
                     'brand' => 'Polymaker',
                     'short_description' => 'Bioplastic PLA filament with reduced plastic content.',
-                    'description' => 'PolyTerra PLA is a bioplastic filament for 3D printing in which organic materials are combined with PLA to reduce the plastic content and create a more environmentally friendly filament.',
+                    'description' => 'PolyTerra prints just like PLA and is suitable for everyday use with good rigidity and easy processing.',
                     'price_gross' => 15.99,
                     'tax_rate' => 23.00,
                     'rating_avg' => 4.50,
@@ -53,127 +70,100 @@ class ProductSeeder extends Seeder
                 ]
             );
 
-            FilamentDetail::updateOrCreate(
-                ['product_id' => $polyterra->id],
+            $polyterraWhite = Product::updateOrCreate(
+                ['slug' => 'polyterra-pla-white'],
                 [
-                    'filament_type_id' => $plaType->id,
-                    'recommended_nozzle_temp_min' => 190,
-                    'recommended_nozzle_temp_max' => 230,
-                    'recommended_bed_temp_min' => 25,
-                    'recommended_bed_temp_max' => 60,
-                    'material_note' => 'Easy processing, good rigidity, reduced plastic content.',
-                ]
-            );
-
-            $polyterraBlack = ProductVariant::updateOrCreate(
-                ['slug' => 'polyterra-pla-charcoal-black-175-1000'],
-                [
-                    'product_id' => $polyterra->id,
-                    'sku' => 'POLYTERRA-BLK-175-1000',
-                    'color_id' => $colorBlack->id,
-                    'weight_id' => $weight1000->id,
-                    'diameter_id' => $diameter175->id,
-                    'price_gross' => 15.99,
-                    'stock_qty' => 10,
-                    'is_default' => true,
-                    'is_active' => true,
-                ]
-            );
-
-            $polyterraWhite = ProductVariant::updateOrCreate(
-                ['slug' => 'polyterra-pla-white-175-1000'],
-                [
-                    'product_id' => $polyterra->id,
-                    'sku' => 'POLYTERRA-WHT-175-1000',
+                    'category_id' => $plaCategory->id,
+                    'product_family_id' => $polyterraFamily->id,
                     'color_id' => $colorWhite->id,
                     'weight_id' => $weight1000->id,
                     'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
+                    'name' => 'PolyTerra PLA White, 1,75 mm / 1000 g',
+                    'brand' => 'Polymaker',
+                    'short_description' => 'Bioplastic PLA filament with reduced plastic content.',
+                    'description' => 'PolyTerra prints just like PLA and is suitable for everyday use with good rigidity and easy processing.',
                     'price_gross' => 15.99,
-                    'stock_qty' => 6,
-                    'is_default' => false,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.40,
+                    'rating_count' => 97,
+                    'stock_qty' => 9,
                     'is_active' => true,
                 ]
             );
 
-            $polyterraBeige = ProductVariant::updateOrCreate(
-                ['slug' => 'polyterra-pla-beige-175-1000'],
+            $polyterraBeige = Product::updateOrCreate(
+                ['slug' => 'polyterra-pla-beige'],
                 [
-                    'product_id' => $polyterra->id,
-                    'sku' => 'POLYTERRA-BEI-175-1000',
+                    'category_id' => $plaCategory->id,
+                    'product_family_id' => $polyterraFamily->id,
                     'color_id' => $colorBeige->id,
                     'weight_id' => $weight1000->id,
                     'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
+                    'name' => 'PolyTerra PLA Beige, 1,75 mm / 1000 g',
+                    'brand' => 'Polymaker',
+                    'short_description' => 'Bioplastic PLA filament with reduced plastic content.',
+                    'description' => 'PolyTerra prints just like PLA and is suitable for everyday use with good rigidity and easy processing.',
                     'price_gross' => 15.99,
-                    'stock_qty' => 4,
-                    'is_default' => false,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.20,
+                    'rating_count' => 61,
+                    'stock_qty' => 6,
                     'is_active' => true,
                 ]
             );
 
+            foreach ([$polyterraBlack, $polyterraWhite, $polyterraBeige] as $product) {
+                FilamentDetail::updateOrCreate(
+                    ['product_id' => $product->id],
+                    [
+                        'filament_type_id' => $plaType->id,
+                        'recommended_nozzle_temp_min' => 190,
+                        'recommended_nozzle_temp_max' => 230,
+                        'recommended_bed_temp_min' => 25,
+                        'recommended_bed_temp_max' => 60,
+                        'material_note' => 'Easy processing, good rigidity, reduced plastic content.',
+                    ]
+                );
+            }
+
             ProductImage::updateOrCreate(
-                ['product_id' => $polyterra->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_1_.512x512.avif'],
-                [
-                    'product_variant_id' => $polyterraBlack->id,
-                    'alt_text' => 'PolyTerra PLA Charcoal Black main image',
-                    'sort_order' => 1,
-                    'is_primary' => true,
-                ]
+                ['product_id' => $polyterraBlack->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_1_.512x512.avif'],
+                ['alt_text' => 'PolyTerra PLA Charcoal Black main image', 'sort_order' => 1, 'is_primary' => true]
+            );
+            ProductImage::updateOrCreate(
+                ['product_id' => $polyterraBlack->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_2_.512x512.avif'],
+                ['alt_text' => 'PolyTerra PLA Charcoal Black side view', 'sort_order' => 2, 'is_primary' => false]
+            );
+            ProductImage::updateOrCreate(
+                ['product_id' => $polyterraBlack->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_3_.512x512.avif'],
+                ['alt_text' => 'PolyTerra PLA Charcoal Black back view', 'sort_order' => 3, 'is_primary' => false]
+            );
+            ProductImage::updateOrCreate(
+                ['product_id' => $polyterraBlack->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_4_.512x512.avif'],
+                ['alt_text' => 'PolyTerra PLA Charcoal Black detail view', 'sort_order' => 4, 'is_primary' => false]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $polyterra->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_2_.512x512.avif'],
-                [
-                    'product_variant_id' => $polyterraBlack->id,
-                    'alt_text' => 'PolyTerra PLA Charcoal Black side view',
-                    'sort_order' => 2,
-                    'is_primary' => false,
-                ]
+                ['product_id' => $polyterraWhite->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_White_1_.512x512.avif'],
+                ['alt_text' => 'PolyTerra PLA White', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $polyterra->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_3_.512x512.avif'],
-                [
-                    'product_variant_id' => $polyterraBlack->id,
-                    'alt_text' => 'PolyTerra PLA Charcoal Black back view',
-                    'sort_order' => 3,
-                    'is_primary' => false,
-                ]
-            );
-
-            ProductImage::updateOrCreate(
-                ['product_id' => $polyterra->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_4_.512x512.avif'],
-                [
-                    'product_variant_id' => $polyterraBlack->id,
-                    'alt_text' => 'PolyTerra PLA Charcoal Black detail view',
-                    'sort_order' => 4,
-                    'is_primary' => false,
-                ]
-            );
-
-            ProductImage::updateOrCreate(
-                ['product_id' => $polyterra->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_White_1_.512x512.avif'],
-                [
-                    'product_variant_id' => $polyterraWhite->id,
-                    'alt_text' => 'PolyTerra PLA White',
-                    'sort_order' => 5,
-                    'is_primary' => false,
-                ]
-            );
-
-            ProductImage::updateOrCreate(
-                ['product_id' => $polyterra->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Biege_1_.512x512.avif'],
-                [
-                    'product_variant_id' => $polyterraBeige->id,
-                    'alt_text' => 'PolyTerra PLA Beige',
-                    'sort_order' => 6,
-                    'is_primary' => false,
-                ]
+                ['product_id' => $polyterraBeige->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Biege_1_.512x512.avif'],
+                ['alt_text' => 'PolyTerra PLA Beige', 'sort_order' => 1, 'is_primary' => true]
             );
 
             $elegooPla = Product::updateOrCreate(
                 ['slug' => 'elegoo-pla-magic-red-blue'],
                 [
                     'category_id' => $plaCategory->id,
+                    'product_family_id' => null,
+                    'color_id' => $colorGrey->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
                     'name' => 'PLA Magic Red&Blue, 1,75 mm / 1000 g',
                     'brand' => 'Elegoo',
                     'short_description' => 'Color-shifting PLA filament.',
@@ -199,35 +189,20 @@ class ProductSeeder extends Seeder
                 ]
             );
 
-            ProductVariant::updateOrCreate(
-                ['slug' => 'elegoo-pla-magic-red-blue-175-1000'],
-                [
-                    'product_id' => $elegooPla->id,
-                    'sku' => 'ELEGOO-PLA-MAG-175-1000',
-                    'color_id' => $colorGrey->id,
-                    'weight_id' => $weight1000->id,
-                    'diameter_id' => $diameter175->id,
-                    'price_gross' => 38.99,
-                    'stock_qty' => 8,
-                    'is_default' => true,
-                    'is_active' => true,
-                ]
-            );
-
             ProductImage::updateOrCreate(
                 ['product_id' => $elegooPla->id, 'path' => 'images/products/Elegoo_PLA_Magic/elegoo_PLA_Black_Purple_1_512x512.avif'],
-                [
-                    'product_variant_id' => null,
-                    'alt_text' => 'Elegoo PLA Magic',
-                    'sort_order' => 1,
-                    'is_primary' => true,
-                ]
+                ['alt_text' => 'Elegoo PLA Magic', 'sort_order' => 1, 'is_primary' => true]
             );
 
             $esunPla = Product::updateOrCreate(
                 ['slug' => 'esun-pla-black'],
                 [
                     'category_id' => $plaCategory->id,
+                    'product_family_id' => null,
+                    'color_id' => $colorBlack->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
                     'name' => 'PLA Black, 1,75 mm / 1000 g',
                     'brand' => 'eSUN',
                     'short_description' => 'Classic black PLA filament.',
@@ -253,35 +228,20 @@ class ProductSeeder extends Seeder
                 ]
             );
 
-            ProductVariant::updateOrCreate(
-                ['slug' => 'esun-pla-black-175-1000'],
-                [
-                    'product_id' => $esunPla->id,
-                    'sku' => 'ESUN-PLA-BLK-175-1000',
-                    'color_id' => $colorBlack->id,
-                    'weight_id' => $weight1000->id,
-                    'diameter_id' => $diameter175->id,
-                    'price_gross' => 15.99,
-                    'stock_qty' => 15,
-                    'is_default' => true,
-                    'is_active' => true,
-                ]
-            );
-
             ProductImage::updateOrCreate(
                 ['product_id' => $esunPla->id, 'path' => 'images/products/eSun_PLA/esun_PLA_Black_1_.512x512.avif'],
-                [
-                    'product_variant_id' => null,
-                    'alt_text' => 'eSUN PLA Black',
-                    'sort_order' => 1,
-                    'is_primary' => true,
-                ]
+                ['alt_text' => 'eSUN PLA Black', 'sort_order' => 1, 'is_primary' => true]
             );
 
             $prusamentPetg = Product::updateOrCreate(
                 ['slug' => 'prusament-petg-clear'],
                 [
                     'category_id' => $petgCategory->id,
+                    'product_family_id' => null,
+                    'color_id' => $colorWhite->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
                     'name' => 'PETG Clear, 1,75 mm / 1000 g',
                     'brand' => 'Prusament',
                     'short_description' => 'Transparent PETG filament.',
@@ -307,25 +267,71 @@ class ProductSeeder extends Seeder
                 ]
             );
 
-            ProductVariant::updateOrCreate(
-                ['slug' => 'prusament-petg-clear-175-1000'],
+            $bambuFamily = ProductFamily::updateOrCreate(
+                ['slug' => 'bambu-lab-a1-mini'],
                 [
-                    'product_id' => $prusamentPetg->id,
-                    'sku' => 'PRUSA-PETG-CLR-175-1000',
-                    'color_id' => $colorWhite->id,
-                    'weight_id' => $weight1000->id,
-                    'diameter_id' => $diameter175->id,
-                    'price_gross' => 24.99,
-                    'stock_qty' => 7,
-                    'is_default' => true,
+                    'category_id' => $printersCategory->id,
+                    'name' => 'Bambu Lab A1 Mini',
+                    'brand' => 'Bambulab',
+                    'shared_short_description' => 'Compact desktop FDM printer family.',
+                    'shared_description' => 'Compact 3D printer suitable for home and enthusiast use.',
                     'is_active' => true,
                 ]
             );
 
-            $resin = Product::updateOrCreate(
+            Product::updateOrCreate(
+                ['slug' => 'bambulab-a1-mini'],
+                [
+                    'category_id' => $printersCategory->id,
+                    'product_family_id' => $bambuFamily->id,
+                    'color_id' => null,
+                    'weight_id' => null,
+                    'diameter_id' => null,
+                    'variant_label' => 'Printer only',
+                    'name' => 'A1 Mini',
+                    'brand' => 'Bambulab',
+                    'short_description' => 'Compact desktop FDM printer.',
+                    'description' => 'Standalone A1 Mini printer.',
+                    'price_gross' => 389.00,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.70,
+                    'rating_count' => 24,
+                    'stock_qty' => 4,
+                    'is_active' => true,
+                ]
+            );
+
+            Product::updateOrCreate(
+                ['slug' => 'bambulab-a1-mini-combo'],
+                [
+                    'category_id' => $printersCategory->id,
+                    'product_family_id' => $bambuFamily->id,
+                    'color_id' => null,
+                    'weight_id' => null,
+                    'diameter_id' => null,
+                    'variant_label' => 'Printer + AMS',
+                    'name' => 'A1 Mini Combo',
+                    'brand' => 'Bambulab',
+                    'short_description' => 'Compact desktop FDM printer with AMS.',
+                    'description' => 'A1 Mini printer with AMS unit.',
+                    'price_gross' => 489.00,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.80,
+                    'rating_count' => 41,
+                    'stock_qty' => 3,
+                    'is_active' => true,
+                ]
+            );
+
+            Product::updateOrCreate(
                 ['slug' => 'elegoo-standard-resin-grey'],
                 [
                     'category_id' => $standardResinCategory->id,
+                    'product_family_id' => null,
+                    'color_id' => $colorGrey->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => null,
+                    'variant_label' => null,
                     'name' => 'Standard Resin Grey, 1000 g',
                     'brand' => 'Elegoo',
                     'short_description' => 'Standard grey resin for LCD printers.',
@@ -340,26 +346,14 @@ class ProductSeeder extends Seeder
             );
 
             Product::updateOrCreate(
-                ['slug' => 'bambulab-a1-mini-combo'],
-                [
-                    'category_id' => $printersCategory->id,
-                    'name' => 'A1 Mini Combo',
-                    'brand' => 'Bambulab',
-                    'short_description' => 'Compact desktop FDM printer.',
-                    'description' => 'Compact 3D printer suitable for home and enthusiast use.',
-                    'price_gross' => 489.00,
-                    'tax_rate' => 23.00,
-                    'rating_avg' => 4.80,
-                    'rating_count' => 41,
-                    'stock_qty' => 3,
-                    'is_active' => true,
-                ]
-            );
-
-            Product::updateOrCreate(
                 ['slug' => 'flush-cutters'],
                 [
                     'category_id' => $toolsCategory->id,
+                    'product_family_id' => null,
+                    'color_id' => null,
+                    'weight_id' => null,
+                    'diameter_id' => null,
+                    'variant_label' => null,
                     'name' => 'Flush Cutters',
                     'brand' => 'Generic',
                     'short_description' => 'Basic flush cutters for print cleanup.',
