@@ -1,3 +1,7 @@
+@php
+    $cartCount = collect(session('cart', []))->sum('quantity');
+@endphp
+
 <!-- ====================
      HEADER: Logo | Search bar | Nav buttons
     ==================== -->
@@ -13,7 +17,15 @@
             </a>
             <!-- Search -->
             <div class="w-100 w-md-auto order-3 order-md-2 flex-md-grow-1">
-                <input type="search" class="form-control" placeholder="Search bar">
+                <form action="{{ route('search.index') }}" method="GET">
+                    <input
+                        type="search"
+                        name="q"
+                        class="form-control"
+                        placeholder="Search products..."
+                        value="{{ request('q') }}"
+                    >
+                </form>
             </div>
             <!-- Buttons -->
             <div class="d-flex gap-2 flex-shrink-0 order-2 ms-auto">
@@ -26,7 +38,9 @@
                 @endauth
 
                 <a href="{{ route('saved') }}" class="btn btn-custom btn-sm">Saved</a>
-                <a href="{{ route('cart') }}" class="btn btn-custom btn-sm">Cart</a>
+                <a href="{{ route('cart') }}" class="btn btn-custom btn-sm">
+                    Cart{{ $cartCount > 0 ? ' (' . $cartCount . ')' : '' }}
+                </a>
             </div>
         </div>
     </div>
