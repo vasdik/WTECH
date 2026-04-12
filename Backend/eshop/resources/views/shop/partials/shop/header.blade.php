@@ -38,8 +38,8 @@
                 @endauth
 
                 <a href="{{ route('saved') }}" class="btn btn-custom btn-sm">Saved</a>
-                <a href="{{ route('cart') }}" class="btn btn-custom btn-sm">
-                    Cart{{ $cartCount > 0 ? ' (' . $cartCount . ')' : '' }}
+                <a href="{{ route('cart') }}" class="btn btn-custom btn-sm" id="header-cart-button">
+                    Cart<span id="header-cart-count">{{ $cartCount > 0 ? ' (' . $cartCount . ')' : '' }}</span>
                 </a>
             </div>
         </div>
