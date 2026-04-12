@@ -1,1 +1,17 @@
-put away this placeholder file later
+###run server
+php artisan serve
+
+npm run dev
+
+
+####Database stuff
+php artisan migrate
+php artisan migrate:fresh
+php artisan migrate:fresh --seed     
+
+php artisan tinker
+
+
+
+###Solving erros
+composer dump-autoload
