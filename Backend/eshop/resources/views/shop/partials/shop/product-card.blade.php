@@ -4,7 +4,7 @@
     $displayPrice = $variant?->price_gross ?? $product->price_gross;
 @endphp
 
-<a href="#" class="text-decoration-none text-dark">
+<a href="{{ route('products.show', $product) }}" class="text-decoration-none text-dark">
     <div class="card h-100">
         @if ($primaryImage)
             <img
