@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Support\Cart;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -65,27 +66,57 @@ class CartController extends Controller
         ]);
     }
 
-    public function add(Product $product, Request $request): RedirectResponse
+    public function add(Product $product, Request $request): RedirectResponse|JsonResponse
     {
         abort_unless($product->is_active, 404);
 
         Cart::add($product, max(1, (int) $request->input('quantity', 1)));
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'ok' => true,
+                'message' => 'Product added to cart.',
+                'product_id' => $product->id,
+                'quantity' => $this->productCartQuantity($product),
+                ...$this->cartSummary(),
+            ]);
+        }
+
         return back()->with('cart_success', 'Product added to cart.');
     }
 
-    public function increment(Product $product): RedirectResponse
+    public function increment(Product $product, Request $request): RedirectResponse|JsonResponse
     {
         abort_unless($product->is_active, 404);
 
         Cart::add($product, 1);
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'ok' => true,
+                'message' => 'Product quantity increased.',
+                'product_id' => $product->id,
+                'quantity' => $this->productCartQuantity($product),
+                ...$this->cartSummary(),
+            ]);
+        }
+
         return back()->with('cart_success', 'Product quantity increased.');
     }
 
-    public function decrement(Product $product): RedirectResponse
+    public function decrement(Product $product, Request $request): RedirectResponse|JsonResponse
     {
         Cart::decrement($product, 1);
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'ok' => true,
+                'message' => 'Product quantity decreased.',
+                'product_id' => $product->id,
+                'quantity' => $this->productCartQuantity($product),
+                ...$this->cartSummary(),
+            ]);
+        }
 
         return back()->with('cart_success', 'Product quantity decreased.');
     }
@@ -101,10 +132,38 @@ class CartController extends Controller
         return back()->with('cart_success', 'Cart updated.');
     }
 
-    public function remove(Product $product): RedirectResponse
+    public function remove(Product $product, Request $request): RedirectResponse|JsonResponse
     {
         Cart::remove($product);
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'ok' => true,
+                'message' => 'Product removed from cart.',
+                'product_id' => $product->id,
+                'quantity' => 0,
+                ...$this->cartSummary(),
+            ]);
+        }
+
         return back()->with('cart_success', 'Product removed from cart.');
+    }
+
+    private function cartSummary(): array
+    {
+        $cart = Cart::raw();
+        $cartCount = collect($cart)->sum(fn ($row) => (int) ($row['quantity'] ?? 0));
+
+        return [
+            'cart_count' => $cartCount,
+            'cart' => $cart,
+        ];
+    }
+
+    private function productCartQuantity(Product $product): int
+    {
+        $cart = Cart::raw();
+
+        return (int) ($cart[$product->id]['quantity'] ?? 0);
     }
 }
