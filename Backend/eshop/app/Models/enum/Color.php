@@ -23,8 +23,8 @@ class Color extends Model
         'sort_order',
     ];
 
-    public function variants(): HasMany
+    public function products(): HasMany
     {
-        return $this->hasMany(ProductVariant::class);
+        return $this->hasMany(Product::class);
     }
 }

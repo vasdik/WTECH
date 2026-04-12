@@ -2,6 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\ProductVariant;
+use App\Models\FilamentDetail;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\ProductImage;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -38,5 +44,10 @@ class Category extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function productFamilies(): HasMany
+    {
+        return $this->hasMany(ProductFamily::class);
     }
 }

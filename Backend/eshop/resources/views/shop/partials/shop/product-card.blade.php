@@ -1,7 +1,5 @@
 @php
     $primaryImage = $product->images->firstWhere('is_primary', true) ?? $product->images->first();
-    $variant = $product->defaultVariant ?? $product->variants->first();
-    $displayPrice = $variant?->price_gross ?? $product->price_gross;
 @endphp
 
 <a href="{{ route('products.show', $product) }}" class="text-decoration-none text-dark">
@@ -26,11 +24,9 @@
 
             <p class="mb-0 fw-bold small">{{ $product->brand }}</p>
             <p class="text-muted small mb-2">{{ $product->name }}</p>
-            <p class="fw-bold mb-2">{{ number_format((float) $displayPrice, 2) }} €</p>
+            <p class="fw-bold mb-2">{{ number_format((float) $product->price_gross, 2) }} €</p>
 
-            <button class="btn btn-custom btn-sm w-100" type="button">
-                Add to Cart
-            </button>
+            <button class="btn btn-custom btn-sm w-100" type="button">Add to Cart</button>
         </div>
     </div>
 </a>

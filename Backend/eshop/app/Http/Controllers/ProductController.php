@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
@@ -13,68 +14,41 @@ class ProductController extends Controller
 
         $product->load([
             'category.parent',
+            'family.products.images',
+            'family.products.color',
+            'family.products.weight',
+            'family.products.diameter',
             'images',
-            'variants.color',
-            'variants.weight',
-            'variants.diameter',
-            'variants.images',
-            'defaultVariant.color',
-            'defaultVariant.weight',
-            'defaultVariant.diameter',
+            'color',
+            'weight',
+            'diameter',
             'filamentDetail.filamentType',
         ]);
 
-        $variantSlug = $request->string('variant')->toString();
+        $familyProducts = $product->family
+            ? $product->family->products->where('is_active', true)->values()
+            : collect([$product]);
 
-        $selectedVariant = null;
-
-        if ($variantSlug !== '') {
-            $selectedVariant = $product->variants->firstWhere('slug', $variantSlug);
-        }
-
-        $selectedVariant ??= $product->defaultVariant;
-        $selectedVariant ??= $product->variants->first();
-
-        $galleryImages = collect();
-
-        if ($selectedVariant) {
-            $galleryImages = $product->images
-                ->where('product_variant_id', $selectedVariant->id)
-                ->values();
-        }
-
-        if ($galleryImages->isEmpty()) {
-            $galleryImages = $product->images
-                ->whereNull('product_variant_id')
-                ->values();
-        }
-
-        if ($galleryImages->isEmpty()) {
-            $galleryImages = $product->images->values();
-        }
-
+        $galleryImages = $product->images->values();
         $primaryImage = $galleryImages->firstWhere('is_primary', true) ?? $galleryImages->first();
 
-        $colorOptions = $product->variants
-            ->filter(fn ($variant) => $variant->color)
+        $colorProducts = $familyProducts
+            ->filter(fn ($item) => $item->color)
             ->groupBy('color_id')
-            ->map(fn ($variants) => $variants->first())
+            ->map(fn (Collection $group) => $group->first())
             ->values();
 
-        $variantOptions = $product->variants->values();
+        $variantProducts = $familyProducts
+            ->filter(fn ($item) => filled($item->variant_label))
+            ->values();
 
-        $displayPrice = (float) ($selectedVariant?->price_gross ?? $product->price_gross);
-        $stockQty = (int) ($selectedVariant?->stock_qty ?? $product->stock_qty);
+        $displayPrice = (float) $product->price_gross;
         $taxRate = (float) $product->tax_rate;
         $priceNet = round($displayPrice / (1 + ($taxRate / 100)), 2);
+        $stockQty = (int) $product->stock_qty;
 
         $relatedProducts = Product::query()
-            ->with([
-                'images',
-                'defaultVariant.color',
-                'defaultVariant.weight',
-                'defaultVariant.diameter',
-            ])
+            ->with(['images', 'color', 'weight', 'diameter'])
             ->where('is_active', true)
             ->where('category_id', $product->category_id)
             ->whereKeyNot($product->id)
@@ -84,12 +58,7 @@ class ProductController extends Controller
 
         if ($relatedProducts->count() < 4) {
             $fallbackProducts = Product::query()
-                ->with([
-                    'images',
-                    'defaultVariant.color',
-                    'defaultVariant.weight',
-                    'defaultVariant.diameter',
-                ])
+                ->with(['images', 'color', 'weight', 'diameter'])
                 ->where('is_active', true)
                 ->whereKeyNot($relatedProducts->pluck('id')->push($product->id))
                 ->latest('rating_avg')
@@ -101,11 +70,10 @@ class ProductController extends Controller
 
         return view('shop.partials.shop.product-show', [
             'product' => $product,
-            'selectedVariant' => $selectedVariant,
             'galleryImages' => $galleryImages,
             'primaryImage' => $primaryImage,
-            'colorOptions' => $colorOptions,
-            'variantOptions' => $variantOptions,
+            'colorProducts' => $colorProducts,
+            'variantProducts' => $variantProducts,
             'displayPrice' => $displayPrice,
             'priceNet' => $priceNet,
             'stockQty' => $stockQty,

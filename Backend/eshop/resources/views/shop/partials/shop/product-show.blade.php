@@ -99,28 +99,28 @@
                         Price without taxes: {{ number_format($priceNet, 2) }} € tax {{ number_format((float) $product->tax_rate, 0) }}%
                     </p>
 
-                    @if ($colorOptions->isNotEmpty())
+                    @if ($colorProducts->isNotEmpty())
                         <p class="small mb-2">Colors:</p>
                         <div class="d-flex gap-2 flex-wrap mb-3">
-                            @foreach ($colorOptions as $variant)
+                            @foreach ($colorProducts as $colorProduct)
                                 @php
-                                    $colorImage = $variant->images->first() ?? $product->images->firstWhere('product_variant_id', $variant->id);
+                                    $colorImage = $colorProduct->images->firstWhere('is_primary', true) ?? $colorProduct->images->first();
                                 @endphp
 
                                 <a
-                                    href="{{ route('products.show', ['product' => $product->slug, 'variant' => $variant->slug]) }}"
-                                    class="text-decoration-none {{ $selectedVariant && $selectedVariant->id === $variant->id ? 'border border-2 border-dark rounded p-1' : 'p-1' }}"
-                                    title="{{ $variant->color?->name }}"
+                                    href="{{ route('products.show', $colorProduct) }}"
+                                    class="text-decoration-none {{ $product->id === $colorProduct->id ? 'border border-2 border-dark rounded p-1' : 'p-1' }}"
+                                    title="{{ $colorProduct->color?->name }}"
                                 >
                                     @if ($colorImage)
                                         <img
                                             src="{{ asset($colorImage->path) }}"
-                                            alt="{{ $variant->color?->name }}"
+                                            alt="{{ $colorProduct->color?->name }}"
                                             style="height: 60px; width: 60px; object-fit: scale-down;"
                                         >
                                     @else
                                         <div class="img-placeholder" style="width: 60px; height: 60px;">
-                                            {{ $variant->color?->name }}
+                                            {{ $colorProduct->color?->name }}
                                         </div>
                                     @endif
                                 </a>
@@ -128,21 +128,15 @@
                         </div>
                     @endif
 
-                    @if ($variantOptions->isNotEmpty())
+                    @if ($variantProducts->isNotEmpty())
                         <p class="small mb-2">Variants:</p>
                         <div class="d-flex gap-2 flex-wrap mb-3">
-                            @foreach ($variantOptions as $variant)
-                                @php
-                                    $weightLabel = $variant->weight?->label;
-                                    $diameterLabel = $variant->diameter?->label;
-                                    $variantLabel = collect([$weightLabel, $diameterLabel])->filter()->implode(' / ');
-                                @endphp
-
+                            @foreach ($variantProducts as $variantProduct)
                                 <a
-                                    href="{{ route('products.show', ['product' => $product->slug, 'variant' => $variant->slug]) }}"
-                                    class="btn {{ $selectedVariant && $selectedVariant->id === $variant->id ? 'btn-custom' : 'btn-outline-custom' }} btn-sm"
+                                    href="{{ route('products.show', $variantProduct) }}"
+                                    class="btn {{ $product->id === $variantProduct->id ? 'btn-custom' : 'btn-outline-custom' }} btn-sm"
                                 >
-                                    {{ $variantLabel !== '' ? $variantLabel : 'Default' }}
+                                    {{ $variantProduct->variant_label }}
                                 </a>
                             @endforeach
                         </div>
@@ -180,7 +174,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="text-muted small" style="width:40%;">Weight:</td>
-                                        <td class="small">{{ $selectedVariant?->weight?->label ?? '-' }}</td>
+                                        <td class="small">{{ $product->weight?->label ?? '-' }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted small">Manufacturer (brand):</td>
@@ -188,11 +182,11 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted small">Color:</td>
-                                        <td class="small">{{ $selectedVariant?->color?->name ?? '-' }}</td>
+                                        <td class="small">{{ $product->color?->name ?? '-' }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted small">Diameter:</td>
-                                        <td class="small">{{ $selectedVariant?->diameter?->label ?? '-' }}</td>
+                                        <td class="small">{{ $product->diameter?->label ?? '-' }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -238,7 +232,9 @@
         <div class="container px-3 py-4">
             <h5 class="fw-bold mb-4">Description</h5>
 
-            @if ($product->description)
+            @if ($product->family?->shared_description)
+                <p class="small text-muted mb-4">{{ $product->family->shared_description }}</p>
+            @elseif ($product->description)
                 <p class="small text-muted mb-4">{{ $product->description }}</p>
             @endif
 

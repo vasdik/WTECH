@@ -37,11 +37,12 @@ class CategoryController extends Controller
         $productsQuery = Product::query()
             ->with([
                 'images',
-                'defaultVariant.color',
-                'defaultVariant.weight',
-                'defaultVariant.diameter',
+                'color',
+                'weight',
+                'diameter',
                 'filamentDetail.filamentType',
                 'category',
+                'family',
             ])
             ->where('is_active', true)
             ->whereIn('category_id', $categoryIds);
@@ -51,14 +52,12 @@ class CategoryController extends Controller
                 $query->where('brand', $request->string('brand')->toString());
             })
             ->when($request->filled('color'), function (Builder $query) use ($request) {
-                $query->whereHas('variants.color', function (Builder $subQuery) use ($request) {
+                $query->whereHas('color', function (Builder $subQuery) use ($request) {
                     $subQuery->where('slug', $request->string('color')->toString());
                 });
             })
             ->when($request->filled('diameter'), function (Builder $query) use ($request) {
-                $query->whereHas('variants.diameter', function (Builder $subQuery) use ($request) {
-                    $subQuery->where('id', (int) $request->input('diameter'));
-                });
+                $query->where('diameter_id', (int) $request->input('diameter'));
             })
             ->when($request->filled('price_min'), function (Builder $query) use ($request) {
                 $query->where('price_gross', '>=', (float) $request->input('price_min'));
@@ -88,21 +87,21 @@ class CategoryController extends Controller
             ->pluck('brand');
 
         $colors = Color::query()
-            ->whereHas('variants.product', function (Builder $query) use ($categoryIds) {
+            ->whereHas('products', function (Builder $query) use ($categoryIds) {
                 $query->where('is_active', true)->whereIn('category_id', $categoryIds);
             })
             ->orderBy('sort_order')
             ->get();
 
         $diameters = Diameter::query()
-            ->whereHas('variants.product', function (Builder $query) use ($categoryIds) {
+            ->whereHas('products', function (Builder $query) use ($categoryIds) {
                 $query->where('is_active', true)->whereIn('category_id', $categoryIds);
             })
             ->orderBy('sort_order')
             ->get();
 
         $carouselProducts = Product::query()
-            ->with(['images', 'defaultVariant.color', 'defaultVariant.weight', 'defaultVariant.diameter'])
+            ->with(['images', 'color', 'weight', 'diameter'])
             ->where('is_active', true)
             ->whereIn('category_id', $categoryIds)
             ->whereKeyNot($products->pluck('id'))
@@ -112,7 +111,7 @@ class CategoryController extends Controller
 
         if ($carouselProducts->count() < 4) {
             $fallbackProducts = Product::query()
-                ->with(['images', 'defaultVariant.color', 'defaultVariant.weight', 'defaultVariant.diameter'])
+                ->with(['images', 'color', 'weight', 'diameter'])
                 ->where('is_active', true)
                 ->whereKeyNot($carouselProducts->pluck('id'))
                 ->latest('rating_avg')
