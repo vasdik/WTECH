@@ -2,8 +2,8 @@
     $primaryImage = $product->images->firstWhere('is_primary', true) ?? $product->images->first();
 @endphp
 
-<a href="{{ route('products.show', $product) }}" class="text-decoration-none text-dark">
-    <div class="card h-100">
+<div class="card h-100 d-flex flex-column">
+    <a href="{{ route('products.show', $product) }}" class="text-decoration-none text-dark">
         @if ($primaryImage)
             <img
                 src="{{ asset($primaryImage->path) }}"
@@ -24,9 +24,15 @@
 
             <p class="mb-0 fw-bold small">{{ $product->brand }}</p>
             <p class="text-muted small mb-2">{{ $product->name }}</p>
-            <p class="fw-bold mb-2">{{ number_format((float) $product->price_gross, 2) }} €</p>
-
-            <button class="btn btn-custom btn-sm w-100" type="button">Add to Cart</button>
+            <p class="fw-bold mb-0">{{ number_format((float) $product->price_gross, 2) }} €</p>
         </div>
+    </a>
+
+    <div class="card-body pt-0 mt-auto">
+        @include('shop.partials.cart.cart-controls', [
+            'product' => $product,
+            'buttonClass' => 'btn btn-custom btn-sm',
+            'fullWidth' => true,
+        ])
     </div>
-</a>
+</div>

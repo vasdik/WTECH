@@ -2,12 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\ProductVariant;
-use App\Models\FilamentDetail;
-use App\Models\Product;
-use App\Models\Category;
-use App\Models\ProductImage;
-
 
 use App\Models\enum\Color;
 use App\Models\enum\Diameter;

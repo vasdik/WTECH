@@ -152,11 +152,15 @@
                     <p class="small text-muted mb-3">Estimated delivery time 3–5 days</p>
 
                     <div class="d-flex gap-2 mb-2 flex-wrap">
-                        <button class="btn btn-custom add-to-cart-btn" type="button" {{ $stockQty < 1 ? 'disabled' : '' }}>
-                            Add to Cart
-                        </button>
-                        <a href="{{ route('saved') }}" class="btn btn-custom">Saved</a>
-                        <a href="{{ route('cart') }}" class="btn btn-custom">Cart</a>
+                        <div class="d-flex gap-2 mb-2 flex-wrap align-items-center">
+                            @include('shop.partials.cart.cart-controls', [
+                                'product' => $product,
+                                'fullWidth' => false,
+                            ])
+
+                            <a href="{{ route('saved') }}" class="btn btn-custom">Saved</a>
+                            <a href="{{ route('cart') }}" class="btn btn-custom">Cart</a>
+                        </div>
                     </div>
 
                     <p class="small text-muted">Slovakia: free shipping on orders over €50.</p>
