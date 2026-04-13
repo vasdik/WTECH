@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
@@ -10,7 +11,8 @@ Route::get('/', function () {
     return view('welcome');
 }); */
 
-Route::view('/', 'shop.home')
+
+Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
 
