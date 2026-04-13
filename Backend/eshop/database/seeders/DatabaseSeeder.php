@@ -21,5 +21,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+            $this->call([
+        CategorySeeder::class,
+        ColorSeeder::class,
+        WeightSeeder::class,
+        DiameterSeeder::class,
+        FilamentTypeSeeder::class,
+        ProductSeeder::class,
+        ]);
     }
 }

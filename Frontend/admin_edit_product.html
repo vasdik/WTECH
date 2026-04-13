@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>S&J - Filaments</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+
+<!-- ====================
+     HEADER: Logo | Search bar | Nav buttons
+    ==================== -->
+<header class="border-bottom py-2 sticky-header">
+    <div class="container-fluid px-3">
+        <div class="d-flex justify-content-end mb-1">
+            <a href="#" class="text-secondary small text-decoration-none">Support</a>
+        </div>
+        <div class="d-flex flex-wrap flex-md-nowrap align-items-center gap-3">
+            <!-- Logo -->
+            <a href="index.html" class="flex-shrink-0 order-1">
+                <img src="Icons/logo-cropped.svg" alt="Logo" style="height: 60px; width: auto;">
+            </a>
+            <!-- Search -->
+            <div class="w-100 w-md-auto order-3 order-md-2 flex-md-grow-1">
+                <input type="search" class="form-control" placeholder="Search bar">
+            </div>
+            <!-- Buttons -->
+            <div class="d-flex gap-2 flex-shrink-0 order-2 ms-auto">
+                <a href="login.html" id="header-login-btn" class="btn btn-custom btn-sm">Log in</a>
+                <a href="saved.html" class="btn btn-custom btn-sm">Saved</a>
+                <a href="cart.html" class="btn btn-custom btn-sm">Cart</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- ====================
+     CATEGORY NAVIGATION
+     Row of category images with labels
+    ==================== -->
+<nav class="border-bottom py-3 nav-custom">
+    <div class="container px-3">
+        <div class="row row-cols-7 g-2 text-center">
+
+            <div class="col">
+                <a href="sale.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_sales.png" alt="Sale" class="nav-icon mb-1">
+                    <small>Sale</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="brands.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_brands.png" alt="Brands" class="nav-icon mb-1">
+                    <small>Brands</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="printers.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_printers.png" alt="Printers" class="nav-icon mb-1">
+                    <small>Printers</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="filaments.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_filaments.png" alt="Filaments" class="nav-icon mb-1">
+                    <small>Filaments</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="resins.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_resins.png" alt="Resins" class="nav-icon mb-1">
+                    <small>Resins</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="accessories.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_acc.png" alt="Accessories" class="nav-icon mb-1">
+                    <small>Accessories</small>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="tools.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_tools.png" alt="Tools" class="nav-icon mb-1">
+                    <small>Tools</small>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+
+<!-- ====================
+     BREADCRUMB
+    ==================== -->
+<div class="container px-3 py-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="index.html">Main page</a></li>
+            <li class="breadcrumb-item"><a href="admin-panel.html">Admin Profile</a></li>
+            <li class="breadcrumb-item active">Edit Product</li>
+        </ol>
+    </nav>
+</div>
+
+
+<!-- ====================
+     MAIN CONTENT
+     Left sidebar (categories) + Right (filters + product grid)
+    ==================== -->
+<main class="flex-grow-1">          <!-- with "flex-grow-1" main expands to fill space ("flex-grow-1" can grow, "flex-grow-0" doesnt grow)-->
+<div class="container px-3 py-3">
+    <div class="row g-4">
+
+
+        <!-- ====================
+             LEFT SIDEBAR — Categories
+             now browsing: PLA (marked as active/bold)
+             maybe will add links to subcategory pages (firstly pla should work)
+            ==================== -->
+        <aside class="col-md-2">
+            <div class="sticky-sidebar">
+
+                <p class="fw-bold mb-2">Categories</p>
+
+                <ul class="list-unstyled small">
+
+                    <!-- Filaments (top level) -->
+                    <li class="mb-1">
+
+                        <!-- Filaments toggle -->
+                        <button class="btn btn-sm text-start w-100 p-0 fw-bold"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#filaments-collapse">Filaments ▼</button>
+
+                        <!-- Everything inside Filaments -->
+                        <div class="collapse ms-2 mt-1" id="filaments-collapse">
+
+                            <!-- PLA -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#pla-collapse">PLA (855)</button>
+
+                                <ul class="collapse list-unstyled ms-2 mt-1" id="pla-collapse">
+                                    <li><a href="#" class="text-secondary text-decoration-none">Silk</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Matte</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">High Speed</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">High Temperature</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Metal</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Wood</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Marble</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- PETG -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#petg-collapse">PETG (200)</button>
+
+                                <ul class="collapse list-unstyled ms-2 mt-1" id="petg-collapse">
+                                    <li><a href="#" class="text-secondary text-decoration-none">Translucent</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">High Speed</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">High Temperature</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- ASA -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#asa-collapse">ASA (34)</button>
+
+                                <ul class="collapse list-unstyled ms-2 mt-1" id="asa-collapse">
+                                    <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- ABS -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#abs-collapse">ABS (21)</button>
+
+                                <ul class="collapse list-unstyled ms-2 mt-1" id="abs-collapse">
+                                    <li><a href="#" class="text-secondary text-decoration-none">Glass Fiber</a></li>
+                                    <li><a href="#" class="text-secondary text-decoration-none">Carbon Fiber</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- NYLON -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#nylon-collapse">NYLON (8)</button>
+                            </div>
+
+                            <!-- TPU -->
+                            <div class="mb-1">
+                                <button class="btn btn-sm text-start w-100 p-0"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#tpu-collapse">TPU (15)</button>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+
+        <!-- ====================
+             RIGHT — Filter bar + product count + grid + pagination
+            ==================== -->
+        <main class="col-md-10">
+
+            <!-- Filter and sort bar -->
+            <div class="mb-3">
+                <p class="fw-bold mb-2">Filter and sort</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <select class="form-select form-select-sm" style="width: auto;">
+                        <option>Best match</option>
+                        <option>A to Z</option>
+                        <option>Z to A</option>
+                        <option>Price: low to high</option>
+                        <option>Price: high to low</option>
+                    </select>
+                    <select class="form-select form-select-sm" style="width: auto;">
+                        <option>Price</option>
+                        <option>Under 10 €</option>
+                        <option>10 € - 20 €</option>
+                        <option>20 € - 30 €</option>
+                        <option>Over 30 €</option>
+                    </select>
+                    <select class="form-select form-select-sm" style="width: auto;">
+                        <option>Product brand</option>
+                        <option>Bambulab</option>
+                        <option>eSUN</option>
+                        <option>Elegoo</option>
+                        <option>Polymaker</option>
+                        <option>Prusament</option>
+                    </select>
+                    <select class="form-select form-select-sm" style="width: auto;">
+                        <option>Diameter</option>
+                        <option>1,75 mm</option>
+                        <option>2,85 mm</option>
+                    </select>
+                    <select class="form-select form-select-sm" style="width: auto;">
+                        <option>Type</option>
+                        <option>Silk</option>
+                        <option>Matte</option>
+                        <option>High Speed</option>
+                        <option>Carbon Fiber</option>
+                        <option>Glass Fiber</option>
+                        <option>Metal</option>
+                        <option>Wood</option>
+                        <option>Marble</option>
+                    </select>
+                    <select class="form-select form-select-sm" style="width: auto;">
+                        <option>Color</option>
+                        <option>Black</option>
+                        <option>White</option>
+                        <option>Red</option>
+                        <option>Blue</option>
+                        <option>Green</option>
+                        <option>Yellow</option>
+                        <option>Grey</option>
+                    </select>
+                    <select class="form-select form-select-sm" style="width: auto;">
+                        <option>Weight</option>
+                        <option>250 g</option>
+                        <option>500 g</option>
+                        <option>1000 g</option>
+                        <option>5000 g</option>
+                    </select>
+                    <!-- Button for applying the set filters -->
+                    <button class="btn btn-custom btn-sm">Apply</button>
+                </div>
+            </div>
+
+            <!-- Product count -->
+            <h2 class="fw-bold mb-3">Admin Panel</h2>
+            <p class="small text-muted mb-3">PLA: 1-10 out of 42 products</p>
+
+            <!-- ====================
+                 PRODUCT GRID
+                 products listed on page/-s
+                ==================== -->
+            <div class="row row-cols-2 row-cols-md-3 g-3 mb-4">
+
+                <!-- Row 1 -->
+                <div class="col">
+                    <a href="admin_edit.html" class="text-decoration-none text-dark">
+                    <div class="card h-100">
+                        <div class="img-placeholder" style="height: 180px;">Product image</div>
+                        <div class="card-body p-2">
+                            <p class="mb-0 fw-bold small">Polymaker</p>
+                            <p class="text-muted small mb-2">PolyTerra PLA Charcoal Black, 1,75 mm / 1000 g</p>
+                            <p class="fw-bold mb-2">15,99 €</p>
+                            <button class="btn btn-custom btn-sm w-100">Edit</button>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="img-placeholder" style="height: 180px;">Product image</div>
+                        <div class="card-body p-2">
+                            
+                            <p class="mb-0 fw-bold small">Elegoo</p>
+                            <p class="text-muted small mb-2">PLA / Magic Red&Blue, 1,75 mm / 1000 g</p>
+                            <p class="fw-bold mb-2">38,99 €</p>
+                            <button class="btn btn-custom btn-sm w-100">Edit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="img-placeholder" style="height: 180px;">Product image</div>
+                        <div class="card-body p-2">
+                            
+                            <p class="mb-0 fw-bold small">eSUN</p>
+                            <p class="text-muted small mb-2">PLA Black, 1,75 mm / 1000 g</p>
+                            <p class="fw-bold mb-2">15,99 €</p>
+                            <button class="btn btn-custom btn-sm w-100">Edit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rows 2–10: placeholder cards (will replace later. will copy the part from above...) -->
+
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Bambulab</p><p class="text-muted small mb-2">PLA Matte / Jade White, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">27,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Polymaker</p><p class="text-muted small mb-2">PolyLite PLA / True Red, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">19,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Prusament</p><p class="text-muted small mb-2">PLA Galaxy Black, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">24,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Bambulab</p><p class="text-muted small mb-2">PLA Silk / Gold, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">27,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">eSUN</p><p class="text-muted small mb-2">PLA+ White, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">17,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Elegoo</p><p class="text-muted small mb-2">PLA+ / Marble White, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">22,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"> <p class="mb-0 fw-bold small">Prusament</p><p class="text-muted small mb-2">PLA Vanilla White, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">24,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Polymaker</p><p class="text-muted small mb-2">PolyLite PLA / True Blue, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">19,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"> <p class="mb-0 fw-bold small">Bambulab</p><p class="text-muted small mb-2">PLA High Speed / Black, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">32,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"> <p class="mb-0 fw-bold small">eSUN</p><p class="text-muted small mb-2">PLA+ Grey, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">15,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Prusament</p><p class="text-muted small mb-2">PLA Prusa Orange, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">24,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"> <p class="mb-0 fw-bold small">Elegoo</p><p class="text-muted small mb-2">PLA / Ocean Blue, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">18,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Bambulab</p><p class="text-muted small mb-2">PLA Matte / Lemon Yellow, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">27,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Polymaker</p><p class="text-muted small mb-2">PolyLite PLA / Dark Green, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">19,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">eSUN</p><p class="text-muted small mb-2">PLA+ Blue, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">15,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"> <p class="mb-0 fw-bold small">Bambulab</p><p class="text-muted small mb-2">PLA Silk / Rainbow, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">29,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Prusament</p><p class="text-muted small mb-2">PLA Azure Blue, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">24,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Elegoo</p><p class="text-muted small mb-2">PLA / Forest Green, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">18,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"> <p class="mb-0 fw-bold small">Bambulab</p><p class="text-muted small mb-2">PLA High Speed / White, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">32,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"> <p class="mb-0 fw-bold small">Polymaker</p><p class="text-muted small mb-2">PolyLite PLA / Silver, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">19,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"> <p class="mb-0 fw-bold small">eSUN</p><p class="text-muted small mb-2">PLA+ Red, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">15,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Prusament</p><p class="text-muted small mb-2">PLA Lipstick Red, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">24,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Elegoo</p><p class="text-muted small mb-2">PLA / Skin, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">18,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Bambulab</p><p class="text-muted small mb-2">PLA Matte / Charcoal, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">27,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">Polymaker</p><p class="text-muted small mb-2">PolyLite PLA / Orange, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">19,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"><p class="mb-0 fw-bold small">eSUN</p><p class="text-muted small mb-2">PLA+ Green, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">15,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+                <div class="col"><div class="card h-100"><div class="img-placeholder" style="height: 180px;">Product image</div><div class="card-body p-2"> <p class="mb-0 fw-bold small">Prusament</p><p class="text-muted small mb-2">PLA Mystic Green, 1,75 mm / 1000 g</p><p class="fw-bold mb-2">24,99 €</p><button class="btn btn-custom btn-sm w-100"> Edit</button></div></div></div>
+
+            </div>
+            <!-- END PRODUCT GRID -->
+
+
+            <!-- ====================
+                 PAGINATION
+                 Shows: product count + page numbers
+                ==================== -->
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <p class="small text-muted mb-0">PLA: 1–10 out of 42 products</p>
+                <nav>
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </main>
+        <!-- END RIGHT COLUMN -->
+
+
+    </div>
+</div>
+<!-- END MAIN CONTENT -->
+
+
+
+
+<!-- ====================
+     FOOTER
+    ==================== -->
+<footer class="border-top pt-4 pb-2 bg-light">
+    <div class="container-fluid px-3">
+
+        <div class="row g-4">
+
+            <!-- All about shopping -->
+            <div class="col-md-3">
+                <h6 class="fw-bold">All about shopping</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="#" class="text-secondary text-decoration-none">Complaints Procedure</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Delivery and payment conditions</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Terms and Conditions</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Terms of personal data protection</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Do we ship to your country?</a></li>
+                </ul>
+            </div>
+
+            <!-- Company -->
+            <div class="col-md-2">
+                <h6 class="fw-bold">Company</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="#" class="text-secondary text-decoration-none">About us</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Privacy Settings</a></li>
+                </ul>
+            </div>
+
+            <!-- My account -->
+            <div class="col-md-3">
+                <h6 class="fw-bold">My account</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="login.html" class="text-secondary text-decoration-none">Login</a></li>
+                    <li><a href="register.html" class="text-secondary text-decoration-none">Register</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Forgot password?</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Where is my shipment?</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Redeem voucher</a></li>
+                </ul>
+            </div>
+
+            <!-- Social media + Contact info -->
+            <div class="col-md-4 d-flex flex-column gap-3">
+                <div class="bg-secondary text-white text-center py-3 rounded">Social media links</div>
+                <div class="bg-secondary text-white text-center py-3 rounded">Contact info</div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center text-muted small mt-4 pt-2 border-top">©2025 - 2026 S&J</div>
+    </div>
+</footer>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+
+<script>
+    // Tab switching — just toggles active class for now
+    // later can show/hide different product lists per tab
+    function showTab(name) {
+        document.querySelectorAll('[id^="tab-"]').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('tab-' + name).classList.add('active');
+        // TODO: swap product-list content based on tab
+    }
+
+    // Horizontal product scroll
+    function scrollProducts(direction) {
+        const list = document.getElementById('product-list');
+        list.scrollBy({ left: direction * 220, behavior: 'smooth' });
+    }
+</script>
+
+<script src="auth.js"></script>
+</body>
+</html>

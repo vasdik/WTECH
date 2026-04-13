@@ -8,41 +8,33 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 
 <!-- ====================
      HEADER
      Logo | Search bar | Nav buttons
     ==================== -->
-<header class="border-bottom py-2">
+<header class="border-bottom py-2 sticky-header">
     <div class="container-fluid px-3">
-
-        <!-- Top row: Support link -->
         <div class="d-flex justify-content-end mb-1">
             <a href="#" class="text-secondary small text-decoration-none">Support</a>
         </div>
-
-        <!-- Main header row: Logo | Search | Buttons -->
-        <div class="d-flex align-items-center gap-3">
-
+        <div class="d-flex flex-wrap flex-md-nowrap align-items-center gap-3">
             <!-- Logo -->
-            <a href="index.html" class="flex-shrink-0">
-                <div class="img-placeholder" style="width: 120px; height: 60px;">Logo</div>
+            <a href="index.html" class="flex-shrink-0 order-1">
+                <img src="Icons/logo-cropped.svg" alt="Logo" style="height: 60px; width: auto;">
             </a>
-
-            <!-- Search bar -->
-            <div class="flex-grow-1">
+            <!-- Search -->
+            <div class="w-100 w-md-auto order-3 order-md-2 flex-md-grow-1">
                 <input type="search" class="form-control" placeholder="Search bar">
             </div>
-
-            <!-- Action buttons -->
-            <div class="d-flex gap-2 flex-shrink-0">
-                <a href="login.html" id="header-login-btn" class="btn btn-outline-secondary btn-sm">Log in</a>
-                <a href="saved.html" class="btn btn-outline-secondary btn-sm">Saved</a>
-                <a href="cart.html" class="btn btn-outline-secondary btn-sm">Cart</a>
+            <!-- Buttons -->
+            <div class="d-flex gap-2 flex-shrink-0 order-2 ms-auto">
+                <a href="login.html" id="header-login-btn" class="btn btn-custom btn-sm">Log in</a>
+                <a href="saved.html" class="btn btn-custom btn-sm">Saved</a>
+                <a href="cart.html" class="btn btn-custom btn-sm">Cart</a>
             </div>
-
         </div>
     </div>
 </header>
@@ -52,55 +44,55 @@
      CATEGORY NAVIGATION
      Row of category images with labels
     ==================== -->
-<nav class="border-bottom py-3 bg-light">
-    <div class="container-fluid px-3">
+<nav class="border-bottom py-3 nav-custom">
+    <div class="container px-3">
         <div class="row row-cols-7 g-2 text-center">
 
             <div class="col">
-                <a href="sale.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Sale</div>
+                <a href="sale.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_sales.png" alt="Sale" class="nav-icon mb-1">
                     <small>Sale</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="brands.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Brands</div>
+                <a href="brands.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_brands.png" alt="Brands" class="nav-icon mb-1">
                     <small>Brands</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="printers.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Printers</div>
+                <a href="printers.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_printers.png" alt="Printers" class="nav-icon mb-1">
                     <small>Printers</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="filaments.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Filaments</div>
+                <a href="filaments.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_filaments.png" alt="Filaments" class="nav-icon mb-1">
                     <small>Filaments</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="resins.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Resins</div>
+                <a href="resins.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_resins.png" alt="Resins" class="nav-icon mb-1">
                     <small>Resins</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="accessories.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Accessories</div>
+                <a href="accessories.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_acc.png" alt="Accessories" class="nav-icon mb-1">
                     <small>Accessories</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="tools.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Tools</div>
+                <a href="tools.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_tools.png" alt="Tools" class="nav-icon mb-1">
                     <small>Tools</small>
                 </a>
             </div>
@@ -113,7 +105,7 @@
 <!-- ====================
      BREADCRUMB
     ==================== -->
-<div class="container-fluid px-3 py-2">
+<div class="container px-3 py-2">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="index.html">Main page</a></li>
@@ -125,7 +117,7 @@
 <!-- ====================
      LOGIN FORM
     ==================== -->
-<main class="d-flex justify-content-center align-items-start py-5">
+<main class="flex-grow-1 d-flex justify-content-center align-items-start py-5">     <!-- added "flex-grow-1" - correct footer placement if less content-->
     <div class="card p-4" style="width: 100%; max-width: 420px;">
 
         <h5 class="text-center mb-4">Log in to your Shop Account</h5>
@@ -155,14 +147,14 @@
 
         <!-- Continue with Google -->
         <div class="d-flex justify-content-center mb-2">
-            <button type="button" class="btn btn-outline-secondary px-4" style="width: 220px;">
+            <button type="button" class="btn btn-custom px-4" style="width: 220px;">
                 Continue with Google
             </button>
         </div>
 
         <!-- Continue with Facebook -->
         <div class="d-flex justify-content-center mb-3">
-            <button type="button" class="btn btn-outline-secondary px-4" style="width: 220px;">
+            <button type="button" class="btn btn-custom px-4" style="width: 220px;">
                 Continue with Facebook
             </button>
         </div>
@@ -181,7 +173,6 @@
     ==================== -->
 <footer class="border-top pt-4 pb-2 bg-light">
     <div class="container-fluid px-3">
-        <p class="text-center text-muted small mb-3">(Footer)</p>
 
         <div class="row g-4">
 
@@ -212,8 +203,8 @@
             <div class="col-md-3">
                 <h6 class="fw-bold">My account</h6>
                 <ul class="list-unstyled small">
-                    <li><a href="#" class="text-secondary text-decoration-none">Login</a></li>
-                    <li><a href="#" class="text-secondary text-decoration-none">Register</a></li>
+                    <li><a href="login.html" class="text-secondary text-decoration-none">Login</a></li>
+                    <li><a href="register.html" class="text-secondary text-decoration-none">Register</a></li>
                     <li><a href="#" class="text-secondary text-decoration-none">Forgot password?</a></li>
                     <li><a href="#" class="text-secondary text-decoration-none">Where is my shipment?</a></li>
                     <li><a href="#" class="text-secondary text-decoration-none">Redeem voucher</a></li>
@@ -222,21 +213,13 @@
 
             <!-- Social media + Contact info -->
             <div class="col-md-4 d-flex flex-column gap-3">
-                <div class="bg-secondary text-white text-center py-3 rounded">
-                    Social media links
-                </div>
-                <div class="bg-secondary text-white text-center py-3 rounded">
-                    Contact info
-                </div>
+                <div class="bg-secondary text-white text-center py-3 rounded">Social media links</div>
+                <div class="bg-secondary text-white text-center py-3 rounded">Contact info</div>
             </div>
-
         </div>
 
         <!-- Copyright -->
-        <div class="text-center text-muted small mt-4 pt-2 border-top">
-            ©2025 - 2026 S&J
-        </div>
-
+        <div class="text-center text-muted small mt-4 pt-2 border-top">©2025 - 2026 S&J</div>
     </div>
 </footer>
 

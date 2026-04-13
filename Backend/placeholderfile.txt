@@ -1,1 +1,32 @@
-put away this placeholder file later
+###run server
+php artisan serve
+
+npm run dev
+
+
+####Database stuff
+php artisan migrate
+php artisan migrate:fresh
+php artisan migrate:fresh --seed     
+
+php artisan tinker
+
+
+
+composer dump-autoload
+php artisan migrate
+php artisan db:seed --class=ProductSeeder
+php artisan optimize:clear
+
+
+###Solving erros
+composer dump-autoload
+
+php artisan optimize:clear
+
+
+php artisan route:clear
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+php artisan route:list

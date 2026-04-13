@@ -9,40 +9,32 @@
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 
 <!-- ====================
      HEADER: Logo | Search bar | Nav buttons
     ==================== -->
-<header class="border-bottom py-2">
+<header class="border-bottom py-2 sticky-header">
     <div class="container-fluid px-3">
-
-        <!-- Top row: Support link -->
         <div class="d-flex justify-content-end mb-1">
             <a href="#" class="text-secondary small text-decoration-none">Support</a>
         </div>
-
-        <!-- Main header row: Logo | Search | Buttons -->
-        <div class="d-flex align-items-center gap-3">
-
+        <div class="d-flex flex-wrap flex-md-nowrap align-items-center gap-3">
             <!-- Logo -->
-            <a href="index.html" class="flex-shrink-0">
-                <div class="img-placeholder" style="width: 120px; height: 60px;">Logo</div>
+            <a href="index.html" class="flex-shrink-0 order-1">
+                <img src="Icons/logo-cropped.svg" alt="Logo" style="height: 60px; width: auto;">
             </a>
-
-            <!-- Search bar -->
-            <div class="flex-grow-1">
+            <!-- Search -->
+            <div class="w-100 w-md-auto order-3 order-md-2 flex-md-grow-1">
                 <input type="search" class="form-control" placeholder="Search bar">
             </div>
-
-            <!-- Action buttons -->
-            <div class="d-flex gap-2 flex-shrink-0">
-                <a href="login.html" id="header-login-btn" class="btn btn-outline-secondary btn-sm">Log in</a>
-                <a href="saved.html" class="btn btn-outline-secondary btn-sm">Saved</a>
-                <a href="cart.html" class="btn btn-outline-secondary btn-sm">Cart</a>
+            <!-- Buttons -->
+            <div class="d-flex gap-2 flex-shrink-0 order-2 ms-auto">
+                <a href="login.html" id="header-login-btn" class="btn btn-custom btn-sm">Log in</a>
+                <a href="saved.html" class="btn btn-custom btn-sm">Saved</a>
+                <a href="cart.html" class="btn btn-custom btn-sm">Cart</a>
             </div>
-
         </div>
     </div>
 </header>
@@ -52,55 +44,55 @@
      CATEGORY NAVIGATION
      Row of category images with labels
     ==================== -->
-<nav class="border-bottom py-3 bg-light">
-    <div class="container-fluid px-3">
+<nav class="border-bottom py-3 nav-custom">
+    <div class="container px-3">
         <div class="row row-cols-7 g-2 text-center">
 
             <div class="col">
-                <a href="sale.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Sale</div>
+                <a href="sale.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_sales.png" alt="Sale" class="nav-icon mb-1">
                     <small>Sale</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="brands.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Brands</div>
+                <a href="brands.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_brands.png" alt="Brands" class="nav-icon mb-1">
                     <small>Brands</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="printers.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Printers</div>
+                <a href="printers.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_printers.png" alt="Printers" class="nav-icon mb-1">
                     <small>Printers</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="filaments.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Filaments</div>
+                <a href="filaments.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_filaments.png" alt="Filaments" class="nav-icon mb-1">
                     <small>Filaments</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="resins.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Resins</div>
+                <a href="resins.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_resins.png" alt="Resins" class="nav-icon mb-1">
                     <small>Resins</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="accessories.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Accessories</div>
+                <a href="accessories.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_acc.png" alt="Accessories" class="nav-icon mb-1">
                     <small>Accessories</small>
                 </a>
             </div>
 
             <div class="col">
-                <a href="tools.html" class="text-decoration-none text-dark">
-                    <div class="img-placeholder mb-1" style="height: 80px;">Tools</div>
+                <a href="tools.html" class="text-decoration-none d-flex flex-column align-items-center">
+                    <img src="Icons/nav_bar_tools.png" alt="Tools" class="nav-icon mb-1">
                     <small>Tools</small>
                 </a>
             </div>
@@ -113,7 +105,7 @@
 <!-- ====================
      BREADCRUMB
     ==================== -->
-<div class="container-fluid px-3 py-2">
+<div class="container px-3 py-2">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="index.html">Main page</a></li>
@@ -126,38 +118,55 @@
      HERO BANNER / CAROUSEL
      New/Trending Items
     ==================== -->
+<main class="flex-grow-1">
+
 <section class="bg-light py-3">
-    <div class="container-fluid px-3">
+    <div class="container-fluid px-0">
+
         <p class="text-center text-muted small mb-2">New/Trending Items</p>
 
-        <div id="heroBanner" class="carousel slide" data-bs-ride="carousel">
+        <div id="heroBanner" class="carousel slide w-100" data-bs-ride="carousel">
 
             <!-- Slides -->
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="img-placeholder w-100" style="height: 300px;">Banner image 1</div>
+
+                <!-- SLIDE 1 -->
+                <div class="carousel-item active text-center">
+                    <img src="Images/Banners/Filaments_Banner_1024x419.jpg"
+                         class="d-block w-100"
+                         style="height: 450px; object-fit: cover;">
                 </div>
-                <div class="carousel-item">
-                    <div class="img-placeholder w-100" style="height: 300px;">Banner image 2</div>
+
+                <!-- SLIDE 2 -->
+                <div class="carousel-item text-center">
+                    <img src="Images/Banners/banner_printers.png"
+                         class="d-block w-100"
+                         style="height: 450px; object-fit: cover;">
                 </div>
-                <div class="carousel-item">
-                    <div class="img-placeholder w-100" style="height: 300px;">Banner image 3</div>
+
+                <!-- SLIDE 3 -->
+                <div class="carousel-item text-center">
+                    <img src="Images/Banners/banner3.jpg"
+                         class="d-block w-100"
+                         style="height: 450px; object-fit: cover;">
                 </div>
+
             </div>
 
-            <!-- Previous / Next buttons -->
+            <!-- Controls -->
             <button class="carousel-control-prev" type="button" data-bs-target="#heroBanner" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="carousel-control-prev-icon"></span>
             </button>
+
             <button class="carousel-control-next" type="button" data-bs-target="#heroBanner" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class="carousel-control-next-icon"></span>
             </button>
 
         </div>
     </div>
 </section>
+
+</main>
 
 
 <!-- ====================
@@ -166,20 +175,20 @@
      + scrollable product cards
     ==================== -->
 <section class="py-4">
-    <div class="container-fluid px-3">
+    <div class="container px-3">
 
         <!-- Tab buttons -->
         <div class="d-flex justify-content-center gap-2 mb-4">
-            <button class="btn btn-outline-secondary btn-sm active" id="tab-bestsellers" onclick="showTab('bestsellers')">Best sellers</button>
-            <button class="btn btn-outline-secondary btn-sm" id="tab-sales" onclick="showTab('sales')">Sales</button>
-            <button class="btn btn-outline-secondary btn-sm" id="tab-new" onclick="showTab('new')">New products</button>
+            <button class="btn btn-custom btn-sm active" id="tab-bestsellers" onclick="showTab('bestsellers')">Best sellers</button>
+            <button class="btn btn-custom btn-sm" id="tab-sales" onclick="showTab('sales')">Sales</button>
+            <button class="btn btn-custom btn-sm" id="tab-new" onclick="showTab('new')">New products</button>
         </div>
 
         <!-- Product carousel wrapper -->
         <div class="position-relative">
 
             <!-- Previous button -->
-            <button class="btn btn-outline-secondary rounded-circle position-absolute top-50 start-0 translate-middle-y z-1"
+            <button class="btn btn-custom rounded-circle position-absolute top-50 start-0 translate-middle-y z-1"
                     style="width: 45px; height: 45px;"
                     onclick="scrollProducts(-1)">&#8249;</button>
 
@@ -188,7 +197,7 @@
 
                 <!-- Product card — will repeat/generate these dynamically later -->
                 <div class="card flex-shrink-0" style="width: 200px;">
-                    <div class="img-placeholder" style="height: 160px;">Product image</div>
+                    <img src="Images/Polyterra_PLA/polyterra_PLA_Black_1_.512x512.avif" style="height: 200px; object-fit: scale-down;">
                     <div class="card-body p-2">
                         <div class="mb-1">
                             <span class="badge bg-secondary" style="font-size: 0.7rem;">1.7/5</span>
@@ -196,12 +205,12 @@
                         <p class="mb-0 fw-bold small">eSUN</p>
                         <p class="text-muted small mb-2">PLA Black, 1,75 mm / 1000 g</p>
                         <p class="fw-bold mb-2">15,99 €</p>
-                        <button class="btn btn-outline-secondary btn-sm w-100">Add to Cart</button>
+                        <button class="btn btn-custom btn-sm w-100">Add to Cart</button>
                     </div>
                 </div>
 
                 <div class="card flex-shrink-0" style="width: 200px;">
-                    <div class="img-placeholder" style="height: 160px;">Product image</div>
+                    <img src="Images/Elegoo_PLA_Magic/elegoo_Build_Plate_Magic_1_512x512.avif" style="height: 200px; object-fit: scale-down;">
                     <div class="card-body p-2">
                         <div class="mb-1">
                             <span class="badge bg-secondary" style="font-size: 0.7rem;">4/5</span>
@@ -209,12 +218,12 @@
                         <p class="mb-0 fw-bold small">Elegoo</p>
                         <p class="text-muted small mb-2">PET/PEI Build Plate Magic, 184 × 197 mm</p>
                         <p class="fw-bold mb-2">38,99 €</p>
-                        <button class="btn btn-outline-secondary btn-sm w-100">Add to Cart</button>
+                        <button class="btn btn-custom btn-sm w-100">Add to Cart</button>
                     </div>
                 </div>
 
                 <div class="card flex-shrink-0" style="width: 200px;">
-                    <div class="img-placeholder" style="height: 160px;">Product image</div>
+                    <img src="Images/Accessories/ezlok_Heat_Inserts_1.avif" style="height: 200px; object-fit: scale-down;">
                     <div class="card-body p-2">
                         <div class="mb-1">
                             <span class="badge bg-secondary" style="font-size: 0.7rem;">4.3/5</span>
@@ -222,7 +231,7 @@
                         <p class="mb-0 fw-bold small">3DMajkl</p>
                         <p class="text-muted small mb-2">Heat inserts (package 50), M3 × 5,7 mm (25 ks), M4...</p>
                         <p class="fw-bold mb-2">7,99 €</p>
-                        <button class="btn btn-outline-secondary btn-sm w-100">Add to Cart</button>
+                        <button class="btn btn-custom btn-sm w-100">Add to Cart</button>
                     </div>
                 </div>
 
@@ -235,20 +244,21 @@
                         <p class="mb-0 fw-bold small">Brand</p>
                         <p class="text-muted small mb-2">Product name</p>
                         <p class="fw-bold mb-2">Price</p>
-                        <button class="btn btn-outline-secondary btn-sm w-100">Add to Cart</button>
+                        <button class="btn btn-custom btn-sm w-100">Add to Cart</button>
                     </div>
                 </div>
 
             </div>
 
             <!-- Next button -->
-            <button class="btn btn-outline-secondary rounded-circle position-absolute top-50 end-0 translate-middle-y z-1"
+            <button class="btn btn-custom rounded-circle position-absolute top-50 end-0 translate-middle-y z-1"
                     style="width: 45px; height: 45px;"
                     onclick="scrollProducts(1)">&#8250;</button>
 
         </div>
     </div>
 </section>
+</main>
 
 
 <!-- ====================
@@ -256,7 +266,6 @@
     ==================== -->
 <footer class="border-top pt-4 pb-2 bg-light">
     <div class="container-fluid px-3">
-        <p class="text-center text-muted small mb-3">(Footer)</p>
 
         <div class="row g-4">
 
@@ -287,8 +296,8 @@
             <div class="col-md-3">
                 <h6 class="fw-bold">My account</h6>
                 <ul class="list-unstyled small">
-                    <li><a href="#" class="text-secondary text-decoration-none">Login</a></li>
-                    <li><a href="#" class="text-secondary text-decoration-none">Register</a></li>
+                    <li><a href="login.html" class="text-secondary text-decoration-none">Login</a></li>
+                    <li><a href="register.html" class="text-secondary text-decoration-none">Register</a></li>
                     <li><a href="#" class="text-secondary text-decoration-none">Forgot password?</a></li>
                     <li><a href="#" class="text-secondary text-decoration-none">Where is my shipment?</a></li>
                     <li><a href="#" class="text-secondary text-decoration-none">Redeem voucher</a></li>
@@ -297,21 +306,13 @@
 
             <!-- Social media + Contact info -->
             <div class="col-md-4 d-flex flex-column gap-3">
-                <div class="bg-secondary text-white text-center py-3 rounded">
-                    Social media links
-                </div>
-                <div class="bg-secondary text-white text-center py-3 rounded">
-                    Contact info
-                </div>
+                <div class="bg-secondary text-white text-center py-3 rounded">Social media links</div>
+                <div class="bg-secondary text-white text-center py-3 rounded">Contact info</div>
             </div>
-
         </div>
 
         <!-- Copyright -->
-        <div class="text-center text-muted small mt-4 pt-2 border-top">
-            ©2025 - 2026 S&J
-        </div>
-
+        <div class="text-center text-muted small mt-4 pt-2 border-top">©2025 - 2026 S&J</div>
     </div>
 </footer>
 
