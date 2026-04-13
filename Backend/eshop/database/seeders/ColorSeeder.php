@@ -17,6 +17,10 @@ class ColorSeeder extends Seeder
             ['name' => 'Blue', 'slug' => 'blue', 'hex_code' => '#2980B9', 'sort_order' => 5],
             ['name' => 'Grey', 'slug' => 'grey', 'hex_code' => '#7F8C8D', 'sort_order' => 6],
             ['name' => 'Green', 'slug' => 'green', 'hex_code' => '#2E8B57', 'sort_order' => 7],
+            ['name' => 'Gold', 'slug' => 'gold', 'hex_code' => '#D4AF37', 'sort_order' => 8],
+            ['name' => 'Salmon', 'slug' => 'salmon', 'hex_code' => '#FA8072', 'sort_order' => 9],
+            ['name' => 'Orange', 'slug' => 'orange', 'hex_code' => '#F39C12', 'sort_order' => 10],
+            ['name' => 'Yellow', 'slug' => 'yellow', 'hex_code' => '#F4D03F', 'sort_order' => 11],
         ];
 
         foreach ($colors as $color) {
