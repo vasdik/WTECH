@@ -1,6 +1,5 @@
 @php
-    $cart = session('cart', []);
-    $cartQty = (int) ($cart[$product->id]['quantity'] ?? 0);
+    $cartQty = app(\App\Services\CartService::class)->quantityForProduct($product);
     $buttonClass = $buttonClass ?? 'btn btn-custom';
     $fullWidth = $fullWidth ?? false;
 @endphp

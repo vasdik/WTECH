@@ -1,5 +1,5 @@
 @php
-    $cartCount = collect(session('cart', []))->sum('quantity');
+    $cartCount = app(\App\Services\CartService::class)->count();
 @endphp
 
 <!-- ====================
