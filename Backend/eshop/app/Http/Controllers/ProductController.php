@@ -62,7 +62,7 @@ class ProductController extends Controller
                 ->where('is_active', true)
                 ->whereKeyNot($relatedProducts->pluck('id')->push($product->id))
                 ->latest('rating_avg')
-                ->take(4 - $relatedProducts->count())
+                ->take(12)
                 ->get();
 
             $relatedProducts = $relatedProducts->concat($fallbackProducts);

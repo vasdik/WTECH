@@ -491,3 +491,64 @@ body {
     border: 1px solid #adb5bd;
     resize: vertical;
 }
+
+
+/* =====================
+   CATEGORY BOTTOM CAROUSEL
+   Shows max 4 products, moves by 1, loops infinitely
+   ===================== */
+.category-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.category-carousel-viewport {
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+}
+
+.category-carousel-track {
+    display: flex;
+    will-change: transform;
+}
+
+.category-carousel-slide {
+    flex: 0 0 auto;
+}
+
+.category-carousel-btn {
+    width: 45px;
+    height: 45px;
+    flex: 0 0 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+@media (max-width: 991.98px) {
+    .category-carousel {
+        gap: 0.75rem;
+    }
+
+    .category-carousel-btn {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .category-carousel {
+        gap: 0.5rem;
+    }
+
+    .category-carousel-btn {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+    }
+}

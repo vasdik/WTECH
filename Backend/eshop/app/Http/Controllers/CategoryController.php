@@ -115,7 +115,7 @@ class CategoryController extends Controller
                 ->where('is_active', true)
                 ->whereKeyNot($carouselProducts->pluck('id'))
                 ->latest('rating_avg')
-                ->take(4 - $carouselProducts->count())
+                ->take(12)
                 ->get();
 
             $carouselProducts = $carouselProducts->concat($fallbackProducts);

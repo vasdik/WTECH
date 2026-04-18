@@ -24,11 +24,16 @@ class ProductSeeder extends Seeder
             $standardResinCategory = Category::where('slug', 'standard')->firstOrFail();
             $printersCategory = Category::where('slug', 'printers')->firstOrFail();
             $toolsCategory = Category::where('slug', 'tools')->firstOrFail();
+            $accessoriesCategory = Category::where('slug', 'accessories')->firstOrFail();
 
             $colorBlack = Color::where('slug', 'charcoal-black')->firstOrFail();
             $colorWhite = Color::where('slug', 'white')->firstOrFail();
             $colorBeige = Color::where('slug', 'beige')->firstOrFail();
             $colorGrey = Color::where('slug', 'grey')->firstOrFail();
+            $colorGold = Color::where('slug', 'gold')->firstOrFail();
+            $colorSalmon = Color::where('slug', 'salmon')->firstOrFail();
+            $colorOrange = Color::where('slug', 'orange')->firstOrFail();
+            $colorYellow = Color::where('slug', 'yellow')->firstOrFail();
 
             $weight1000 = Weight::where('grams', 1000)->firstOrFail();
             $diameter175 = Diameter::where('mm_value', 1.75)->firstOrFail();
@@ -233,11 +238,33 @@ class ProductSeeder extends Seeder
                 ['alt_text' => 'eSUN PLA Black', 'sort_order' => 1, 'is_primary' => true]
             );
 
-            $prusamentPetg = Product::updateOrCreate(
+            ProductImage::updateOrCreate(
+                ['product_id' => $esunPla->id, 'path' => 'images/products/eSun_PLA/esun_PLA_Black_2_.512x512.avif'],
+                ['alt_text' => 'eSUN PLA Black side view', 'sort_order' => 2, 'is_primary' => false]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $esunPla->id, 'path' => 'images/products/eSun_PLA/esun_PLA_Black_3_.512x512.avif'],
+                ['alt_text' => 'eSUN PLA Black detail view', 'sort_order' => 3, 'is_primary' => false]
+            );
+
+                $prusamentPetgFamily = ProductFamily::updateOrCreate(
+                ['slug' => 'prusament-petg'],
+                [
+                    'category_id' => $petgCategory->id,
+                    'name' => 'Prusament PETG',
+                    'brand' => 'Prusament',
+                    'shared_short_description' => 'High-quality PETG filament for durable prints.',
+                    'shared_description' => 'Prusament PETG is suitable for strong, dimensionally stable parts with good layer adhesion and chemical resistance.',
+                    'is_active' => true,
+                ]
+            );
+
+            $prusamentPetgClear = Product::updateOrCreate(
                 ['slug' => 'prusament-petg-clear'],
                 [
                     'category_id' => $petgCategory->id,
-                    'product_family_id' => null,
+                    'product_family_id' => $prusamentPetgFamily->id,
                     'color_id' => $colorWhite->id,
                     'weight_id' => $weight1000->id,
                     'diameter_id' => $diameter175->id,
@@ -255,16 +282,165 @@ class ProductSeeder extends Seeder
                 ]
             );
 
-            FilamentDetail::updateOrCreate(
-                ['product_id' => $prusamentPetg->id],
+            $prusamentPetgGold = Product::updateOrCreate(
+                ['slug' => 'prusament-petg-gold'],
                 [
-                    'filament_type_id' => $petgType->id,
-                    'recommended_nozzle_temp_min' => 230,
-                    'recommended_nozzle_temp_max' => 250,
-                    'recommended_bed_temp_min' => 70,
-                    'recommended_bed_temp_max' => 90,
-                    'material_note' => 'PETG filament with good strength and chemical resistance.',
+                    'category_id' => $petgCategory->id,
+                    'product_family_id' => $prusamentPetgFamily->id,
+                    'color_id' => $colorGold->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
+                    'name' => 'PETG Gold, 1,75 mm / 1000 g',
+                    'brand' => 'Prusament',
+                    'short_description' => 'Gold PETG filament.',
+                    'description' => 'Durable PETG filament with good strength and decorative gold finish.',
+                    'price_gross' => 26.99,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.50,
+                    'rating_count' => 12,
+                    'stock_qty' => 6,
+                    'is_active' => true,
                 ]
+            );
+
+            $prusamentPetgWhite = Product::updateOrCreate(
+                ['slug' => 'prusament-petg-white'],
+                [
+                    'category_id' => $petgCategory->id,
+                    'product_family_id' => $prusamentPetgFamily->id,
+                    'color_id' => $colorWhite->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
+                    'name' => 'PETG White, 1,75 mm / 1000 g',
+                    'brand' => 'Prusament',
+                    'short_description' => 'White PETG filament.',
+                    'description' => 'Durable PETG filament with smooth finish and reliable printability.',
+                    'price_gross' => 24.99,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.60,
+                    'rating_count' => 16,
+                    'stock_qty' => 9,
+                    'is_active' => true,
+                ]
+            );
+
+            $prusamentPetgSalmon = Product::updateOrCreate(
+                ['slug' => 'prusament-petg-salmon'],
+                [
+                    'category_id' => $petgCategory->id,
+                    'product_family_id' => $prusamentPetgFamily->id,
+                    'color_id' => $colorSalmon->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
+                    'name' => 'PETG Salmon, 1,75 mm / 1000 g',
+                    'brand' => 'Prusament',
+                    'short_description' => 'Salmon PETG filament.',
+                    'description' => 'Durable PETG filament with good layer adhesion and distinctive salmon color.',
+                    'price_gross' => 25.99,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.40,
+                    'rating_count' => 10,
+                    'stock_qty' => 5,
+                    'is_active' => true,
+                ]
+            );
+
+            $prusamentPetgOrange = Product::updateOrCreate(
+                ['slug' => 'prusament-petg-orange'],
+                [
+                    'category_id' => $petgCategory->id,
+                    'product_family_id' => $prusamentPetgFamily->id,
+                    'color_id' => $colorOrange->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
+                    'name' => 'PETG Orange, 1,75 mm / 1000 g',
+                    'brand' => 'Prusament',
+                    'short_description' => 'Orange PETG filament.',
+                    'description' => 'Durable PETG filament with vivid color and reliable mechanical performance.',
+                    'price_gross' => 25.99,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.30,
+                    'rating_count' => 8,
+                    'stock_qty' => 5,
+                    'is_active' => true,
+                ]
+            );
+
+            $prusamentPetgYellow = Product::updateOrCreate(
+                ['slug' => 'prusament-petg-yellow'],
+                [
+                    'category_id' => $petgCategory->id,
+                    'product_family_id' => $prusamentPetgFamily->id,
+                    'color_id' => $colorYellow->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
+                    'name' => 'PETG Yellow, 1,75 mm / 1000 g',
+                    'brand' => 'Prusament',
+                    'short_description' => 'Yellow PETG filament.',
+                    'description' => 'Durable PETG filament with bright yellow finish and good print reliability.',
+                    'price_gross' => 25.99,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.20,
+                    'rating_count' => 7,
+                    'stock_qty' => 4,
+                    'is_active' => true,
+                ]
+            );
+
+            foreach ([
+                $prusamentPetgClear,
+                $prusamentPetgGold,
+                $prusamentPetgWhite,
+                $prusamentPetgSalmon,
+                $prusamentPetgOrange,
+                $prusamentPetgYellow,
+            ] as $product) {
+                FilamentDetail::updateOrCreate(
+                    ['product_id' => $product->id],
+                    [
+                        'filament_type_id' => $petgType->id,
+                        'recommended_nozzle_temp_min' => 230,
+                        'recommended_nozzle_temp_max' => 250,
+                        'recommended_bed_temp_min' => 70,
+                        'recommended_bed_temp_max' => 90,
+                        'material_note' => 'PETG filament with good strength and chemical resistance.',
+                    ]
+                );
+            }
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $prusamentPetgClear->id, 'path' => 'images/products/Prusament_PETG/101207_7c6e677e.512x512.avif'],
+                ['alt_text' => 'Prusament PETG Clear', 'sort_order' => 1, 'is_primary' => true]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $prusamentPetgGold->id, 'path' => 'images/products/Prusament_PETG/101087_cef540db.512x512.avif'],
+                ['alt_text' => 'Prusament PETG Gold', 'sort_order' => 1, 'is_primary' => true]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $prusamentPetgWhite->id, 'path' => 'images/products/Prusament_PETG/101111_c65d9dc1.512x512.avif'],
+                ['alt_text' => 'Prusament PETG White', 'sort_order' => 1, 'is_primary' => true]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $prusamentPetgSalmon->id, 'path' => 'images/products/Prusament_PETG/101117_1c2bf6c8.512x512.avif'],
+                ['alt_text' => 'Prusament PETG Salmon', 'sort_order' => 1, 'is_primary' => true]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $prusamentPetgOrange->id, 'path' => 'images/products/Prusament_PETG/101159_5e6c2ba7.512x512.avif'],
+                ['alt_text' => 'Prusament PETG Orange', 'sort_order' => 1, 'is_primary' => true]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $prusamentPetgYellow->id, 'path' => 'images/products/Prusament_PETG/101180_153a349a.512x512.avif'],
+                ['alt_text' => 'Prusament PETG Yellow', 'sort_order' => 1, 'is_primary' => true]
             );
 
             $bambuFamily = ProductFamily::updateOrCreate(
@@ -279,7 +455,7 @@ class ProductSeeder extends Seeder
                 ]
             );
 
-            Product::updateOrCreate(
+            $bambuA1Mini = Product::updateOrCreate(
                 ['slug' => 'bambulab-a1-mini'],
                 [
                     'category_id' => $printersCategory->id,
@@ -301,7 +477,7 @@ class ProductSeeder extends Seeder
                 ]
             );
 
-            Product::updateOrCreate(
+            $bambuA1MiniCombo = Product::updateOrCreate(
                 ['slug' => 'bambulab-a1-mini-combo'],
                 [
                     'category_id' => $printersCategory->id,
@@ -321,6 +497,16 @@ class ProductSeeder extends Seeder
                     'stock_qty' => 3,
                     'is_active' => true,
                 ]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $bambuA1Mini->id, 'path' => 'images/products/Printers/BambuLab_Printers/47068_ace7a3ed.512x512.avif'],
+                ['alt_text' => 'Bambu Lab A1 Mini', 'sort_order' => 1, 'is_primary' => true]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $bambuA1MiniCombo->id, 'path' => 'images/products/Printers/BambuLab_Printers/47101_6f35b580.512x512.avif'],
+                ['alt_text' => 'Bambu Lab A1 Mini Combo', 'sort_order' => 1, 'is_primary' => true]
             );
 
             Product::updateOrCreate(
@@ -365,6 +551,123 @@ class ProductSeeder extends Seeder
                     'stock_qty' => 25,
                     'is_active' => true,
                 ]
+            );
+
+            $bambuPlaFamily = ProductFamily::updateOrCreate(
+                ['slug' => 'bambulab-pla-matte'],
+                [
+                    'category_id' => $plaCategory->id,
+                    'name' => 'BambuLab PLA Matte',
+                    'brand' => 'Bambulab',
+                    'shared_short_description' => 'Matte PLA filament for clean surface finish.',
+                    'shared_description' => 'BambuLab PLA Matte is a PLA filament with a matte finish suitable for aesthetic prints and everyday printing.',
+                    'is_active' => true,
+                ]
+            );
+
+            $bambuPlaMatteWhite = Product::updateOrCreate(
+                ['slug' => 'bambulab-pla-matte-white'],
+                [
+                    'category_id' => $plaCategory->id,
+                    'product_family_id' => $bambuPlaFamily->id,
+                    'color_id' => $colorWhite->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
+                    'name' => 'BambuLab Matte White, 1,75 mm / 1000 g',
+                    'brand' => 'Bambulab',
+                    'short_description' => 'Matte PLA filament with smooth surface finish.',
+                    'description' => 'BambuLab Matte White PLA offers a clean matte look and easy printability for general-purpose printing.',
+                    'price_gross' => 23.99,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.60,
+                    'rating_count' => 18,
+                    'stock_qty' => 10,
+                    'is_active' => true,
+                ]
+            );
+
+            $bambuPlaMatteBeige = Product::updateOrCreate(
+                ['slug' => 'bambulab-pla-matte-beige'],
+                [
+                    'category_id' => $plaCategory->id,
+                    'product_family_id' => $bambuPlaFamily->id,
+                    'color_id' => $colorBeige->id,
+                    'weight_id' => $weight1000->id,
+                    'diameter_id' => $diameter175->id,
+                    'variant_label' => null,
+                    'name' => 'BambuLab Matte Beige, 1,75 mm / 1000 g',
+                    'brand' => 'Bambulab',
+                    'short_description' => 'Matte PLA filament with smooth surface finish.',
+                    'description' => 'BambuLab Matte Beige PLA offers a warm matte look and easy printability for general-purpose printing.',
+                    'price_gross' => 23.99,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.50,
+                    'rating_count' => 14,
+                    'stock_qty' => 8,
+                    'is_active' => true,
+                ]
+            );
+
+            foreach ([$bambuPlaMatteWhite, $bambuPlaMatteBeige] as $product) {
+                FilamentDetail::updateOrCreate(
+                    ['product_id' => $product->id],
+                    [
+                        'filament_type_id' => $plaType->id,
+                        'recommended_nozzle_temp_min' => 190,
+                        'recommended_nozzle_temp_max' => 230,
+                        'recommended_bed_temp_min' => 35,
+                        'recommended_bed_temp_max' => 60,
+                        'material_note' => 'Matte PLA for aesthetic prints and easy everyday use.',
+                    ]
+                );
+            }
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $bambuPlaMatteWhite->id, 'path' => 'images/products/BambuLab_PLA/47878_59194eec.512x512.avif'],
+                ['alt_text' => 'BambuLab Matte White main image', 'sort_order' => 1, 'is_primary' => true]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $bambuPlaMatteWhite->id, 'path' => 'images/products/BambuLab_PLA/83050_930bc2b3.512x512.avif'],
+                ['alt_text' => 'BambuLab Matte White additional image', 'sort_order' => 2, 'is_primary' => false]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $bambuPlaMatteBeige->id, 'path' => 'images/products/BambuLab_PLA/47902_4fe00357.512x512.avif'],
+                ['alt_text' => 'BambuLab Matte Beige main image', 'sort_order' => 1, 'is_primary' => true]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $bambuPlaMatteBeige->id, 'path' => 'images/products/BambuLab_PLA/83104_80d66b9e.512x512.avif'],
+                ['alt_text' => 'BambuLab Matte Beige additional image', 'sort_order' => 2, 'is_primary' => false]
+            );
+
+            $ezlokHeatInserts = Product::updateOrCreate(
+                ['slug' => 'ezlok-heat-inserts'],
+                [
+                    'category_id' => $accessoriesCategory->id,
+                    'product_family_id' => null,
+                    'color_id' => null,
+                    'weight_id' => null,
+                    'diameter_id' => null,
+                    'variant_label' => null,
+                    'name' => 'EZLOK Heat Inserts 50 pcs',
+                    'brand' => 'EZLOK',
+                    'short_description' => 'Threaded heat inserts for 3D printed parts.',
+                    'description' => 'Brass heat-set threaded inserts designed for durable threaded connections in 3D printed parts.',
+                    'price_gross' => 9.99,
+                    'tax_rate' => 23.00,
+                    'rating_avg' => 4.50,
+                    'rating_count' => 8,
+                    'stock_qty' => 20,
+                    'is_active' => true,
+                ]
+            );
+
+            ProductImage::updateOrCreate(
+                ['product_id' => $ezlokHeatInserts->id, 'path' => 'images/products/Accessories/ezlok_Heat_Inserts_1.png'],
+                ['alt_text' => 'EZLOK Heat Inserts', 'sort_order' => 1, 'is_primary' => true]
             );
         });
     }
