@@ -30,3 +30,9 @@ php artisan cache:clear
 php artisan config:clear
 php artisan view:clear
 php artisan route:list
+
+
+
+### ADMIN mozme riesit cez flag v database a ten flag nastavovat na urovni databse cez update ? 
+
+### Kosik? Ako to ma byt pri prechod z guest na logged in atd.
