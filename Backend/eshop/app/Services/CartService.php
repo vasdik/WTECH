@@ -231,6 +231,21 @@ class CartService
         return $raw;
     }
 
+    public function clear(): void
+    {
+        if (auth()->check()) {
+            \App\Models\CartItem::query()
+                ->where('user_id', auth()->id())
+                ->delete();
+
+            $this->forgetCache();
+            return;
+        }
+
+        session()->forget('cart');
+    }
+
+
     private function forgetCache(): void
     {
         $this->rawCache = null;

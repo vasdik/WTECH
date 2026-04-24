@@ -148,9 +148,9 @@
 
                             <p class="text-muted small mb-3">Includes VAT: {{ number_format($vatTotal ?? 0, 2) }} €</p>
 
-                            <button class="btn btn-custom w-100 mb-3" {{ $itemCount < 1 ? 'disabled' : '' }}>
+                            <a href="{{ route('checkout.step1') }}" class="btn btn-custom w-100 mb-3 {{ $itemCount < 1 ? 'disabled' : '' }}">
                                 Order now
-                            </button>
+                            </a>
 
                             <div class="img-placeholder" style="height: 90px;">Supported payment methods</div>
                         </div>
