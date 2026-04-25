@@ -84,7 +84,7 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <!-- Authentication -->
+                <!-- Authentication.. -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
@@ -98,3 +98,4 @@
         </div>
     </div>
 </nav>
+

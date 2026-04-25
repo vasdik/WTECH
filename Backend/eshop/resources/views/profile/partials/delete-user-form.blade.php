@@ -5,22 +5,22 @@
     </p>
 
     <form method="POST" action="{{ route('profile.destroy') }}">
-        @csrf
+            @csrf
         @method('DELETE')
 
         <div class="mb-3">
             <label for="delete_password" class="form-label">Confirm your password</label>
             <input
                 id="delete_password"
-                name="password"
-                type="password"
+                    name="password"
+                    type="password"
                 class="form-control input-rounded @error('password', 'userDeletion') is-invalid @enderror"
                 placeholder="Password"
             >
             @error('password', 'userDeletion')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
-        </div>
+            </div>
 
         <button
             type="submit"
@@ -29,5 +29,5 @@
         >
             Delete Account
         </button>
-    </form>
-</section>
+        </form>
+    </section>

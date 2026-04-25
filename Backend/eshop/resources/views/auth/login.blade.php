@@ -27,8 +27,8 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
 
                 <!-- Email -->
                 <div class="mb-3">
@@ -45,13 +45,13 @@
                     @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+        </div>
 
-                <!-- Password -->
+        <!-- Password -->
                 <div class="mb-2">
                     <input
-                        type="password"
-                        name="password"
+                            type="password"
+                            name="password"
                         class="form-control input-rounded @error('password') is-invalid @enderror"
                         placeholder="Password"
                         required
@@ -60,7 +60,7 @@
                     @error('password')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+        </div>
 
                 <!-- Remember me -->
                 <div class="form-check mb-3">
@@ -72,8 +72,8 @@
                     >
                     <label for="remember_me" class="form-check-label small text-secondary">
                         Remember me
-                    </label>
-                </div>
+            </label>
+        </div>
 
                 <!-- Forgot password -->
                 <div class="text-center mb-3">
@@ -92,7 +92,7 @@
                 </div>
             </form>
 
-            <!-- Or divider -->
+            <!-- Or divider ..-->
             <div class="divider small mb-3">Or</div>
 
             <!-- Continue with Google -->

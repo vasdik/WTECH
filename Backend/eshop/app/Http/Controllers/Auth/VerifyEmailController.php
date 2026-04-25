@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 class VerifyEmailController extends Controller
 {
     /**
-     * Mark the authenticated user's email address as verified.
+     * Mark the authenticated user's email address as verified.awd
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
@@ -25,3 +25,4 @@ class VerifyEmailController extends Controller
         return redirect()->intended(route('home', absolute: false).'?verified=1');
     }
 }
+

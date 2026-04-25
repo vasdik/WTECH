@@ -21,8 +21,8 @@
 
             <h5 class="text-center mb-4">Create your Shop Account</h5>
 
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
+    <form method="POST" action="{{ route('register') }}">
+        @csrf
 
                 <!-- Full Name -->
                 <div class="mb-2">
@@ -39,7 +39,7 @@
                     @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+        </div>
 
                 <!-- Email -->
                 <div class="mb-2">
@@ -55,13 +55,13 @@
                     @error('email')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+        </div>
 
-                <!-- Password -->
+        <!-- Password -->
                 <div class="mb-2">
                     <input
-                        type="password"
-                        name="password"
+                            type="password"
+                            name="password"
                         class="form-control input-rounded @error('password') is-invalid @enderror"
                         placeholder="Password"
                         required
@@ -70,9 +70,9 @@
                     @error('password')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+        </div>
 
-                <!-- Confirm Password -->
+                <!-- Confirm Password.. -->
                 <div class="mb-4">
                     <input
                         type="password"
