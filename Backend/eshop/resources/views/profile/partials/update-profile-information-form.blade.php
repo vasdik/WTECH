@@ -43,20 +43,20 @@
             @enderror
         </div>
 
-        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
             <div class="mb-3">
                 <p class="small text-secondary mb-2">Your email address is unverified.</p>
 
                 <button form="send-verification" class="btn btn-outline-custom btn-sm" type="submit">
                     Re-send verification email
-                </button>
+                        </button>
 
-                @if (session('status') === 'verification-link-sent')
+                    @if (session('status') === 'verification-link-sent')
                     <div class="text-success small mt-2">
                         A new verification link has been sent to your email address.
-                    </div>
-                @endif
-            </div>
+                </div>
+            @endif
+        </div>
         @endif
 
         <div class="d-flex align-items-center gap-3">
