@@ -1,40 +1,29 @@
-@extends('layouts.shop-auth')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Profile') }}
+        </h2>
+    </x-slot>
 
-@section('title', 'Profile')
-
-@section('content')
-    <div class="container px-3 py-2">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Main page</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Profile</li>
-            </ol>
-        </nav>
-    </div>
-
-    <main class="flex-grow-1 py-5">
-        <div class="container" style="max-width: 700px;">
-
-            <div class="d-flex justify-content-end mb-3">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="btn btn-outline-custom">
-                        Log out
-                    </button>
-                </form>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.update-profile-information-form')
+                </div>
             </div>
 
-            <div class="card p-4 mb-4">
-                @include('profile.partials.update-profile-information-form')
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.update-password-form')
+                </div>
             </div>
 
-            <div class="card p-4 mb-4">
-                @include('profile.partials.update-password-form')
-            </div>
-
-            <div class="card p-4">
-                @include('profile.partials.delete-user-form')
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    @include('profile.partials.delete-user-form')
+                </div>
             </div>
         </div>
-    </main>
-@endsection
+    </div>
+</x-app-layout>
