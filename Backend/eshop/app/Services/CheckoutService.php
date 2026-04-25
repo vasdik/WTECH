@@ -135,6 +135,46 @@ class CheckoutService
         session([self::SESSION_KEY => $checkout]);
     }
 
+    public function putStep3(array $data): void
+    {
+        $checkout = $this->all();
+
+        $checkout['payment'] = [
+            'code' => $data['payment_code'],
+        ];
+
+        // Keď sa zmení payment, nech sa prípadne zresetuje shipping z predošlého pokusu
+        $checkout['shipping'] = [
+            'code' => null,
+            'label' => null,
+            'price' => null,
+            'eta_label' => null,
+        ];
+
+        session([self::SESSION_KEY => $checkout]);
+    }
+
+    public function putStep4(array $data): void
+    {
+        $checkout = $this->all();
+
+        $selectedShipping = collect($this->shippingMethods())
+            ->firstWhere('code', $data['shipping_code']);
+
+        if (! $selectedShipping) {
+            return;
+        }
+
+        $checkout['shipping'] = [
+            'code' => $selectedShipping['code'],
+            'label' => $selectedShipping['label'],
+            'price' => $selectedShipping['price'],
+            'eta_label' => $selectedShipping['eta_label'],
+        ];
+
+        session([self::SESSION_KEY => $checkout]);
+    }
+
     public function paymentMethods(): array
     {
         return [

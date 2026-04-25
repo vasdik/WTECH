@@ -13,7 +13,6 @@ use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -165,32 +164,6 @@ class CheckoutController extends Controller
         }
 
         $this->checkoutService->putResolvedStep2($billingAddress, $deliveryAddress);
-
-        return redirect()->route('checkout.step3');
-    }
-
-    public function storeStep2(Request $request): RedirectResponse
-    {
-        $validated = $request->validate([
-            'delivery_mode' => ['required', 'in:same_as_billing,custom'],
-            'delivery_country' => ['nullable', 'string', 'max:255'],
-            'delivery_street' => ['nullable', 'string', 'max:255'],
-            'delivery_house_number' => ['nullable', 'string', 'max:50'],
-            'delivery_city' => ['nullable', 'string', 'max:255'],
-            'delivery_postal_code' => ['nullable', 'string', 'max:50'],
-        ]);
-
-        if ($validated['delivery_mode'] === 'custom') {
-            $request->validate([
-                'delivery_country' => ['required', 'string', 'max:255'],
-                'delivery_street' => ['required', 'string', 'max:255'],
-                'delivery_house_number' => ['required', 'string', 'max:50'],
-                'delivery_city' => ['required', 'string', 'max:255'],
-                'delivery_postal_code' => ['required', 'string', 'max:50'],
-            ]);
-        }
-
-        $this->checkoutService->putStep2($request->all());
 
         return redirect()->route('checkout.step3');
     }

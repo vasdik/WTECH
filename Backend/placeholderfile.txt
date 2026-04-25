@@ -36,3 +36,22 @@ php artisan route:list
 ### ADMIN mozme riesit cez flag v database a ten flag nastavovat na urovni databse cez update ? 
 
 ### Kosik? Ako to ma byt pri prechod z guest na logged in atd.
+
+
+Pridanie admin prav userovovi
+
+php artisan tinker
+
+$user = \App\Models\User::where('email', 'tvoj@email.com')->first();
+$user->role = \App\Models\User::ROLE_ADMIN;
+$user->save();
+
+
+php artisan migrate
+php artisan optimize:clear
+composer dump-autoload
+
+
+
+##prelinkovanie obrazkov pre Admin panel !Bez toho sa uploadnuté obrázky pod storage/... neukážu.
+php artisan storage:link

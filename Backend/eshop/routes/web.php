@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 /*
 Route::get('/', function () {
     return view('welcome');
@@ -69,5 +70,19 @@ Route::prefix('checkout')->name('checkout.')->group(function () {
 
     Route::get('/success/{order}', [CheckoutController::class, 'success'])->name('success');
 });
+
+
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth', 'admin'])
+    ->group(function () {
+        Route::view('/', 'admin.dashboard')->name('dashboard');
+
+        Route::resource('products', AdminProductController::class)->except(['show']);
+        Route::delete(
+            'products/{product}/images/{image}',
+            [AdminProductController::class, 'destroyImage']
+        )->name('products.images.destroy');
+    });
 
 require __DIR__.'/auth.php';
