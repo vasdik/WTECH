@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\enum\Color;
+use App\Models\enum\Diameter;
+use App\Models\enum\FilamentType;
+use App\Models\enum\Weight;
 use App\Models\Product;
 use App\Models\ProductImage;
-use App\Models\enum\Color;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,8 +21,7 @@ class ProductController extends Controller
     public function index(Request $request): View
     {
         $productsQuery = Product::query()
-            ->with(['images', 'category', 'color'])
-            ->latest('id');
+            ->with(['images', 'category', 'color']);
 
         $productsQuery
             ->when($request->filled('q'), function ($query) use ($request) {
@@ -32,7 +34,20 @@ class ProductController extends Controller
                 });
             })
             ->when($request->filled('category_id'), function ($query) use ($request) {
-                $query->where('category_id', (int) $request->input('category_id'));
+                $selectedCategory = Category::query()
+                    ->with('children')
+                    ->find((int) $request->input('category_id'));
+
+                if (! $selectedCategory) {
+                    return;
+                }
+
+                $categoryIds = collect([$selectedCategory->id])
+                    ->merge($selectedCategory->children->pluck('id'))
+                    ->unique()
+                    ->values();
+
+                $query->whereIn('category_id', $categoryIds);
             })
             ->when($request->filled('color_id'), function ($query) use ($request) {
                 $query->where('color_id', (int) $request->input('color_id'));
@@ -161,8 +176,18 @@ class ProductController extends Controller
     {
         abort_unless((int) $image->product_id === (int) $product->id, 404);
 
+        $wasPrimary = (bool) $image->is_primary;
+
         $this->deletePhysicalImage($image);
         $image->delete();
+
+        if ($wasPrimary) {
+            $newPrimary = $product->images()->orderBy('sort_order')->first();
+
+            if ($newPrimary) {
+                $newPrimary->update(['is_primary' => true]);
+            }
+        }
 
         return back()->with('cart_success', 'Image deleted successfully.');
     }
@@ -195,7 +220,7 @@ class ProductController extends Controller
             'short_description' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
             'images' => ['nullable', 'array'],
-            'images.*' => ['file', 'mimes:jpg,jpeg,png,webp,avif', 'max:5120'],
+            'images.*' => ['image', 'max:5120'],
         ]);
     }
 
@@ -220,14 +245,24 @@ class ProductController extends Controller
 
     private function storeImages(Request $request, Product $product): void
     {
-        if (! $request->hasFile('images')) {
+        $files = $request->file('images', []);
+
+        if (empty($files)) {
             return;
+        }
+
+        if (! is_array($files)) {
+            $files = [$files];
         }
 
         $currentMaxSort = (int) $product->images()->max('sort_order');
         $hasPrimary = $product->images()->where('is_primary', true)->exists();
 
-        foreach ($request->file('images', []) as $index => $file) {
+        foreach ($files as $index => $file) {
+            if (! $file) {
+                continue;
+            }
+
             $path = $file->store('products', 'public');
 
             ProductImage::create([

@@ -83,6 +83,6 @@ Route::prefix('admin')
             'products/{product}/images/{image}',
             [AdminProductController::class, 'destroyImage']
         )->name('products.images.destroy');
-    });
+});
 
 require __DIR__.'/auth.php';

@@ -1,7 +1,3 @@
-@php
-    $isEdit = $product->exists;
-@endphp
-
 <div class="row g-3 mb-3">
     <div class="col-md-6">
         <label class="form-label">Product Name</label>
@@ -161,29 +157,3 @@
     >
     @error('images.*')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
 </div>
-
-@if ($isEdit && $product->relationLoaded('images') && $product->images->isNotEmpty())
-    <div class="mb-4">
-        <p class="small text-muted mb-2">Uploaded:</p>
-        <div class="d-flex align-items-center gap-2 flex-wrap">
-            @foreach ($product->images as $image)
-                <div class="uploaded-thumb">
-                    <img
-                        src="{{ asset($image->path) }}"
-                        alt="{{ $image->alt_text ?? $product->name }}"
-                        style="width:70px;height:70px;object-fit:cover;"
-                    >
-                    <form
-                        method="POST"
-                        action="{{ route('admin.products.images.destroy', [$product, $image]) }}"
-                        onsubmit="return confirm('Delete this image?')"
-                    >
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="remove-btn">&#x2715;</button>
-                    </form>
-                </div>
-            @endforeach
-        </div>
-    </div>
-@endif
