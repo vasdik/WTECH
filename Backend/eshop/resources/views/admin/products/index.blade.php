@@ -7,7 +7,7 @@
         <div class="container px-3 py-4">
             <h2 class="fw-bold mb-4">Admin Panel</h2>
 
-            <form method="GET" action="{{ route('admin.products.index') }}" class="mb-3">
+          <form method="GET" action="{{ route('admin.products.index') }}" class="mb-3">
                 <div class="d-flex flex-wrap gap-2">
                     <input
                         type="search"
@@ -32,6 +32,24 @@
                         @foreach ($colors as $color)
                             <option value="{{ $color->id }}" @selected((string) $filters['color_id'] === (string) $color->id)>
                                 {{ $color->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <select name="weight_id" class="form-select form-select-sm" style="width:auto;">
+                        <option value="">Weight</option>
+                        @foreach ($weights as $weight)
+                            <option value="{{ $weight->id }}" @selected((string) $filters['weight_id'] === (string) $weight->id)>
+                                {{ $weight->label }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <select name="diameter_id" class="form-select form-select-sm" style="width:auto;">
+                        <option value="">Diameter</option>
+                        @foreach ($diameters as $diameter)
+                            <option value="{{ $diameter->id }}" @selected((string) $filters['diameter_id'] === (string) $diameter->id)>
+                                {{ $diameter->label }}
                             </option>
                         @endforeach
                     </select>

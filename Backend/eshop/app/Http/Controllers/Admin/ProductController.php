@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function index(Request $request): View
     {
         $productsQuery = Product::query()
-            ->with(['images', 'category', 'color']);
+            ->with(['images', 'category', 'color', 'weight', 'diameter']);
 
         $productsQuery
             ->when($request->filled('q'), function ($query) use ($request) {
@@ -51,6 +51,12 @@ class ProductController extends Controller
             })
             ->when($request->filled('color_id'), function ($query) use ($request) {
                 $query->where('color_id', (int) $request->input('color_id'));
+            })
+            ->when($request->filled('weight_id'), function ($query) use ($request) {
+                $query->where('weight_id', (int) $request->input('weight_id'));
+            })
+            ->when($request->filled('diameter_id'), function ($query) use ($request) {
+                $query->where('diameter_id', (int) $request->input('diameter_id'));
             });
 
         $sort = $request->input('sort', 'latest');
@@ -67,10 +73,14 @@ class ProductController extends Controller
             'products' => $productsQuery->paginate(12)->withQueryString(),
             'categories' => Category::query()->where('is_active', true)->orderBy('name')->get(),
             'colors' => Color::query()->orderBy('name')->get(),
+            'weights' => Weight::query()->orderBy('sort_order')->get(),
+            'diameters' => Diameter::query()->orderBy('sort_order')->get(),
             'filters' => [
                 'q' => $request->input('q'),
                 'category_id' => $request->input('category_id'),
                 'color_id' => $request->input('color_id'),
+                'weight_id' => $request->input('weight_id'),
+                'diameter_id' => $request->input('diameter_id'),
                 'sort' => $sort,
             ],
         ]);
@@ -97,8 +107,8 @@ class ProductController extends Controller
             'category_id' => $validated['category_id'],
             'product_family_id' => null,
             'color_id' => $validated['color_id'] ?: null,
-            'weight_id' => null,
-            'diameter_id' => null,
+            'weight_id' => $validated['weight_id'] ?: null,
+            'diameter_id' => $validated['diameter_id'] ?: null,
             'variant_label' => null,
             'name' => $validated['name'],
             'slug' => $slug,
@@ -138,6 +148,8 @@ class ProductController extends Controller
         $product->update([
             'category_id' => $validated['category_id'],
             'color_id' => $validated['color_id'] ?: null,
+            'weight_id' => $validated['weight_id'] ?: null,
+            'diameter_id' => $validated['diameter_id'] ?: null,
             'name' => $validated['name'],
             'slug' => $slug,
             'brand' => $validated['brand'],
@@ -148,7 +160,6 @@ class ProductController extends Controller
             'stock_qty' => $validated['stock_qty'],
             'is_active' => $request->boolean('is_active'),
         ]);
-
         $this->storeImages($request, $product);
 
         return redirect()
@@ -198,6 +209,8 @@ class ProductController extends Controller
             'product' => $product,
             'categories' => Category::query()->where('is_active', true)->orderBy('name')->get(),
             'colors' => Color::query()->orderBy('name')->get(),
+            'weights' => Weight::query()->orderBy('sort_order')->get(),
+            'diameters' => Diameter::query()->orderBy('sort_order')->get(),
         ];
     }
 
@@ -208,18 +221,20 @@ class ProductController extends Controller
             $slugRule .= ',' . $product->id;
         }
 
-        return $request->validate([
+      return $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'slug' => explode('|', $slugRule),
             'brand' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
             'color_id' => ['nullable', 'integer', 'exists:colors,id'],
+            'weight_id' => ['nullable', 'integer', 'exists:weights,id'],
+            'diameter_id' => ['nullable', 'integer', 'exists:diameters,id'],
             'price_gross' => ['required', 'numeric', 'min:0'],
             'tax_rate' => ['required', 'numeric', 'min:0'],
             'stock_qty' => ['required', 'integer', 'min:0'],
             'short_description' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
-            'images' => ['nullable', 'array'],
+            'images' => ['nullable'],
             'images.*' => ['image', 'max:5120'],
         ]);
     }

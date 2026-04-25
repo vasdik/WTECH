@@ -95,6 +95,34 @@
 
 <div class="row g-3 mb-4">
     <div class="col-md-6">
+        <label class="form-label">Weight</label>
+        <select name="weight_id" class="form-select input-rounded @error('weight_id') is-invalid @enderror">
+            <option value="">No weight</option>
+            @foreach ($weights as $weight)
+                <option value="{{ $weight->id }}" @selected((string) old('weight_id', $product->weight_id) === (string) $weight->id)>
+                    {{ $weight->label }}
+                </option>
+            @endforeach
+        </select>
+        @error('weight_id')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Diameter</label>
+        <select name="diameter_id" class="form-select input-rounded @error('diameter_id') is-invalid @enderror">
+            <option value="">No diameter</option>
+            @foreach ($diameters as $diameter)
+                <option value="{{ $diameter->id }}" @selected((string) old('diameter_id', $product->diameter_id) === (string) $diameter->id)>
+                    {{ $diameter->label }}
+                </option>
+            @endforeach
+        </select>
+        @error('diameter_id')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
         <label class="form-label">Tax rate</label>
         <input
             type="number"
