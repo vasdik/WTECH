@@ -12,12 +12,13 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Display the login view.dawdaw
      */
     public function create(): View
     {
         return view('auth.login');
     }
+
 
     /**
      * Handle an incoming authentication request.

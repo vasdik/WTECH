@@ -1,7 +1,7 @@
 @extends('layouts.shop-auth')
 
 @section('title', 'Profile')
-
+                <!-- CTEST.. -->
 @section('content')
     <div class="container px-3 py-2">
         <nav aria-label="breadcrumb">

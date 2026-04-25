@@ -92,7 +92,7 @@
                 </div>
             </form>
 
-            <!-- Or divider -->
+            <!-- Or divider ..-->
             <div class="divider small mb-3">Or</div>
 
             <!-- Continue with Google -->

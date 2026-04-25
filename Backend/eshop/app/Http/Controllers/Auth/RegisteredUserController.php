@@ -24,7 +24,7 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
+     * Handle an incoming registration request.awd
      *
      * @throws ValidationException
      */
@@ -49,3 +49,4 @@ class RegisteredUserController extends Controller
         return redirect(route('home', absolute: false));
     }
 }
+

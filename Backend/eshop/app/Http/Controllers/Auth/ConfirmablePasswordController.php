@@ -19,8 +19,9 @@ class ConfirmablePasswordController extends Controller
         return view('auth.confirm-password');
     }
 
+
     /**
-     * Confirm the user's password.
+     * Confirm the user's password.awda
      */
     public function store(Request $request): RedirectResponse
     {

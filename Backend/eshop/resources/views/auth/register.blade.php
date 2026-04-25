@@ -72,7 +72,7 @@
                     @enderror
                 </div>
 
-                <!-- Confirm Password -->
+                <!-- Confirm Password.. -->
                 <div class="mb-4">
                     <input
                         type="password"
