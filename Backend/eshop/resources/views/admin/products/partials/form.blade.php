@@ -26,7 +26,7 @@
 
 <div class="row g-3 mb-3">
     <div class="col-md-6">
-        <label class="form-label">Slug</label>
+        <label class="form-label">Product Code</label>
         <input
             type="text"
             name="slug"

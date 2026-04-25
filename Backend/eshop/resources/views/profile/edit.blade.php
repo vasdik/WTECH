@@ -15,7 +15,15 @@
     <main class="flex-grow-1 py-5">
         <div class="container" style="max-width: 700px;">
 
-            <div class="d-flex justify-content-end mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                @auth
+                    @if (auth()->user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="btn btn-custom">
+                            Admin Panel
+                        </a>
+                    @endif
+                @endauth
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="btn btn-outline-custom">
@@ -23,7 +31,7 @@
                     </button>
                 </form>
             </div>
-
+            
             <div class="card p-4 mb-4">
                 @include('profile.partials.update-profile-information-form')
                 </div>
