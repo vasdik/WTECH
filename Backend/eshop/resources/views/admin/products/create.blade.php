@@ -13,18 +13,8 @@
 @endsection
 
 @section('content')
-    @php
-        $adminSteps = [
-            ['key' => 'dashboard', 'label' => 'Dashboard', 'route' => route('admin.dashboard')],
-            ['key' => 'products', 'label' => 'Products', 'route' => route('admin.products.index')],
-            ['key' => 'create', 'label' => 'Add Product', 'route' => route('admin.products.create')],
-        ];
-    @endphp
 
-    @include('admin.partials.admin-nav-bar', [
-        'steps' => $adminSteps,
-        'currentStep' => 'create',
-    ])
+@include('admin.partials.admin-nav-buttons', ['mode' => 'create'])
 
     <h2 class="fw-bold mb-4">Admin Panel</h2>
 

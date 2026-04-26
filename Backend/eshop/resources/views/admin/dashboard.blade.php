@@ -11,14 +11,21 @@
     </nav>
 @endsection
 
-
 @section('content')
-    <h2 class="mb-4">Admin Panel</h2>
+
+@include('admin.partials.admin-nav-buttons', ['mode' => 'dashboard'])
+
+    <h2 class="fw-bold mb-4">Admin Panel</h2>
+
+    <p>
+        <h5>
+        Welcome to the admin dashboard. 
+        </h5>
+
+        Use the navigation above to manage products and other settings.
+    </p>
 
     <div class="d-flex flex-column align-items-center justify-content-center gap-3">
-        <a href="{{ route('admin.products.create') }}" class="btn btn-custom btn-sm">Add</a>
-        <a href="{{ route('admin.products.index') }}" class="btn btn-custom btn-sm">Edit</a>
-
         <form method="POST" action="{{ route('logout') }}" class="m-0">
             @csrf
             <button type="submit" class="btn btn-custom btn-sm">Log out</button>
