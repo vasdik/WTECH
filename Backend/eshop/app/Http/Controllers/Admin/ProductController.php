@@ -69,7 +69,7 @@ class ProductController extends Controller
             default => $productsQuery->latest('id'),
         };
 
-        return view('admin.products.index', [
+        return view('admin.products.products', [
             'products' => $productsQuery->paginate(12)->withQueryString(),
             'categories' => Category::query()->where('is_active', true)->orderBy('name')->get(),
             'colors' => Color::query()->orderBy('name')->get(),
