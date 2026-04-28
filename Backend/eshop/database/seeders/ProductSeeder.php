@@ -134,29 +134,29 @@ class ProductSeeder extends Seeder
             }
 
             ProductImage::updateOrCreate(
-                ['product_id' => $polyterraBlack->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_1_.512x512.avif'],
+                ['product_id' => $polyterraBlack->id, 'path' => 'storage/images/products/Polyterra_PLA/polyterra_PLA_Black_1_.512x512.avif'],
                 ['alt_text' => 'PolyTerra PLA Charcoal Black main image', 'sort_order' => 1, 'is_primary' => true]
             );
             ProductImage::updateOrCreate(
-                ['product_id' => $polyterraBlack->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_2_.512x512.avif'],
+                ['product_id' => $polyterraBlack->id, 'path' => 'storage/images/products/Polyterra_PLA/polyterra_PLA_Black_2_.512x512.avif'],
                 ['alt_text' => 'PolyTerra PLA Charcoal Black side view', 'sort_order' => 2, 'is_primary' => false]
             );
             ProductImage::updateOrCreate(
-                ['product_id' => $polyterraBlack->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_3_.512x512.avif'],
+                ['product_id' => $polyterraBlack->id, 'path' => 'storage/images/products/Polyterra_PLA/polyterra_PLA_Black_3_.512x512.avif'],
                 ['alt_text' => 'PolyTerra PLA Charcoal Black back view', 'sort_order' => 3, 'is_primary' => false]
             );
             ProductImage::updateOrCreate(
-                ['product_id' => $polyterraBlack->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Black_4_.512x512.avif'],
+                ['product_id' => $polyterraBlack->id, 'path' => 'storage/images/products/Polyterra_PLA/polyterra_PLA_Black_4_.512x512.avif'],
                 ['alt_text' => 'PolyTerra PLA Charcoal Black detail view', 'sort_order' => 4, 'is_primary' => false]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $polyterraWhite->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_White_1_.512x512.avif'],
+                ['product_id' => $polyterraWhite->id, 'path' => 'storage/images/products/Polyterra_PLA/polyterra_PLA_White_1_.512x512.avif'],
                 ['alt_text' => 'PolyTerra PLA White', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $polyterraBeige->id, 'path' => 'images/products/Polyterra_PLA/polyterra_PLA_Biege_1_.512x512.avif'],
+                ['product_id' => $polyterraBeige->id, 'path' => 'storage/images/products/Polyterra_PLA/polyterra_PLA_Biege_1_.512x512.avif'],
                 ['alt_text' => 'PolyTerra PLA Beige', 'sort_order' => 1, 'is_primary' => true]
             );
 
@@ -195,7 +195,7 @@ class ProductSeeder extends Seeder
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $elegooPla->id, 'path' => 'images/products/Elegoo_PLA_Magic/elegoo_PLA_Black_Purple_1_512x512.avif'],
+                ['product_id' => $elegooPla->id, 'path' => 'storage/images/products/Elegoo_PLA_Magic/elegoo_PLA_Black_Purple_1_512x512.avif'],
                 ['alt_text' => 'Elegoo PLA Magic', 'sort_order' => 1, 'is_primary' => true]
             );
 
@@ -234,17 +234,17 @@ class ProductSeeder extends Seeder
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $esunPla->id, 'path' => 'images/products/eSun_PLA/esun_PLA_Black_1_.512x512.avif'],
+                ['product_id' => $esunPla->id, 'path' => 'storage/images/products/eSun_PLA/esun_PLA_Black_1_.512x512.avif'],
                 ['alt_text' => 'eSUN PLA Black', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $esunPla->id, 'path' => 'images/products/eSun_PLA/esun_PLA_Black_2_.512x512.avif'],
+                ['product_id' => $esunPla->id, 'path' => 'storage/images/products/eSun_PLA/esun_PLA_Black_2_.512x512.avif'],
                 ['alt_text' => 'eSUN PLA Black side view', 'sort_order' => 2, 'is_primary' => false]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $esunPla->id, 'path' => 'images/products/eSun_PLA/esun_PLA_Black_3_.512x512.avif'],
+                ['product_id' => $esunPla->id, 'path' => 'storage/images/products/eSun_PLA/esun_PLA_Black_3_.512x512.avif'],
                 ['alt_text' => 'eSUN PLA Black detail view', 'sort_order' => 3, 'is_primary' => false]
             );
 
@@ -414,32 +414,32 @@ class ProductSeeder extends Seeder
             }
 
             ProductImage::updateOrCreate(
-                ['product_id' => $prusamentPetgClear->id, 'path' => 'images/products/Prusament_PETG/101207_7c6e677e.512x512.avif'],
+                ['product_id' => $prusamentPetgClear->id, 'path' => 'storage/images/products/Prusament_PETG/101207_7c6e677e.512x512.avif'],
                 ['alt_text' => 'Prusament PETG Clear', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $prusamentPetgGold->id, 'path' => 'images/products/Prusament_PETG/101087_cef540db.512x512.avif'],
+                ['product_id' => $prusamentPetgGold->id, 'path' => 'storage/images/products/Prusament_PETG/101087_cef540db.512x512.avif'],
                 ['alt_text' => 'Prusament PETG Gold', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $prusamentPetgWhite->id, 'path' => 'images/products/Prusament_PETG/101111_c65d9dc1.512x512.avif'],
+                ['product_id' => $prusamentPetgWhite->id, 'path' => 'storage/images/products/Prusament_PETG/101111_c65d9dc1.512x512.avif'],
                 ['alt_text' => 'Prusament PETG White', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $prusamentPetgSalmon->id, 'path' => 'images/products/Prusament_PETG/101117_1c2bf6c8.512x512.avif'],
+                ['product_id' => $prusamentPetgSalmon->id, 'path' => 'storage/images/products/Prusament_PETG/101117_1c2bf6c8.512x512.avif'],
                 ['alt_text' => 'Prusament PETG Salmon', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $prusamentPetgOrange->id, 'path' => 'images/products/Prusament_PETG/101159_5e6c2ba7.512x512.avif'],
+                ['product_id' => $prusamentPetgOrange->id, 'path' => 'storage/images/products/Prusament_PETG/101159_5e6c2ba7.512x512.avif'],
                 ['alt_text' => 'Prusament PETG Orange', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $prusamentPetgYellow->id, 'path' => 'images/products/Prusament_PETG/101180_153a349a.512x512.avif'],
+                ['product_id' => $prusamentPetgYellow->id, 'path' => 'storage/images/products/Prusament_PETG/101180_153a349a.512x512.avif'],
                 ['alt_text' => 'Prusament PETG Yellow', 'sort_order' => 1, 'is_primary' => true]
             );
 
@@ -500,12 +500,12 @@ class ProductSeeder extends Seeder
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $bambuA1Mini->id, 'path' => 'images/products/Printers/BambuLab_Printers/47068_ace7a3ed.512x512.avif'],
+                ['product_id' => $bambuA1Mini->id, 'path' => 'storage/images/products/Printers/BambuLab_Printers/47068_ace7a3ed.512x512.avif'],
                 ['alt_text' => 'Bambu Lab A1 Mini', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $bambuA1MiniCombo->id, 'path' => 'images/products/Printers/BambuLab_Printers/47101_6f35b580.512x512.avif'],
+                ['product_id' => $bambuA1MiniCombo->id, 'path' => 'storage/images/products/Printers/BambuLab_Printers/47101_6f35b580.512x512.avif'],
                 ['alt_text' => 'Bambu Lab A1 Mini Combo', 'sort_order' => 1, 'is_primary' => true]
             );
 
@@ -624,22 +624,22 @@ class ProductSeeder extends Seeder
             }
 
             ProductImage::updateOrCreate(
-                ['product_id' => $bambuPlaMatteWhite->id, 'path' => 'images/products/BambuLab_PLA/47878_59194eec.512x512.avif'],
+                ['product_id' => $bambuPlaMatteWhite->id, 'path' => 'storage/images/products/BambuLab_PLA/47878_59194eec.512x512.avif'],
                 ['alt_text' => 'BambuLab Matte White main image', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $bambuPlaMatteWhite->id, 'path' => 'images/products/BambuLab_PLA/83050_930bc2b3.512x512.avif'],
+                ['product_id' => $bambuPlaMatteWhite->id, 'path' => 'storage/images/products/BambuLab_PLA/83050_930bc2b3.512x512.avif'],
                 ['alt_text' => 'BambuLab Matte White additional image', 'sort_order' => 2, 'is_primary' => false]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $bambuPlaMatteBeige->id, 'path' => 'images/products/BambuLab_PLA/47902_4fe00357.512x512.avif'],
+                ['product_id' => $bambuPlaMatteBeige->id, 'path' => 'storage/images/products/BambuLab_PLA/47902_4fe00357.512x512.avif'],
                 ['alt_text' => 'BambuLab Matte Beige main image', 'sort_order' => 1, 'is_primary' => true]
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $bambuPlaMatteBeige->id, 'path' => 'images/products/BambuLab_PLA/83104_80d66b9e.512x512.avif'],
+                ['product_id' => $bambuPlaMatteBeige->id, 'path' => 'storage/images/products/BambuLab_PLA/83104_80d66b9e.512x512.avif'],
                 ['alt_text' => 'BambuLab Matte Beige additional image', 'sort_order' => 2, 'is_primary' => false]
             );
 
@@ -666,7 +666,7 @@ class ProductSeeder extends Seeder
             );
 
             ProductImage::updateOrCreate(
-                ['product_id' => $ezlokHeatInserts->id, 'path' => 'images/products/Accessories/ezlok_Heat_Inserts_1.png'],
+                ['product_id' => $ezlokHeatInserts->id, 'path' => 'storage/images/products/Accessories/ezlok_Heat_Inserts_1.png'],
                 ['alt_text' => 'EZLOK Heat Inserts', 'sort_order' => 1, 'is_primary' => true]
             );
         });
