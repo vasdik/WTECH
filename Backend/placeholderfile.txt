@@ -51,6 +51,8 @@ php artisan migrate
 php artisan optimize:clear
 composer dump-autoload
 
+###prehodenie obrazkov z public do storage
+php scripts/sync_images.php
 
 
 ##prelinkovanie obrazkov pre Admin panel !Bez toho sa uploadnuté obrázky pod storage/... neukážu.
