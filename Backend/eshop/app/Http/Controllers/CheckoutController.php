@@ -40,17 +40,111 @@ class CheckoutController extends Controller
             return $redirect;
         }
 
-        $validated = $request->validate([
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'phone' => ['required', 'string', 'max:50'],
-            'country' => ['required', 'string', 'max:255'],
-            'street' => ['required', 'string', 'max:255'],
-            'house_number' => ['required', 'string', 'max:50'],
-            'city' => ['required', 'string', 'max:255'],
-            'postal_code' => ['required', 'string', 'max:50'],
+        $request->merge([
+            'first_name' => trim((string) $request->input('first_name')),
+            'last_name' => trim((string) $request->input('last_name')),
+            'email' => trim((string) $request->input('email')),
+            'phone' => trim((string) $request->input('phone')),
+            'country' => trim((string) $request->input('country')),
+            'street' => trim((string) $request->input('street')),
+            'house_number' => trim((string) $request->input('house_number')),
+            'city' => trim((string) $request->input('city')),
+            'postal_code' => trim((string) $request->input('postal_code')),
         ]);
+
+        $validated = $request->validate([
+            'first_name' => [
+                'required',
+                'string',
+                'max:100',
+                'regex:/^[A-Za-zÀ-ž\s\'’-]{2,100}$/u',
+            ],
+            'last_name' => [
+                'required',
+                'string',
+                'max:100',
+                'regex:/^[A-Za-zÀ-ž\s\'’-]{2,100}$/u',
+            ],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+            ],          //'email' => ['required', 'email', 'max:255'], ak by to deploynute robilo problemy, naradit tymto
+            'phone' => [
+                'required',
+                'string',
+                'max:30',
+                function (string $attribute, mixed $value, \Closure $fail) {
+                    $normalized = preg_replace('/[\s\-().]/', '', (string) $value);
+
+                    if (! preg_match('/^\+?[1-9]\d{8,14}$/', $normalized)) {
+                        $fail('Enter a valid phone number.');
+                    }
+                },
+            ],
+            'country' => [
+                'required',
+                'string',
+                'in:Slovakia,Czech Republic,Austria,Germany,Poland',
+            ],
+            'street' => [
+                'required',
+                'string',
+                'max:120',
+                'regex:/^[A-Za-zÀ-ž0-9\s.\'’\/-]{2,120}$/u',
+            ],
+            'house_number' => [
+                'required',
+                'string',
+                'max:20',
+                'regex:/^[A-Za-z0-9\/\- ]{1,20}$/',
+            ],
+            'city' => [
+                'required',
+                'string',
+                'max:100',
+                'regex:/^[A-Za-zÀ-ž\s\'’-]{2,100}$/u',
+            ],
+            'postal_code' => [
+                'required',
+                'string',
+                'max:10',
+                function (string $attribute, mixed $value, \Closure $fail) use ($request) {
+                    $country = (string) $request->input('country');
+                    $postalCode = trim((string) $value);
+
+                    $patterns = [
+                        'Slovakia' => '/^\d{3}\s?\d{2}$/',
+                        'Czech Republic' => '/^\d{3}\s?\d{2}$/',
+                        'Austria' => '/^\d{4}$/',
+                        'Germany' => '/^\d{5}$/',
+                        'Poland' => '/^\d{2}-\d{3}$/',
+                    ];
+
+                    $messages = [
+                        'Slovakia' => 'Use format 12345 or 123 45.',
+                        'Czech Republic' => 'Use format 12345 or 123 45.',
+                        'Austria' => 'Use 4 digits.',
+                        'Germany' => 'Use 5 digits.',
+                        'Poland' => 'Use format 12-345.',
+                    ];
+
+                    $pattern = $patterns[$country] ?? '/^[A-Za-z0-9][A-Za-z0-9\- ]{2,10}$/';
+
+                    if (! preg_match($pattern, $postalCode)) {
+                        $fail($messages[$country] ?? 'Enter a valid postal code.');
+                    }
+                },
+            ],
+        ], [
+            'first_name.regex' => 'Enter a valid first name.',
+            'last_name.regex' => 'Enter a valid last name.',
+            'street.regex' => 'Enter a valid street name.',
+            'house_number.regex' => 'Enter a valid house number.',
+            'city.regex' => 'Enter a valid city.',
+        ]);
+
+        $validated['phone'] = preg_replace('/[\s\-().]/', '', $validated['phone']);
 
         $this->checkoutService->putStep1($validated);
 
