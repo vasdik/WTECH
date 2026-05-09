@@ -11,6 +11,7 @@ use App\Models\OrderItem;
 use App\Models\UserAddress;
 use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -178,16 +179,122 @@ class CheckoutController extends Controller
             return redirect()->route('checkout.step1');
         }
 
+        $request->merge([
+            'billing_source' => trim((string) $request->input('billing_source')),
+            'saved_billing_address_id' => $request->input('saved_billing_address_id'),
+            'delivery_mode' => trim((string) $request->input('delivery_mode')),
+            'saved_delivery_address_id' => $request->input('saved_delivery_address_id'),
+            'delivery_country' => trim((string) $request->input('delivery_country')),
+            'delivery_street' => trim((string) $request->input('delivery_street')),
+            'delivery_house_number' => trim((string) $request->input('delivery_house_number')),
+            'delivery_city' => trim((string) $request->input('delivery_city')),
+            'delivery_postal_code' => trim((string) $request->input('delivery_postal_code')),
+        ]);
+
         $validated = $request->validate([
-            'billing_source' => ['required', 'in:entered,saved'],
-            'saved_billing_address_id' => ['nullable', 'integer'],
-            'delivery_mode' => ['required', 'in:same_as_billing,saved,custom'],
-            'saved_delivery_address_id' => ['nullable', 'integer'],
-            'delivery_country' => ['nullable', 'string', 'max:255'],
-            'delivery_street' => ['nullable', 'string', 'max:255'],
-            'delivery_house_number' => ['nullable', 'string', 'max:50'],
-            'delivery_city' => ['nullable', 'string', 'max:255'],
-            'delivery_postal_code' => ['nullable', 'string', 'max:50'],
+            'billing_source' => [
+                'required',
+                'in:entered,saved',
+            ],
+
+            'saved_billing_address_id' => [
+                Rule::requiredIf(fn () => $request->input('billing_source') === 'saved'),
+                'nullable',
+                'integer',
+                Rule::exists('user_addresses', 'id')->where(function ($query) {
+                    $query->where('user_id', Auth::id() ?? 0);
+                }),
+            ],
+
+            'delivery_mode' => [
+                'required',
+                'in:same_as_billing,saved,custom',
+            ],
+
+            'saved_delivery_address_id' => [
+                Rule::requiredIf(fn () => $request->input('delivery_mode') === 'saved'),
+                'nullable',
+                'integer',
+                Rule::exists('user_addresses', 'id')->where(function ($query) {
+                    $query->where('user_id', Auth::id() ?? 0);
+                }),
+            ],
+
+            'delivery_country' => [
+                Rule::requiredIf(fn () => $request->input('delivery_mode') === 'custom'),
+                'nullable',
+                'string',
+                'in:Slovakia,Czech Republic,Austria,Germany,Poland',
+            ],
+
+            'delivery_street' => [
+                Rule::requiredIf(fn () => $request->input('delivery_mode') === 'custom'),
+                'nullable',
+                'string',
+                'max:120',
+                'regex:/^[A-Za-zÀ-ž0-9\s.\'’\/-]{2,120}$/u',
+            ],
+
+            'delivery_house_number' => [
+                Rule::requiredIf(fn () => $request->input('delivery_mode') === 'custom'),
+                'nullable',
+                'string',
+                'max:20',
+                'regex:/^[A-Za-z0-9\/\- ]{1,20}$/',
+            ],
+
+            'delivery_city' => [
+                Rule::requiredIf(fn () => $request->input('delivery_mode') === 'custom'),
+                'nullable',
+                'string',
+                'max:100',
+                'regex:/^[A-Za-zÀ-ž\s\'’-]{2,100}$/u',
+            ],
+
+            'delivery_postal_code' => [
+                Rule::requiredIf(fn () => $request->input('delivery_mode') === 'custom'),
+                'nullable',
+                'string',
+                'max:10',
+                function (string $attribute, mixed $value, \Closure $fail) use ($request) {
+                    if ($request->input('delivery_mode') !== 'custom') {
+                        return;
+                    }
+
+                    $country = (string) $request->input('delivery_country');
+                    $postalCode = trim((string) $value);
+
+                    $patterns = [
+                        'Slovakia' => '/^\d{3}\s?\d{2}$/',
+                        'Czech Republic' => '/^\d{3}\s?\d{2}$/',
+                        'Austria' => '/^\d{4}$/',
+                        'Germany' => '/^\d{5}$/',
+                        'Poland' => '/^\d{2}-\d{3}$/',
+                    ];
+
+                    $messages = [
+                        'Slovakia' => 'Use format 12345 or 123 45.',
+                        'Czech Republic' => 'Use format 12345 or 123 45.',
+                        'Austria' => 'Use 4 digits.',
+                        'Germany' => 'Use 5 digits.',
+                        'Poland' => 'Use format 12-345.',
+                    ];
+
+                    $pattern = $patterns[$country] ?? '/^[A-Za-z0-9][A-Za-z0-9\- ]{2,10}$/';
+
+                    if (! preg_match($pattern, $postalCode)) {
+                        $fail($messages[$country] ?? 'Enter a valid postal code.');
+                    }
+                },
+            ],
+        ], [
+            'saved_billing_address_id.required' => 'Please select a saved billing address.',
+            'saved_billing_address_id.exists' => 'Please select a valid saved billing address.',
+            'saved_delivery_address_id.required' => 'Please select a saved delivery address.',
+            'saved_delivery_address_id.exists' => 'Please select a valid saved delivery address.',
+            'delivery_street.regex' => 'Enter a valid street name.',
+            'delivery_house_number.regex' => 'Enter a valid house number.',
+            'delivery_city.regex' => 'Enter a valid city.',
         ]);
 
         $checkout = $this->checkoutService->all();
@@ -196,18 +303,12 @@ class CheckoutController extends Controller
         $billingAddress = $checkout['billing_address'];
 
         if ($validated['billing_source'] === 'saved') {
-            if (! Auth::check()) {
-                return back()->withErrors([
-                    'saved_billing_address_id' => 'You must be logged in to use a saved billing address.',
-                ])->withInput();
-            }
-
             $savedBilling = $savedAddresses->get((int) $validated['saved_billing_address_id']);
 
             if (! $savedBilling) {
-                return back()->withErrors([
-                    'saved_billing_address_id' => 'Please select a valid saved billing address.',
-                ])->withInput();
+                return back()
+                    ->withErrors(['saved_billing_address_id' => 'Please select a valid saved billing address.'])
+                    ->withInput();
             }
 
             $billingAddress = $this->checkoutService->addressPayload($savedBilling);
@@ -216,40 +317,28 @@ class CheckoutController extends Controller
         $deliveryAddress = $billingAddress;
 
         if ($validated['delivery_mode'] === 'saved') {
-            if (! Auth::check()) {
-                return back()->withErrors([
-                    'saved_delivery_address_id' => 'You must be logged in to use a saved delivery address.',
-                ])->withInput();
-            }
-
             $savedDelivery = $savedAddresses->get((int) $validated['saved_delivery_address_id']);
 
             if (! $savedDelivery) {
-                return back()->withErrors([
-                    'saved_delivery_address_id' => 'Please select a valid saved delivery address.',
-                ])->withInput();
+                return back()
+                    ->withErrors(['saved_delivery_address_id' => 'Please select a valid saved delivery address.'])
+                    ->withInput();
             }
 
-            $deliveryAddress = $this->checkoutService->addressPayload($savedDelivery);
-            $deliveryAddress['mode'] = 'saved';
+            $deliveryAddress = array_merge(
+                ['mode' => 'saved'],
+                $this->checkoutService->addressPayload($savedDelivery)
+            );
         }
 
         if ($validated['delivery_mode'] === 'custom') {
-            $custom = $request->validate([
-                'delivery_country' => ['required', 'string', 'max:255'],
-                'delivery_street' => ['required', 'string', 'max:255'],
-                'delivery_house_number' => ['required', 'string', 'max:50'],
-                'delivery_city' => ['required', 'string', 'max:255'],
-                'delivery_postal_code' => ['required', 'string', 'max:50'],
-            ]);
-
             $deliveryAddress = [
                 'mode' => 'custom',
-                'country' => $custom['delivery_country'],
-                'street' => $custom['delivery_street'],
-                'house_number' => $custom['delivery_house_number'],
-                'city' => $custom['delivery_city'],
-                'postal_code' => $custom['delivery_postal_code'],
+                'country' => $validated['delivery_country'],
+                'street' => $validated['delivery_street'],
+                'house_number' => $validated['delivery_house_number'],
+                'city' => $validated['delivery_city'],
+                'postal_code' => $validated['delivery_postal_code'],
             ];
         }
 
