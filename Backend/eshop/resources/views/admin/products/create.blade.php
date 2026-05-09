@@ -19,7 +19,7 @@
     <h2 class="fw-bold mb-4">Admin Panel</h2>
 
     <div class="mx-auto" style="max-width: 700px;">
-        <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data" id="admin-product-create-form" novalidate>
             @csrf
 
             @include('admin.products.partials.form')
@@ -30,3 +30,46 @@
         </form>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('admin-product-create-form');
+    const input = document.getElementById('product-images');
+    const errorBox = document.getElementById('images_client_error');
+
+    if (!form || !input || !errorBox) return;
+
+    function showError(message) {
+        input.classList.add('is-invalid');
+        errorBox.textContent = message;
+    }
+
+    function clearError() {
+        input.classList.remove('is-invalid');
+        errorBox.textContent = '';
+    }
+
+    function validateImages() {
+        const fileCount = input.files ? input.files.length : 0;
+
+        if (fileCount < 2) {
+            showError('Add at least two product photos.');
+            return false;
+        }
+
+        clearError();
+        return true;
+    }
+
+    input.addEventListener('change', validateImages);
+
+    form.addEventListener('submit', (e) => {
+        if (!validateImages()) {
+            e.preventDefault();
+            input.focus();
+        }
+    });
+});
+</script>
+@endpush

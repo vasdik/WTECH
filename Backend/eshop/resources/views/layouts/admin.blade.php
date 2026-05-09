@@ -40,5 +40,7 @@
     </main>
 
     @include('admin.partials.admin-footer')
+
+    @stack('scripts')
 </body>
 </html>

@@ -178,6 +178,7 @@
     <label class="form-label small text-muted mb-1">Upload images</label>
     <input
         type="file"
+        id="product-images"
         name="images[]"
         accept="image/*"
         multiple
@@ -187,6 +188,8 @@
     <div class="form-text">
         Add at least two product photos.
     </div>
+
+    <div class="invalid-feedback d-block" id="images_client_error"></div>
 
     @error('images')
         <div class="invalid-feedback d-block">{{ $message }}</div>
