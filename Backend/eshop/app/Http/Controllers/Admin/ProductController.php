@@ -237,13 +237,24 @@ class ProductController extends Controller
             'tax_rate' => ['required', 'numeric', 'min:0'],
             'stock_qty' => ['required', 'integer', 'min:0'],
             'short_description' => ['nullable', 'string', 'max:500'],
-            'description' => ['nullable', 'string'],
+            'description' => [
+                'required',
+                'string',
+                'max:5000',
+                function (string $attribute, mixed $value, \Closure $fail) {
+                    if (trim((string) $value) === '') {
+                        $fail('Description is required.');
+                    }
+                },
+            ],
 
             'images' => $imageRules,
             'images.*' => ['image', 'max:5120'],
         ], [
+            'name.required' => 'Product name is required.',
+            'description.required' => 'Description is required.',
             'images.required' => 'Add at least two product photos.',
-            'images.array' => 'Images must be uploaded as a list of files.',
+            'images.array' => 'Images must be uploaded as a list of files.',    //yeah
             'images.min' => 'Add at least two product photos.',
             'images.*.image' => 'Each uploaded file must be an image.',
             'images.*.max' => 'Each image may be at most 5 MB.',
