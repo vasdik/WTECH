@@ -29,7 +29,7 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('checkout.step2.store') }}">
+                <form method="POST" action="{{ route('checkout.step2.store') }}" id="checkout-step2-form" novalidate>
                     @csrf
 
                     <div style="max-width: 640px; margin: 0 auto;">
@@ -135,33 +135,72 @@
 
                         <div class="border rounded p-3">
                             <div class="mb-2">
-                                <select name="delivery_country" class="form-select input-rounded @error('delivery_country') is-invalid @enderror">
+                                <select
+                                    id="delivery_country"
+                                    name="delivery_country"
+                                    class="form-select input-rounded @error('delivery_country') is-invalid @enderror"
+                                >
                                     <option value="">Country</option>
                                     @foreach (['Slovakia', 'Czech Republic', 'Austria', 'Germany', 'Poland'] as $country)
                                         <option value="{{ $country }}" @selected(old('delivery_country', $checkout['delivery_address']['country']) === $country)>{{ $country }}</option>
                                     @endforeach
                                 </select>
+                                <div class="invalid-feedback d-block" id="delivery_country_error"></div>
                                 @error('delivery_country')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                             </div>
 
                             <div class="row g-2 mb-2">
                                 <div class="col">
-                                    <input type="text" name="delivery_street" class="form-control input-rounded @error('delivery_street') is-invalid @enderror" placeholder="Street Name" value="{{ old('delivery_street', $checkout['delivery_address']['street']) }}">
+                                    <input
+                                        type="text"
+                                        id="delivery_street"
+                                        name="delivery_street"
+                                        class="form-control input-rounded @error('delivery_street') is-invalid @enderror"
+                                        placeholder="Street Name"
+                                        value="{{ old('delivery_street', $checkout['delivery_address']['street']) }}"
+                                    >
+                                    <div class="invalid-feedback d-block" id="delivery_street_error"></div>
                                     @error('delivery_street')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                 </div>
+
                                 <div class="col-5">
-                                    <input type="text" name="delivery_house_number" class="form-control input-rounded @error('delivery_house_number') is-invalid @enderror" placeholder="House Number" value="{{ old('delivery_house_number', $checkout['delivery_address']['house_number']) }}">
+                                    <input
+                                        type="text"
+                                        id="delivery_house_number"
+                                        name="delivery_house_number"
+                                        class="form-control input-rounded @error('delivery_house_number') is-invalid @enderror"
+                                        placeholder="House Number"
+                                        value="{{ old('delivery_house_number', $checkout['delivery_address']['house_number']) }}"
+                                    >
+                                    <div class="invalid-feedback d-block" id="delivery_house_number_error"></div>
                                     @error('delivery_house_number')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                 </div>
                             </div>
 
                             <div class="row g-2 mb-2">
                                 <div class="col">
-                                    <input type="text" name="delivery_city" class="form-control input-rounded @error('delivery_city') is-invalid @enderror" placeholder="City" value="{{ old('delivery_city', $checkout['delivery_address']['city']) }}">
+                                    <input
+                                        type="text"
+                                        id="delivery_city"
+                                        name="delivery_city"
+                                        class="form-control input-rounded @error('delivery_city') is-invalid @enderror"
+                                        placeholder="City"
+                                        value="{{ old('delivery_city', $checkout['delivery_address']['city']) }}"
+                                    >
+                                    <div class="invalid-feedback d-block" id="delivery_city_error"></div>
                                     @error('delivery_city')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                 </div>
+
                                 <div class="col-5">
-                                    <input type="text" name="delivery_postal_code" class="form-control input-rounded @error('delivery_postal_code') is-invalid @enderror" placeholder="Postal Code / ZIP" value="{{ old('delivery_postal_code', $checkout['delivery_address']['postal_code']) }}">
+                                    <input
+                                        type="text"
+                                        id="delivery_postal_code"
+                                        name="delivery_postal_code"
+                                        class="form-control input-rounded @error('delivery_postal_code') is-invalid @enderror"
+                                        placeholder="Postal Code / ZIP"
+                                        value="{{ old('delivery_postal_code', $checkout['delivery_address']['postal_code']) }}"
+                                    >
+                                    <div class="invalid-feedback d-block" id="delivery_postal_code_error"></div>
                                     @error('delivery_postal_code')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                 </div>
                             </div>
@@ -174,3 +213,232 @@
         </div>
     </main>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('checkout-step2-form');
+    if (!form) return;
+
+    const deliveryModeInputs = Array.from(document.querySelectorAll('input[name="delivery_mode"]'));
+
+    const fields = {
+        delivery_country: document.getElementById('delivery_country'),
+        delivery_street: document.getElementById('delivery_street'),
+        delivery_house_number: document.getElementById('delivery_house_number'),
+        delivery_city: document.getElementById('delivery_city'),
+        delivery_postal_code: document.getElementById('delivery_postal_code'),
+    };
+
+    const postalPatterns = {
+        'Slovakia': /^\d{3}\s?\d{2}$/,
+        'Czech Republic': /^\d{3}\s?\d{2}$/,
+        'Austria': /^\d{4}$/,
+        'Germany': /^\d{5}$/,
+        'Poland': /^\d{2}-\d{3}$/,
+    };
+
+    function getSelectedDeliveryMode() {
+        const checked = deliveryModeInputs.find(input => input.checked);
+        return checked ? checked.value : null;
+    }
+
+    function setError(fieldName, message) {
+        const field = fields[fieldName];
+        const error = document.getElementById(fieldName + '_error');
+
+        if (field) {
+            field.classList.add('is-invalid');
+        }
+
+        if (error) {
+            error.textContent = message;
+        }
+    }
+
+    function clearError(fieldName) {
+        const field = fields[fieldName];
+        const error = document.getElementById(fieldName + '_error');
+
+        if (field) {
+            field.classList.remove('is-invalid');
+        }
+
+        if (error) {
+            error.textContent = '';
+        }
+    }
+
+    function clearAllCustomErrors() {
+        Object.keys(fields).forEach(clearError);
+    }
+
+    function validateStreet(value) {
+        return /^[A-Za-zÀ-ž0-9\s.'’\/-]{2,120}$/u.test(value.trim());
+    }
+
+    function validateHouseNumber(value) {
+        return /^[A-Za-z0-9\/\- ]{1,20}$/.test(value.trim());
+    }
+
+    function validateCity(value) {
+        return /^[A-Za-zÀ-ž\s'’-]{2,100}$/u.test(value.trim());
+    }
+
+    function validatePostalCode(value, country) {
+        const trimmed = value.trim();
+
+        if (!country) return false;
+
+        if (postalPatterns[country]) {
+            return postalPatterns[country].test(trimmed);
+        }
+
+        return /^[A-Za-z0-9][A-Za-z0-9\- ]{2,10}$/.test(trimmed);
+    }
+
+    function validateCustomField(fieldName) {
+        const value = fields[fieldName].value;
+        const country = fields.delivery_country.value;
+
+        clearError(fieldName);
+
+        switch (fieldName) {
+            case 'delivery_country':
+                if (!value.trim()) {
+                    setError(fieldName, 'Please select a country.');
+                    return false;
+                }
+                return true;
+
+            case 'delivery_street':
+                if (!value.trim()) {
+                    setError(fieldName, 'Street is required.');
+                    return false;
+                }
+                if (!validateStreet(value)) {
+                    setError(fieldName, 'Enter a valid street name.');
+                    return false;
+                }
+                return true;
+
+            case 'delivery_house_number':
+                if (!value.trim()) {
+                    setError(fieldName, 'House number is required.');
+                    return false;
+                }
+                if (!validateHouseNumber(value)) {
+                    setError(fieldName, 'Enter a valid house number.');
+                    return false;
+                }
+                return true;
+
+            case 'delivery_city':
+                if (!value.trim()) {
+                    setError(fieldName, 'City is required.');
+                    return false;
+                }
+                if (!validateCity(value)) {
+                    setError(fieldName, 'Enter a valid city.');
+                    return false;
+                }
+                return true;
+
+            case 'delivery_postal_code':
+                if (!value.trim()) {
+                    setError(fieldName, 'Postal code is required.');
+                    return false;
+                }
+                if (!validatePostalCode(value, country)) {
+                    let hint = 'Enter a valid postal code.';
+                    if (country === 'Slovakia' || country === 'Czech Republic') {
+                        hint = 'Use format 12345 or 123 45.';
+                    } else if (country === 'Austria') {
+                        hint = 'Use 4 digits.';
+                    } else if (country === 'Germany') {
+                        hint = 'Use 5 digits.';
+                    } else if (country === 'Poland') {
+                        hint = 'Use format 12-345.';
+                    }
+                    setError(fieldName, hint);
+                    return false;
+                }
+                return true;
+
+            default:
+                return true;
+        }
+    }
+
+    function toggleCustomRequirements() {
+        const isCustom = getSelectedDeliveryMode() === 'custom';
+
+        Object.values(fields).forEach(field => {
+            if (!field) return;
+            field.required = isCustom;
+        });
+
+        if (!isCustom) {
+            clearAllCustomErrors();
+        }
+    }
+
+    Object.keys(fields).forEach((fieldName) => {
+        fields[fieldName].addEventListener('blur', () => {
+            if (getSelectedDeliveryMode() === 'custom') {
+                validateCustomField(fieldName);
+            }
+        });
+
+        fields[fieldName].addEventListener('input', () => {
+            if (getSelectedDeliveryMode() === 'custom' && fields[fieldName].classList.contains('is-invalid')) {
+                validateCustomField(fieldName);
+            }
+        });
+    });
+
+    fields.delivery_country.addEventListener('change', () => {
+        if (getSelectedDeliveryMode() === 'custom') {
+            validateCustomField('delivery_country');
+
+            if (fields.delivery_postal_code.value.trim()) {
+                validateCustomField('delivery_postal_code');
+            }
+        }
+    });
+
+    deliveryModeInputs.forEach(input => {
+        input.addEventListener('change', () => {
+            toggleCustomRequirements();
+        });
+    });
+
+    form.addEventListener('submit', (e) => {
+        if (getSelectedDeliveryMode() !== 'custom') {
+            clearAllCustomErrors();
+            return;
+        }
+
+        let isValid = true;
+
+        Object.keys(fields).forEach((fieldName) => {
+            const fieldValid = validateCustomField(fieldName);
+            if (!fieldValid) {
+                isValid = false;
+            }
+        });
+
+        if (!isValid) {
+            e.preventDefault();
+
+            const firstInvalid = form.querySelector('.is-invalid');
+            if (firstInvalid) {
+                firstInvalid.focus();
+            }
+        }
+    });
+
+    toggleCustomRequirements();
+});
+</script>
+@endpush
