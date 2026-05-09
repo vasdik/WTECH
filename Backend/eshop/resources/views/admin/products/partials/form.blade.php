@@ -181,7 +181,18 @@
         name="images[]"
         accept="image/*"
         multiple
-        class="form-control @error('images.*') is-invalid @enderror"
+        class="form-control @error('images') is-invalid @enderror @error('images.*') is-invalid @enderror"
     >
-    @error('images.*')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+
+    <div class="form-text">
+        Add at least two product photos.
+    </div>
+
+    @error('images')
+        <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+
+    @error('images.*')
+        <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
 </div>

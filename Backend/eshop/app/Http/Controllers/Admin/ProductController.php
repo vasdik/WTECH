@@ -221,7 +221,11 @@ class ProductController extends Controller
             $slugRule .= ',' . $product->id;
         }
 
-      return $request->validate([
+        $imageRules = $product
+            ? ['nullable', 'array']
+            : ['required', 'array', 'min:2'];
+
+        return $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'slug' => explode('|', $slugRule),
             'brand' => ['required', 'string', 'max:255'],
@@ -234,8 +238,15 @@ class ProductController extends Controller
             'stock_qty' => ['required', 'integer', 'min:0'],
             'short_description' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
-            'images' => ['nullable'],
+
+            'images' => $imageRules,
             'images.*' => ['image', 'max:5120'],
+        ], [
+            'images.required' => 'Add at least two product photos.',
+            'images.array' => 'Images must be uploaded as a list of files.',
+            'images.min' => 'Add at least two product photos.',
+            'images.*.image' => 'Each uploaded file must be an image.',
+            'images.*.max' => 'Each image may be at most 5 MB.',
         ]);
     }
 
