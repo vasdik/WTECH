@@ -35,39 +35,95 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('admin-product-create-form');
-    const input = document.getElementById('product-images');
-    const errorBox = document.getElementById('images_client_error');
+    const imagesInput = document.getElementById('product-images');
+    const imagesError = document.getElementById('images_client_error');
 
-    if (!form || !input || !errorBox) return;
+    const nameInput = document.getElementById('product-name');
+    const nameError = document.getElementById('name_client_error');
 
-    function showError(message) {
+    const descriptionInput = document.getElementById('product-description');
+    const descriptionError = document.getElementById('description_client_error');
+
+    if (!form || !imagesInput || !imagesError || !nameInput || !nameError || !descriptionInput || !descriptionError) {
+        return;
+    }
+
+    function showError(input, errorBox, message) {
         input.classList.add('is-invalid');
         errorBox.textContent = message;
     }
 
-    function clearError() {
+    function clearError(input, errorBox) {
         input.classList.remove('is-invalid');
         errorBox.textContent = '';
     }
 
     function validateImages() {
-        const fileCount = input.files ? input.files.length : 0;
+        const fileCount = imagesInput.files ? imagesInput.files.length : 0;
 
         if (fileCount < 2) {
-            showError('Add at least two product photos.');
+            showError(imagesInput, imagesError, 'Add at least two product photos.');
             return false;
         }
 
-        clearError();
+        clearError(imagesInput, imagesError);
         return true;
     }
 
-    input.addEventListener('change', validateImages);
+    function validateName() {
+        const value = nameInput.value.trim();
+
+        if (value.length === 0) {
+            showError(nameInput, nameError, 'Product name is required.');
+            return false;
+        }
+
+        clearError(nameInput, nameError);
+        return true;
+    }
+
+    function validateDescription() {
+        const value = descriptionInput.value.trim();
+
+        if (value.length === 0) {
+            showError(descriptionInput, descriptionError, 'Description is required.');
+            return false;
+        }
+
+        clearError(descriptionInput, descriptionError);
+        return true;
+    }
+
+    imagesInput.addEventListener('change', validateImages);
+
+    nameInput.addEventListener('input', () => {
+        if (nameInput.classList.contains('is-invalid')) {
+            validateName();
+        }
+    });
+
+    nameInput.addEventListener('blur', validateName);
+
+    descriptionInput.addEventListener('input', () => {
+        if (descriptionInput.classList.contains('is-invalid')) {
+            validateDescription();
+        }
+    });
+
+    descriptionInput.addEventListener('blur', validateDescription);
 
     form.addEventListener('submit', (e) => {
-        if (!validateImages()) {
+        const imagesValid = validateImages();
+        const nameValid = validateName();
+        const descriptionValid = validateDescription();
+
+        if (!imagesValid || !nameValid || !descriptionValid) {
             e.preventDefault();
-            input.focus();
+
+            const firstInvalid = form.querySelector('.is-invalid');
+            if (firstInvalid) {
+                firstInvalid.focus();
+            }
         }
     });
 });

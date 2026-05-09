@@ -3,11 +3,13 @@
         <label class="form-label">Product Name</label>
         <input
             type="text"
+            id="product-name"
             name="name"
             class="form-control input-rounded @error('name') is-invalid @enderror"
             value="{{ old('name', $product->name) }}"
             required
         >
+        <div class="invalid-feedback d-block" id="name_client_error"></div>
         @error('name')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
     </div>
 
@@ -167,10 +169,11 @@
     <label class="form-label">Description</label>
     <textarea
         name="description"
-        id="description"
+        id="product-description"
         class="form-control @error('description') is-invalid @enderror"
         rows="6"
     >{{ old('description', $product->description) }}</textarea>
+    <div class="invalid-feedback d-block" id="description_client_error"></div>
     @error('description')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
 </div>
 
